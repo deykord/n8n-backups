@@ -1,0 +1,364 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rewrite As Sep": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calendar1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-24T23:02:39.526Z",
+  "id": "h9BcxWzHAy3P6Tmb",
+  "meta": null,
+  "name": "Customer Support Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "d48895f5-224c-431f-8c8e-7d7631acff2d",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "name": "Telegram Trigger",
+      "webhookId": "45f144eb-3bb8-45cb-9236-9b6b5d071c94"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "7fd01131-f8fd-4464-8624-18e0a3fc27a4",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        920,
+        160
+      ],
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.message }}",
+        "additionalFields": {}
+      },
+      "id": "8c35eb29-4d4a-4c06-96b0-f20fc0e923a8",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        160
+      ],
+      "name": "Telegram",
+      "webhookId": "1e7da33c-8639-456b-935f-3ab15e9955d6"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        480,
+        60
+      ],
+      "id": "69c9a08c-1028-4e30-85c0-5e85f8cc9ca9",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -260,
+        440
+      ],
+      "id": "fa034a03-0b24-431d-83cc-04bdd05c9e18",
+      "name": "OpenAI Chat Model"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -60,
+        440
+      ],
+      "id": "33fab6f6-f690-46e5-99f1-49f16906f407",
+      "name": "Window Buffer Memory1"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        100,
+        440
+      ],
+      "id": "e02ed58f-5746-4602-bbea-ec761c2badab",
+      "name": "Calculator1"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        260,
+        440
+      ],
+      "id": "d443c07b-54b3-4166-a218-b539bccdd788",
+      "name": "Wikipedia1"
+    },
+    {
+      "parameters": {
+        "name": "=Rewrite As Sep",
+        "description": "jj"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        460,
+        440
+      ],
+      "id": "cb746b55-c26f-43e5-92a6-ea98dbfeca10",
+      "name": "Rewrite As Sep"
+    },
+    {
+      "parameters": {
+        "name": "Rewrite As asdadad",
+        "workflowId": {
+          "__rl": true,
+          "value": "QXkbSRQzLg1YWpzk",
+          "mode": "list",
+          "cachedResultName": "AI Avatar Content Creator - Not free"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        600,
+        440
+      ],
+      "id": "33b2f72a-9930-48c0-bc6f-d8f074e9b8f3",
+      "name": "Calendar",
+      "notes": "asad"
+    },
+    {
+      "parameters": {
+        "name": "ssss",
+        "description": "sss",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "=QXkbSRQzLg1YWpzk",
+          "cachedResultName": "=QXkbSRQzLg1YWpzk"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        720,
+        440
+      ],
+      "id": "993df254-0118-4451-9ecd-2f694af69660",
+      "name": "Calendar1"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        860,
+        440
+      ],
+      "id": "2ec4c755-5b2d-4a9c-bb0d-baa19e16a456",
+      "name": "Claude"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        140,
+        120
+      ],
+      "id": "24e3bf63-175b-4631-99b7-5ccb4e407424",
+      "name": "When chat message received",
+      "webhookId": "e38867bd-0675-4e34-9540-0d07c588bb4b"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-24T19:11:17.658Z",
+      "updatedAt": "2025-03-30T23:13:47.660Z",
+      "id": "kMcLyWqZcRl1ToZc",
+      "name": "APIConfig."
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-24T23:04:17.000Z",
+  "versionId": "2c98c098-70a3-454c-a719-f46cd9a4e6ec"
+}
