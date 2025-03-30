@@ -1,0 +1,267 @@
+{
+  "active": false,
+  "connections": {
+    "Check CPU usage": {
+      "main": [
+        [
+          {
+            "node": "Merge check results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check RAM usage": {
+      "main": [
+        [
+          {
+            "node": "Check Disk usage",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge check results",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Check Disk usage": {
+      "main": [
+        [
+          {
+            "node": "Check CPU usage",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge check results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check RAM usage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge check results": {
+      "main": [
+        [
+          {
+            "node": "Check results against thresholds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check results against thresholds": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-28T00:51:10.170Z",
+  "id": "6pglf0Tfj0DTdaqQ",
+  "meta": null,
+  "name": "Check VPS resource usage every 15 minutes",
+  "nodes": [
+    {
+      "parameters": {
+        "fromEmail": "change@me.com",
+        "toEmail": "change@me.com",
+        "subject": "System Resource Alert",
+        "text": "=System resources are above the threshold.\n\nCPU: {{ $json.CPU.toNumber().round(2) }}%\nRAM: {{ $json.RAM.toNumber().round(2) }}%\nDisk: {{ $json.Disk.toNumber().round(2) }}%",
+        "options": {}
+      },
+      "id": "9f127099-bb74-4bdc-a959-5cb84e055428",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "position": [
+        840,
+        480
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "command": "free | awk '/Mem:/ {printf \"%.2f\", (1 - $7/$2) * 100}'"
+      },
+      "id": "f34db714-5749-4fe5-84be-9f2c017e5386",
+      "name": "Check RAM usage",
+      "type": "n8n-nodes-base.ssh",
+      "position": [
+        420,
+        160
+      ],
+      "executeOnce": false,
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "command": "df -h | awk '$NF==\"/\"{printf \"%.2f\", $5}'"
+      },
+      "id": "36a22577-1835-4ac7-b6b3-a50db29b5102",
+      "name": "Check Disk usage",
+      "type": "n8n-nodes-base.ssh",
+      "position": [
+        640,
+        160
+      ],
+      "executeOnce": false,
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "command": "top -bn 1 | grep \"Cpu(s)\" | sed \"s/.*, *\\([0-9.]*\\)%* id.*/\\1/\" | awk '{print 100 - $1}'"
+      },
+      "id": "18b80a6f-3368-4624-93f2-b5a22e2046ff",
+      "name": "Check CPU usage",
+      "type": "n8n-nodes-base.ssh",
+      "position": [
+        840,
+        160
+      ],
+      "executeOnce": false,
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "mode": "combineBySql",
+        "numberInputs": 3,
+        "query": "SELECT input1.stdout as CPU, input2.stdout as Disk, input3.stdout as RAM FROM input1 LEFT JOIN input2 ON input1.name = input2.id LEFT JOIN input3 ON input1.name = input3.id"
+      },
+      "id": "6a41baf3-a6da-448f-b9a0-0bfc6a22cfe0",
+      "name": "Merge check results",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        220,
+        500
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.CPU }}",
+              "operation": "largerEqual",
+              "value2": 80
+            },
+            {
+              "value1": "={{ $json.Disk }}",
+              "operation": "largerEqual",
+              "value2": 80
+            },
+            {
+              "value1": "={{ $json.RAM }}",
+              "operation": "largerEqual",
+              "value2": 80
+            }
+          ]
+        },
+        "combineOperation": "any"
+      },
+      "id": "62f5a260-cc61-41ac-bf70-281b8ac63593",
+      "name": "Check results against thresholds",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        500,
+        500
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Update email addresses\nUpdate From and To email addresses in this node to receive notifications",
+        "height": 280,
+        "width": 320
+      },
+      "id": "a1965860-be7b-4d56-bcfe-b126231f1f75",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        820,
+        380
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Check VPS resource usage every 15 minutes\nThis workflow checks VPS CPU, RAM and Disk usage every 15 minutes and if any of it exceeds 80% will inform you by email",
+        "height": 260,
+        "width": 320
+      },
+      "id": "b5282099-4208-4333-86ec-9bb1edfd6e38",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Update threshold\nIf needed, you can increase/decrease the 80% threshold in this node individually per resource ",
+        "height": 280,
+        "width": 360
+      },
+      "id": "4fb7f2e8-8f0b-43bd-b294-9479aac79374",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        440,
+        380
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "76b099cd-8505-4857-83a4-7325403107ce",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        220,
+        160
+      ],
+      "typeVersion": 1.2
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-28T00:51:10.170Z",
+  "versionId": "3f44aad0-9be9-41a9-b6aa-243f24009aee"
+}
