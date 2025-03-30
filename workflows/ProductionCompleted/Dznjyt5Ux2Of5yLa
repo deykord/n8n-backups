@@ -1,0 +1,319 @@
+{
+  "active": false,
+  "connections": {
+    "GPT4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Request Human Help": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-24T23:01:44.582Z",
+  "id": "Dznjyt5Ux2Of5yLa",
+  "meta": null,
+  "name": "HVAC AI Sales Agent",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "021b2f89-bdbb-43bf-8bba-f3f69475c7df",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        280,
+        340
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {},
+      "id": "c0e5d666-a006-494a-ac83-6867c10480c7",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "position": [
+        0,
+        100
+      ],
+      "webhookId": "785e0c0c-12e5-4249-9abe-47bb131975cb",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "agent": "openAiFunctionsAgent",
+        "options": {
+          "systemMessage": "=<Role> HVACSalesAgent: You are responsible for assisting customers with general HVAC-related questions. However, if the customer asks for special pricing or location-specific assistance, you will collect their **name**, **phone number**, and **email address** so a human representative can follow up. </Role> <Goal> To provide accurate HVAC information and collect customer details for follow-up when special pricing or location-specific assistance is requested. </Goal> <Instructions> <Instruction> Read and interpret the user’s request to determine if it involves general HVAC questions or requests for special pricing/location-specific assistance.   \nIf the request is for general HVAC information, provide a clear and helpful response based on the user's query.\n<Instruction>\nIf the request involves special pricing or location-specific assistance, collect the following details from the customer:\nName\nPhone Number\nEmail Address\n</Instruction>\n\n<Instruction>  \nNotify the customer that a human representative will contact them shortly with further assistance.\n</Instruction>\n\n\nIMPORTANT:\nEnsure that the customer's personal information (name, phone number, and email address) is accurately recorded and securely handled."
+        }
+      },
+      "id": "7f0c03f7-9712-4109-b53d-c4ef91a8a51e",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        200,
+        100
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "model": "gpt-4",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "0f134da6-76bd-4d5d-9b9e-3779bedd23ce",
+      "name": "GPT4",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        120,
+        320
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "name": "dont_know_tool",
+        "description": "Use this tool if you don't know the answer to the user's question, or if you're not very confident about your answer. or if user is questioning about price or an special location",
+        "workflowId": {
+          "__rl": true,
+          "value": "iSfvEwrEkY3kHqAb",
+          "mode": "list",
+          "cachedResultName": "My project — HVAC Ai Sales Agent ( Dont Know Tool)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "phoneNumber": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('phoneNumber', ``, 'string') }}",
+            "emailAddress": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('emailAddress', ``, 'string') }}",
+            "name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('name', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "chatInput"
+          ],
+          "schema": [
+            {
+              "id": "phoneNumber",
+              "displayName": "phoneNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "emailAddress",
+              "displayName": "emailAddress",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        420,
+        340
+      ],
+      "id": "2fd375eb-f423-460d-a116-7cc9fa7fad30",
+      "name": "Request Human Help"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/m2VcJYKS/Screenshot-2025-03-16-at-1-30-12-PM.png>#full-width)",
+        "height": 440,
+        "width": 660,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        260
+      ],
+      "id": "b0dcbafb-d95a-4c6b-a619-89c7b5820896",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "https://docs.google.com/document/d/1DCy0kVP5ZCKDiN4Z6_kQfZ1rBPQHIwKwVv71k2xS-aQ/edit?pli=1&tab=t.0",
+        "height": 80,
+        "width": 700,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        740
+      ],
+      "id": "dda4a524-abe9-47f8-a952-f13139d56f65",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/MG1z2xv8/Screenshot-2025-03-16-at-1-33-59-PM.png>#full-width)",
+        "height": 440,
+        "width": 660,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        40,
+        560
+      ],
+      "id": "195f88ce-de85-4765-91c8-8a172b3dd670",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/cCbpt5rm/Screenshot-2025-03-16-at-1-39-02-PM.png>#full-width)",
+        "height": 400,
+        "width": 480,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        720,
+        620
+      ],
+      "id": "4020f39c-792e-42ca-8852-08c147162530",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/cJGNcjTk/How-to-be-HVAC-Technician-scaled.jpg>#full-width)",
+        "height": 380,
+        "width": 540,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        760,
+        20
+      ],
+      "id": "a8f03a7d-15b0-4018-9b97-fabf55d9742f",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## HOW TO AI SALES AGENT FOR HVAC  \n",
+        "height": 80,
+        "width": 480,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e7636a21-805c-4f56-b352-9961a9e971a5",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/hGXpfPVH/Screenshot-2025-03-16-at-1-48-21-PM.png>#full-width)",
+        "height": 320,
+        "width": 500,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -740,
+        860
+      ],
+      "id": "93fb9e75-6616-442c-8a29-5ff3dc86e4ca",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "### relevant case-studies [Link](https://www.podium.com/ls-t/)",
+        "height": 80,
+        "width": 150,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -440,
+        900
+      ],
+      "id": "26303505-c5af-4497-8f9e-6563eb4cebca",
+      "name": "Sticky Note7"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-24T23:01:26.264Z",
+      "updatedAt": "2025-03-30T23:13:52.555Z",
+      "id": "re5qa6oqhTBECZjV",
+      "name": "ProductionCompleted"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-24T23:03:41.000Z",
+  "versionId": "c17f9de6-7bd1-4ce7-bbe8-788a134c5c03"
+}
