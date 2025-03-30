@@ -1,0 +1,456 @@
+{
+  "active": false,
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Notion Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a Database": {
+      "ai_tool": [
+        [
+          {
+            "node": "Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Many Databases": {
+      "ai_tool": [
+        [
+          {
+            "node": "Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Database Page": {
+      "ai_tool": [
+        [
+          {
+            "node": "Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Many Database Pages": {
+      "ai_tool": [
+        [
+          {
+            "node": "Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Database Page": {
+      "ai_tool": [
+        [
+          {
+            "node": "Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Users": {
+      "ai_tool": [
+        [
+          {
+            "node": "Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Page": {
+      "ai_tool": [
+        [
+          {
+            "node": "Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Notion Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion Agent": {
+      "main": [
+        [
+          {
+            "node": "Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Notion Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-25T09:43:48.532Z",
+  "id": "MwgsJCJeej2njedQ",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Project Management AI Agent -  Notion Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1100,
+        300
+      ],
+      "id": "676ae18d-43e3-444f-a9f6-9e170ee81e43",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "JjVBLavsih1HzGHI",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "databaseId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Database', ``, 'string') }}",
+          "mode": "id",
+          "__regex": "^([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})"
+        }
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        20,
+        300
+      ],
+      "id": "750dc760-7df3-45cf-b8eb-aee55b2f713a",
+      "name": "Get a Database",
+      "credentials": {
+        "notionApi": {
+          "id": "YS6Dhiz1hVsayiwD",
+          "name": "Notion account kamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "getAll",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -120,
+        300
+      ],
+      "id": "3e44e3d5-e176-471a-a0ff-cdeab6d3c400",
+      "name": "Get Many Databases",
+      "credentials": {
+        "notionApi": {
+          "id": "YS6Dhiz1hVsayiwD",
+          "name": "Notion account kamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Database', ``, 'string') }}",
+          "mode": "id",
+          "__regex": "^([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})"
+        },
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -280,
+        300
+      ],
+      "id": "b2086b1b-8d31-483c-ae11-779788b3abf1",
+      "name": "Create Database Page",
+      "credentials": {
+        "notionApi": {
+          "id": "YS6Dhiz1hVsayiwD",
+          "name": "Notion account kamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Database', ``, 'string') }}",
+          "mode": "id",
+          "__regex": "^([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -440,
+        300
+      ],
+      "id": "911fdf90-f5af-41c6-9c95-1ab82ab0921c",
+      "name": "Get Many Database Pages",
+      "credentials": {
+        "notionApi": {
+          "id": "YS6Dhiz1hVsayiwD",
+          "name": "Notion account kamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Database_Page', ``, 'string') }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -600,
+        300
+      ],
+      "id": "f774e3d8-7f2c-4934-88d3-73b15f4ddc6c",
+      "name": "Update Database Page",
+      "credentials": {
+        "notionApi": {
+          "id": "YS6Dhiz1hVsayiwD",
+          "name": "Notion account kamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "user",
+        "operation": "getAll",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -820,
+        300
+      ],
+      "id": "eda3483d-2f5d-4ec5-adcf-533f6df5254e",
+      "name": "Get Users",
+      "credentials": {
+        "notionApi": {
+          "id": "YS6Dhiz1hVsayiwD",
+          "name": "Notion account kamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Search_Text', ``, 'string') }}",
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -700,
+        300
+      ],
+      "id": "718ab338-8ac1-41ce-bc65-020bfb69156d",
+      "name": "Search Page",
+      "credentials": {
+        "notionApi": {
+          "id": "YS6Dhiz1hVsayiwD",
+          "name": "Notion account kamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "=# Overview  \nYou are a Notion-integrated AI agent responsible for managing and retrieving database information within Notion. You follow a strict execution order when interacting with Notion’s API, ensuring database dependencies are met before performing actions.  \n\n## Execution Rules  \n1. **Get Many Databases First**: Before using any of the following tools, the agent must first call `Get Many Databases`:  \n   - `Get a Database`  \n   - `Create Database Page`  \n   - `Get Many Database Pages`  \n   - `Update Database Page`  \n2. **Get Many Database Pages Before Updating**: Before calling `Update Database Page`, the agent must first use `Get Many Database Pages`.  \n\n## Instructions  \n1. **Retrieve User Data**: Use `Get Users` to fetch user details.  \n2. **Search for a Page**: Use `Search Page` if a Notion page needs to be found.  \n3. **Retrieve Database Information**:  \n   - Always start with `Get Many Databases` before retrieving or modifying a database.  \n   - Use `Get a Database` only after confirming the database exists.  \n4. **Manage Database Pages**:  \n   - Before creating or updating a page, first retrieve all database pages using `Get Many Database Pages`.  \n   - Use `Create Database Page` only after confirming the database structure.  \n   - Use `Update Database Page` only after retrieving existing pages with `Get Many Database Pages`.  \n5. **Store Contextual Memory**: Maintain conversation flow using `Window Buffer Memory`.  \n6. **Leverage OpenAI for Processing**: Use `OpenAI Chat Model` to interpret queries and select the correct Notion tool.  \n\n## Tools  \n- **OpenAI Chat Model**: Processes natural language queries.  \n- **Window Buffer Memory**: Stores and retrieves context.  \n- **Notion API Integrations**:  \n  - `Get Users`  \n  - `Search Page`  \n  - `Get Many Databases` (always called first)  \n  - `Get a Database` (requires `Get Many Databases` first)  \n  - `Get Many Database Pages` (requires `Get Many Databases` first)  \n  - `Create Database Page` (requires `Get Many Databases` first)  \n  - `Update Database Page` (requires `Get Many Databases` first, then `Get Many Database Pages`)  \n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -780,
+        -20
+      ],
+      "id": "ebc22301-bc7e-4770-8ef5-37e5ba9ae490",
+      "name": "Notion Agent",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Notion Agent') }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -940,
+        300
+      ],
+      "id": "0ed085b2-0e32-45fc-abdb-0c3916a11134",
+      "name": "Window Buffer Memory"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "95f044fd-c802-4b13-9d9f-246ee962e499",
+              "name": "response",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        -120
+      ],
+      "id": "7498aff4-2e99-4391-9120-e5de39afbdd2",
+      "name": "Success"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fd9076a7-8615-4ca4-8435-b0c938992cde",
+              "name": "response",
+              "value": "I encountered an error, please try again.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        40
+      ],
+      "id": "119491b6-997b-4050-816c-489d6e325916",
+      "name": "Error"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1100,
+        -20
+      ],
+      "id": "10bb2ec5-aa67-467f-b3dd-ba69e0f262f0",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "content": "## Read Me \n**Double click** [here](https://www.notion.com/templates/agile-project-management-notion) to access Notion template"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1440,
+        -40
+      ],
+      "typeVersion": 1,
+      "id": "326c0d99-42a9-43a5-8895-8c5af803930e",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-25T10:22:06.241Z",
+      "updatedAt": "2025-03-25T10:22:06.241Z",
+      "id": "gG82LNd00W2syC70",
+      "name": "Subworkflow"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-26T09:55:56.000Z",
+  "versionId": "5a94810a-6cb5-49f9-ae80-b78b5f42853f"
+}
