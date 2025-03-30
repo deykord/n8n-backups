@@ -1,0 +1,1916 @@
+{
+  "active": false,
+  "connections": {
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Get Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Parse Document with LlamaParse",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save Document to Google Drive",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Summarize Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get Parsed Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If Supported File Extensions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Message": {
+      "main": [
+        [
+          {
+            "node": "Is there an Email Attachement",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarize Email",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Data": {
+      "main": [
+        [
+          {
+            "node": "Merge Email Processing",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Classify Parsed Document",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Extract Invoice Details as JSON",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarize Document",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Invoice Details": {
+      "main": [
+        [
+          {
+            "node": "Prepare Message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update Google Sheet by LlamaParse ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Message": {
+      "main": [
+        [
+          {
+            "node": "Send Invoice Details as Telegram Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize Email": {
+      "main": [
+        [
+          {
+            "node": "Merge Email Processing",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Summarize Document": {
+      "main": [
+        [
+          {
+            "node": "Send Document Summary as Telegram Message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save Summarized Document to Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Error Message 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Parsed Markdown": {
+      "main": [
+        [
+          {
+            "node": "Classify Parsed Document",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save Parsed Document to Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Email Processing": {
+      "main": [
+        [
+          {
+            "node": "Save LlamaParse ID and Summary to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Parsed Document": {
+      "main": [
+        [
+          {
+            "node": "Summarize Document",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Invoice Details as JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Supported File Extensions": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is there an Email Attachement": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Document to Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Prepare Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Document with LlamaParse": {
+      "main": [
+        [
+          {
+            "node": "Merge Email Processing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Invoice Details as JSON": {
+      "main": [
+        [
+          {
+            "node": "Invoice Details",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Error Message 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-24T22:58:06.345Z",
+  "id": "deEYxyv2XcvKUfMQ",
+  "meta": null,
+  "name": "Your Very Own Gold Nugget Extractor Agent for Coaches Consultants Knowledge Workers",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "parse",
+        "options": {}
+      },
+      "id": "6a3b6201-411b-456b-9a42-63746a8d3645",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        740,
+        1620
+      ],
+      "webhookId": "a9668054-5bd3-427d-8f18-932436441e42",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 28,
+        "filters": {
+          "q": "has:attachment",
+          "sender": " joe@example.com"
+        }
+      },
+      "id": "7e20c729-d3ad-44e7-940f-ab11012d49a0",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        1020,
+        280
+      ],
+      "webhookId": "344de9dc-4062-4552-ae29-1e9150322cdb",
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            },
+            {}
+          ]
+        },
+        "filters": {}
+      },
+      "id": "0299e9bf-d74a-4f12-a992-68b32c21fec1",
+      "name": "Gmail Trigger",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "position": [
+        700,
+        280
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "keep": "lastItems"
+      },
+      "id": "6365654b-1f28-4ba7-9a51-31d0d1d451c5",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "position": [
+        1220,
+        280
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "messageId": "={{ $('Gmail').item.json.id }}",
+        "simple": false,
+        "options": {
+          "dataPropertyAttachmentsPrefixName": "=file",
+          "downloadAttachments": true
+        }
+      },
+      "id": "9b0b1afe-b983-43af-8d83-2bd2feb74c5d",
+      "name": "Get Message",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        1420,
+        280
+      ],
+      "webhookId": "13036143-6e5b-47c1-84a4-a92cbc33b37f",
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "content": "## Send to LlamaParse\nhttps://docs.cloud.llamaindex.ai/API/upload-file-api-v-1-parsing-upload-post",
+        "height": 340,
+        "width": 320,
+        "color": 6
+      },
+      "id": "1d2184f5-8d92-46cc-82d7-65d48560c868",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2140,
+        40
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloud.llamaindex.ai/api/parsing/upload",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "=file",
+              "inputDataFieldName": "file0"
+            },
+            {
+              "name": "webhook_url",
+              "value": "=https://[YOUR-N8N-URL]/webhook/parse"
+            },
+            {
+              "name": "accurate_mode",
+              "value": "true"
+            },
+            {
+              "name": "premium_mode",
+              "value": "false"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "8f5f9634-0867-4c17-9969-ef8bb1809ee1",
+      "name": "Parse Document with LlamaParse",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        2260,
+        180
+      ],
+      "executeOnce": true,
+      "typeVersion": 4.2,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Is there an Email Attachement').item.json.text }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an expert at summarizing email messages.  Provide a summary of the provided email."
+            }
+          ]
+        }
+      },
+      "id": "2c9c4e55-beca-4fbb-b631-ea7a97541000",
+      "name": "Summarize Email",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [
+        2240,
+        860
+      ],
+      "typeVersion": 1.5
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "e795c7a6-859d-43c2-8923-d97ec1bfd2b0",
+      "name": "gpt-4o-mini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        2340,
+        1000
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo/edit?usp=drivesdk",
+          "cachedResultName": "2024.Year.End.Expenses"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo/edit#gid=0",
+          "cachedResultName": "Expenses"
+        },
+        "columns": {
+          "value": {
+            "jobid": "={{ $json.id }}",
+            "summary": "={{ $json.text }}",
+            "image_url": "={{ $json.webViewLink }}"
+          },
+          "schema": [
+            {
+              "id": "jobid",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "jobid",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "statement_date",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "statement_date",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "org_name",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "org_name",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "member_name",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "member_name",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "subtotal",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "subtotal",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "service_fees_total",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "service_fees_total",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tips_total",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "tips_total",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "current_excl_gst",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "current_excl_gst",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "container_deposit_total",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "container_deposit_total",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "outstanding_gst",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "outstanding_gst",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "paid_gst",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "paid_gst",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_gst",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "total_gst",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_bc_pst",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "total_bc_pst",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_bc_pst_liquor",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "total_bc_pst_liquor",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_savings",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "total_savings",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "final_amount_due",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "final_amount_due",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "payment_reference",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "payment_reference",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "payment_amount",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "payment_amount",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "transaction_number",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "transaction_number",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "image_url",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "image_url",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "summary",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "summary",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "jobid"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "1671c5e5-7802-47c7-aa8d-bd7a3864b96c",
+      "name": "Save LlamaParse ID and Summary to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        2920,
+        520
+      ],
+      "typeVersion": 4.5
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "=file0",
+        "name": "={{ $('Is there an Email Attachement').item.json.id }}_{{ $('Is there an Email Attachement').item.binary.file0.fileName }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultUrl": "https://drive.google.com/drive",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "id": "ab1b65e5-2ddb-4d42-bd6e-d8ef007caf3d",
+      "name": "Save Document to Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "position": [
+        2240,
+        520
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Analyze this markdown content and convert it to JSON following this exact schema:\n{\n    \"invoice_details\": {\n        \"statement_date\": \"\",\n        \"organization\": {\n            \"name\": \"\",\n            \"address\": \"\",\n            \"gst_number\": \"\"\n        },\n        \"member\": {\n            \"name\": \"\",\n            \"company\": \"\",\n            \"address\": \"\",\n            \"contact_number\": \"\",\n            \"organization_number\": \"\"\n        }\n    },\n    \"transactions\": [\n        {\n            \"date\": \"\",\n            \"document_number\": \"\",\n            \"description\": \"\",\n            \"base_amount\": 0.00,\n            \"gst\": 0.00,\n            \"bc_pst\": 0.00,\n            \"bc_pst_liquor\": 0.00,  # Added for liquor PST\n            \"container_deposit\": 0.00,  # Added for bottle deposits\n            \"service_fee\": 0.00,\n            \"tip_amount\": 0.00,\n            \"regular_price\": 0.00,  # Added for regular price tracking\n            \"savings_amount\": 0.00,  # Added for savings tracking\n            \"total_charge\": 0.00,\n            \"transaction_type\": \"\"\n        }\n    ],\n    \"payment_details\": {\n        \"previous_balance\": 0.00,\n        \"payment_amount\": 0.00,\n        \"payment_reference\": \"\",\n        \"payment_date\": \"\",\n        \"payment_method\": \"\",\n        \"payment_status\": \"\",\n        \"card_number\": \"\",  # Added for card details\n        \"auth_number\": \"\",  # Added for authorization\n        \"transaction_number\": \"\"\n    },\n    \"invoice_summary\": {\n        \"subtotal\": 0.00,\n        \"service_fees_total\": 0.00,\n        \"tips_total\": 0.00,\n        \"current_excl_gst\": 0.00,\n        \"container_deposit_total\": 0.00,  # Added for deposits\n        \"outstanding_gst\": 0.00,\n        \"paid_gst\": 0.00,\n        \"total_gst\": 0.00,\n        \"total_bc_pst\": 0.00,\n        \"total_bc_pst_liquor\": 0.00,  # Added for liquor PST if shown in markdown content\n        \"total_savings\": 0.00,  # Added for savings\n        \"final_amount_due\": 0.00\n    },\n    \"payment_terms\": {\n        \"due_date\": \"\",\n        \"processing_date\": \"\",\n        \"special_notices\": [],\n        \"cancellation_policy\": \"\",\n        \"refund_policy\": \"\",\n        \"return_policy\": \"\"  # Added for return policy\n    },\n    \"additional_info\": {\n        \"booking_number\": \"\",\n        \"transaction_time\": \"\",  # Added for transaction time\n        \"register_info\": \"\",     # Added for register details\n        \"event_details\": {\n            \"date\": \"\",\n            \"time\": \"\",\n            \"location\": \"\"\n        },\n        \"special_instructions\": []\n    },\n    \"summary\": \"\" # The natural language summary of the invoice\n}\n\nMarkdown Content:\n{{ $json.data }}\n\nImportant:\n- Extract exact values from the markdown\n- Return only valid JSON\n- Include all fields even if empty\n- Format numbers as floats with 2 decimal places\n- Track container deposits separately\n- Show liquor PST (10%) separately from regular PST if provided in markdown content\n- Include regular prices and savings amounts\n- Track transaction details including card info and authorization\n- Parse return policy information\n- Include register and transaction time details\n- Ensure final_amount_due equals the sum of all applicable charges and taxes\n- Summarize the markdown contents\n- Only output valid JSON without any preamble or further explanation.  Remove any ```json and ``` from response."
+      },
+      "id": "5f8a775c-159e-40d7-b850-2b7762bc0df6",
+      "name": "Extract Invoice Details as JSON",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [
+        1880,
+        2040
+      ],
+      "typeVersion": 1.5,
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "b27350f5-f980-4824-bb74-823fbb12e152",
+      "name": "gpt-4o-mini1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1460,
+        1780
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {}
+      },
+      "id": "8aed073b-6894-4191-8686-acb33369ed78",
+      "name": "gpt-4o-mini2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1980,
+        2180
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo/edit?usp=drivesdk",
+          "cachedResultName": "2024.Year.End.Expenses"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mUvDI9sGvRl64iNV6ODXUzro5Q3Oeuaks5662tfN7Oo/edit#gid=0",
+          "cachedResultName": "Expenses"
+        },
+        "columns": {
+          "value": {
+            "jobid": "={{ $('Webhook').item.json.body.jobId }}",
+            "summary": "={{ $json.output.summary }}",
+            "org_name": "={{ $json.output.invoice_details.organization.name }}",
+            "paid_gst": "={{ $json.output.invoice_summary.paid_gst }}",
+            "subtotal": "={{ $json.output.invoice_summary.subtotal }}",
+            "total_gst": "={{ $json.output.invoice_summary.total_gst }}",
+            "tips_total": "={{ $json.output.invoice_summary.tips_total }}",
+            "member_name": "={{ $json.output.invoice_details.member.name }}",
+            "total_bc_pst": "={{ $json.output.invoice_summary.total_bc_pst }}",
+            "total_savings": "={{ $json.output.invoice_summary.total_savings }}",
+            "payment_amount": "={{ $json.output.payment_details.payment_amount }}",
+            "statement_date": "={{ $json.output.invoice_details.statement_date }}",
+            "outstanding_gst": "={{ $json.output.invoice_summary.outstanding_gst }}",
+            "current_excl_gst": "={{ $json.output.invoice_summary.current_excl_gst }}",
+            "final_amount_due": "={{ $json.output.invoice_summary.final_amount_due }}",
+            "payment_reference": "={{ $json.output.payment_details.payment_reference }}",
+            "service_fees_total": "={{ $json.output.invoice_summary.service_fees_total }}",
+            "transaction_number": "={{ $json.output.payment_details.transaction_number }}",
+            "total_bc_pst_liquor": "={{ $json.output.invoice_summary.total_bc_pst_liquor }}",
+            "container_deposit_total": "={{ $json.output.invoice_summary.container_deposit_total }}"
+          },
+          "schema": [
+            {
+              "id": "jobid",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "jobid",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "statement_date",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "statement_date",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "org_name",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "org_name",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "member_name",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "member_name",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "subtotal",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "subtotal",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "service_fees_total",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "service_fees_total",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tips_total",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "tips_total",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "current_excl_gst",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "current_excl_gst",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "container_deposit_total",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "container_deposit_total",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "outstanding_gst",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "outstanding_gst",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "paid_gst",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "paid_gst",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_gst",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "total_gst",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_bc_pst",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "total_bc_pst",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_bc_pst_liquor",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "total_bc_pst_liquor",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_savings",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "total_savings",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "final_amount_due",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "final_amount_due",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "payment_reference",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "payment_reference",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "payment_amount",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "payment_amount",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "transaction_number",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "transaction_number",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "summary",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "summary",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "jobid"
+          ]
+        },
+        "options": {}
+      },
+      "id": "4744ace0-52a3-4fae-9e04-801edf804e9d",
+      "name": "Update Google Sheet by LlamaParse ID",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        2520,
+        2140
+      ],
+      "typeVersion": 4.5
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e145ed8c-cdea-4e5a-ba11-d8ce595dfb8d",
+              "name": "output",
+              "type": "object",
+              "value": "={{ $json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ba0f9b4e-b901-4738-8eed-b228f03df937",
+      "name": "Invoice Details",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2280,
+        1940
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3e566101-2ad9-444b-8459-451ba6a91575",
+              "name": "invoice_details.statement_date",
+              "type": "string",
+              "value": "={{ $json.output.invoice_details.statement_date }}"
+            },
+            {
+              "id": "57a466f6-d354-4864-98d3-ba4673afde98",
+              "name": "invoice_details.organization",
+              "type": "object",
+              "value": "={{ $json.output.invoice_details.organization }}"
+            },
+            {
+              "id": "e1b22978-8114-4956-a5fc-3efbc43335a3",
+              "name": "invoice_details.member",
+              "type": "object",
+              "value": "={{ $json.output.invoice_details.member }}"
+            },
+            {
+              "id": "e45a744c-0874-48b7-b59a-9d83aad27ff3",
+              "name": "payment_details",
+              "type": "object",
+              "value": "={{ $json.output.payment_details }}"
+            },
+            {
+              "id": "c0335dc7-1b5c-41fc-b60a-bf45248c9f7f",
+              "name": "invoice_summary",
+              "type": "object",
+              "value": "={{ $json.output.invoice_summary }}"
+            },
+            {
+              "id": "6c9ba3bf-37a6-4a8f-b97d-991f3ce6950f",
+              "name": "summary",
+              "type": "string",
+              "value": "={{ $json.output.summary }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a40f8a1c-5361-4511-8ac4-44a3bd6cd588",
+      "name": "Prepare Message",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2520,
+        1940
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "={{ $json.summary }}\n--------\n{{ $json.invoice_summary.toJsonString() }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "b1985566-7240-43b2-b9bb-c20d7ae2a849",
+      "name": "Send Invoice Details as Telegram Message",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        2720,
+        1940
+      ],
+      "webhookId": "04464e72-2be3-4df9-8a08-18d23cb75d72",
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {}
+      },
+      "id": "b31bb80a-fbb1-44c9-9a3c-b5903d785ed7",
+      "name": "gpt-4o-mini3",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1980,
+        1600
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "=Error in workflow",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "1f8456a1-5f79-40a7-aafa-f15e8162f5dd",
+      "name": "Send Error Message 2",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        2280,
+        2140
+      ],
+      "webhookId": "3ba1ee6d-1648-4421-823b-e68ae14d769b",
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "=Error in workflow",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "01e3cb31-0e3a-4bf4-844b-b490509bafbc",
+      "name": "Send Error Message 1",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        2280,
+        1600
+      ],
+      "webhookId": "3ba1ee6d-1648-4421-823b-e68ae14d769b",
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "d15b0fae-5264-4f9f-9280-3f16dfe54691",
+      "name": "Send Document Summary as Telegram Message",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        2520,
+        1340
+      ],
+      "webhookId": "04464e72-2be3-4df9-8a08-18d23cb75d72",
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Please analyze this document and provide:\n\n## Document Analysis\n- A concise executive summary (2-3 sentences)\n- Key themes and main points\n- Notable findings or insights\n- Data highlights and important statistics (if applicable)\n\n## Recommendations\n- Action items or next steps\n- Areas requiring further investigation\n- Potential implications\n\n## Format Requirements\n- Structure the analysis using clear headers and sections\n- Include relevant quotes to support key points\n- Present any numerical data in tables or bullet points\n- Highlight critical information using bold text\n\nPlease maintain the original document's context while making the content more accessible and actionable.\n\nHere is the document: {{ $json.data }}\n"
+      },
+      "id": "632da159-c9dd-4d81-b149-efa0767f5fb2",
+      "name": "Summarize Document",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [
+        1880,
+        1460
+      ],
+      "typeVersion": 1.5,
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.data }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "not invoice",
+              "description": "The document is not an invoice"
+            },
+            {
+              "category": "invoice",
+              "description": "The document is an invoice"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fc12e763-fa6b-43ba-9817-949156bdf958",
+      "name": "Classify Parsed Document",
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "position": [
+        1380,
+        1620
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "55b5a755-eeaf-4ce7-b600-e6c864dc7e10",
+              "name": "data",
+              "type": "string",
+              "value": "={{ $json.body.md }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "815bcec0-d722-4df1-9517-4c8215872d35",
+      "name": "Get Parsed Markdown",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1080,
+        1620
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cee9e2d3-b311-4903-9867-e7d3d7ed2456",
+              "name": "google_drive_fileid",
+              "type": "string",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "id": "5c6eddf6-5a5e-4c51-87ed-8e3aabc2f65d",
+              "name": "webViewLink",
+              "type": "string",
+              "value": "={{ $json.webViewLink }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "55aac24b-a2c0-46fd-819d-3ffd85e3ce29",
+      "name": "Prepare Data",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2420,
+        520
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "url": "https://api.cloud.llamaindex.ai/api/parsing/supported_file_extensions",
+        "options": {}
+      },
+      "id": "83b6d1dc-a7bd-4b23-a9cb-2189d0ca89f9",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1020,
+        680
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "460b82e5-30f5-4cb3-a937-a275fd256fcc",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              },
+              "leftValue": "={{ $input.item.binary }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fc10c4f4-2492-4c33-9b47-341b43eb105f",
+      "name": "Is there an Email Attachement",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1640,
+        280
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "extensions",
+        "options": {}
+      },
+      "id": "bd2383c5-2226-482a-8697-72c8ffa4768b",
+      "name": "Aggregate",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        1220,
+        680
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c9c59aae-b507-4493-a047-495bed344a5e",
+              "name": "extension",
+              "type": "string",
+              "value": "=.{{ $('Is there an Email Attachement').item.binary.file0.fileExtension }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "868e4643-8d79-4e18-9da0-eadd82d4e13c",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1440,
+        680
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {}
+      },
+      "id": "9d69e2ad-40f6-4683-8cc0-f1a6ac66d964",
+      "name": "Merge Email Processing",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        2680,
+        520
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "3dc70605-7d3c-4d1b-8948-1e98723ead72",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        1940,
+        520
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "f76cc5a7-6882-4e1f-86d5-99d5d9e90a34",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $('Aggregate').item.json.extensions.includes($json.extension)}}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7a065005-89e8-4dc5-a77d-e3a22387060e",
+      "name": "If Supported File Extensions",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1640,
+        680
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {},
+      "id": "ce01460b-69eb-43f0-862f-aba7ebcf4e59",
+      "name": "No Operation, do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        1940,
+        280
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "a0882ae0-1b26-4f48-a856-a485cc4e2e0a",
+      "name": "No Operation, do nothing1",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        1940,
+        760
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Check for Supported File Extension\nhttps://docs.cloud.llamaindex.ai/API/get-supported-file-extensions-api-v-1-parsing-supported-file-extensions-get",
+        "height": 320,
+        "width": 920
+      },
+      "id": "643e45b3-bfaf-4ed6-8f01-2aff2448794a",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        920,
+        560
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Get Emails with Attachments\n### ☀️Disclaimer\nThis workflow only processes the the first attachment of the email.\nAdjust search and limit settings to suit your use case.",
+        "height": 400,
+        "width": 920,
+        "color": 3
+      },
+      "id": "55d70b01-fd25-441e-acd0-3987fcbaa423",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        920,
+        120
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Save Document to Google Drive",
+        "height": 300,
+        "width": 460,
+        "color": 4
+      },
+      "id": "606dd4ca-db66-4446-9dc3-d003e24e31a4",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2140,
+        420
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Summarize the Email Message",
+        "height": 380,
+        "width": 460,
+        "color": 5
+      },
+      "id": "10010211-8557-4dc9-9a5c-d34855127479",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2140,
+        760
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Save To Google Sheets",
+        "height": 300,
+        "width": 300,
+        "color": 4
+      },
+      "id": "07b32024-fa72-4fd0-8126-39cb937fff4b",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2840,
+        420
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Description\n\nThis workflow automates document processing using LlamaParse to extract and analyze text from various file formats. It intelligently processes documents, extracts structured data, and delivers actionable insights through multiple channels.\n\n## How It Works\n\n### Document Ingestion & Processing 📄\n- Monitors Gmail for incoming attachments or accepts documents via webhook\n- Validates file formats against supported LlamaParse extensions\n- Uploads documents to LlamaParse for advanced text extraction\n- Stores original documents in Google Drive for reference\n\n### Intelligent Document Analysis 🧠\n- Automatically classifies document types (invoices, reports, etc.)\n- Extracts structured data using customized AI prompts\n- Generates comprehensive document summaries with key insights\n- Converts unstructured text into organized JSON data\n\n### Invoice Processing Automation 💼\n- Extracts critical invoice details (dates, amounts, line items)\n- Organizes financial data into structured formats\n- Calculates tax breakdowns, subtotals, and payment information\n- Maintains detailed records for accounting purposes\n\n### Multi-Channel Delivery 📱\n- Saves extracted data to Google Sheets for tracking and analysis\n- Sends concise summaries via Telegram for immediate review\n- Creates searchable document archives in Google Drive\n- Updates spreadsheets with structured financial information\n\n## Setup Steps\n\n### Configure API Credentials 🔑\n- Set up LlamaParse API connection\n- Configure Gmail OAuth for email monitoring\n- Set up Google Drive and Sheets integrations\n- Add Telegram bot credentials for notifications\n\n### Customize AI Processing ⚙️\n- Adjust document classification parameters\n- Modify extraction templates for specific document types\n- Fine-tune summary generation prompts\n- Customize invoice data extraction schema\n\n### Test and Deploy 🚀\n- Test with sample documents of various formats\n- Verify data extraction accuracy\n- Confirm notification delivery\n- Monitor processing pipeline performance\n\n\n",
+        "height": 1340,
+        "width": 540
+      },
+      "id": "9cc68e30-d702-439d-b7b6-2b877c36f513",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 👍Try Me!",
+        "height": 280,
+        "width": 260,
+        "color": 4
+      },
+      "id": "b5e17ee9-95d1-4b47-a2c6-a2508ec97870",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        620,
+        200
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# ✨🔪 Advanced AI Powered Document Parsing & Text Extraction with Llama Parse\n",
+        "height": 1180,
+        "width": 2600,
+        "color": 7
+      },
+      "id": "ba511c53-1eeb-486c-bba2-3fdf2f0236fa",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        580,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Example Invoice Processing\n",
+        "height": 540,
+        "width": 1160,
+        "color": 6
+      },
+      "id": "48f9efed-d5ee-4529-b223-86c905858aeb",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1780,
+        1820
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Extract Invoice as JSON\n☀️Update User & System Prompt for Your Specific Use Case",
+        "height": 420,
+        "width": 360
+      },
+      "id": "10390c61-b165-41fa-ae5a-f5593999aee4",
+      "name": "Sticky Note10",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1840,
+        1900
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Example Document Summarizing\n",
+        "height": 520,
+        "width": 980,
+        "color": 5
+      },
+      "id": "a48bfa14-1214-44ff-9751-1bc89c39531e",
+      "name": "Sticky Note11",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1780,
+        1260
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Summarize Document\n☀️Update User & System Prompt for Your Specific Use Case",
+        "height": 400,
+        "width": 360
+      },
+      "id": "e3f05162-745c-4ab5-8b56-cc92f2a91a6f",
+      "name": "Sticky Note12",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1840,
+        1340
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Classify Parsed Document\nAdd More Classifications as Required",
+        "height": 420,
+        "width": 440,
+        "color": 4
+      },
+      "id": "5a12cc6b-1983-4734-acd8-3d664fce18dd",
+      "name": "Sticky Note13",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1300,
+        1500
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Parsed Markdown from LlamaParse",
+        "height": 320,
+        "width": 260,
+        "color": 3
+      },
+      "id": "5a8ae055-0697-402f-b569-08b03e0a894c",
+      "name": "Sticky Note14",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1000,
+        1500
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Receive Parsed Document from LlamaParse",
+        "height": 320,
+        "width": 340
+      },
+      "id": "0398433a-b45b-4ef6-85a2-3dcbbba178ce",
+      "name": "Sticky Note15",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        620,
+        1500
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# 🪝Webhook to Receive LlamaParse Response",
+        "height": 1180,
+        "width": 2400,
+        "color": 7
+      },
+      "id": "70dcec0e-1ea4-4fff-bb20-8b4d7ea6f12c",
+      "name": "Sticky Note16",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        580,
+        1220
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Save Parsed Document to Google Drive",
+        "height": 400,
+        "width": 440,
+        "color": 5
+      },
+      "id": "6a145157-7ef7-482a-a657-66b4db210e2d",
+      "name": "Sticky Note17",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1300,
+        1960
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "createFromText",
+        "content": "={{ $json.text }}",
+        "name": "={{ $('Webhook').item.json.body.jobId }}-summary.md",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultUrl": "https://drive.google.com/drive",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "id": "3fffea80-0497-4d3d-8a20-97d74ec76c91",
+      "name": "Save Summarized Document to Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "position": [
+        2520,
+        1540
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "operation": "createFromText",
+        "content": "={{ $json.data }}",
+        "name": "={{ $('Webhook').item.json.body.jobId }}-parsed.md",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultUrl": "https://drive.google.com/drive",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "id": "4c0b2f4d-0985-4589-839f-fc21d0e5c4a6",
+      "name": "Save Parsed Document to Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "position": [
+        1460,
+        2100
+      ],
+      "typeVersion": 3
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-24T19:11:17.658Z",
+      "updatedAt": "2025-03-30T23:13:47.660Z",
+      "id": "kMcLyWqZcRl1ToZc",
+      "name": "APIConfig."
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-24T23:07:01.000Z",
+  "versionId": "5d24c30e-98b6-4206-9d3e-c7b0840a1c95"
+}
