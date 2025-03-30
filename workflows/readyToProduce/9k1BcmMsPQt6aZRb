@@ -1,0 +1,353 @@
+{
+  "active": true,
+  "connections": {
+    "GPT4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Request Human Help": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-24T18:49:44.041Z",
+  "id": "9k1BcmMsPQt6aZRb",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Landscaping AI Agent",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "2603d05f-ac81-49bd-8713-a4120f959535",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        360,
+        320
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {},
+      "id": "c58823fd-e66e-471c-9d35-96a89eab3e0b",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "position": [
+        20,
+        100
+      ],
+      "webhookId": "3d3ff698-14f8-4a60-b75e-cf1a470c2320",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "agent": "openAiFunctionsAgent",
+        "options": {
+          "systemMessage": "=<Role> LANDSCAPINGSalesAgent: You are responsible for assisting customers with general Landscaling-related questions. However, if the customer asks for special pricing or location-specific assistance, you will collect their **name**, **phone number**, and **email address** so a human representative can follow up. </Role> <Goal> To provide accurate Landscaping information and collect customer details for follow-up when special pricing or location-specific assistance is requested. </Goal> <Instructions> <Instruction> Read and interpret the user’s request to determine if it involves general landscaping questions or requests for special pricing/location-specific assistance.   \nIf the request is for general landscaping information, provide a clear and helpful response based on the user's query.\n<Instruction>\nIf the request involves special pricing or location-specific assistance, collect the following details from the customer:\nName\nPhone Number\nEmail Address\n</Instruction>\n\n<Instruction>  \nNotify the customer that a human representative will contact them shortly with further assistance.\n</Instruction>\n\n\nIMPORTANT:\nEnsure that the customer's personal information (name, phone number, and email address) is accurately recorded and securely handled."
+        }
+      },
+      "id": "50b81eab-197a-439e-9582-aefe46424a5b",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        272,
+        100
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "model": "gpt-4",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "5111c517-edf0-41d0-a00f-a807747ad243",
+      "name": "GPT4",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        240,
+        320
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "openAiApi": {
+          "id": "JjVBLavsih1HzGHI",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "dont_know_tool",
+        "description": "Use this tool if you don't know the answer to the user's question, or if you're not very confident about your answer. or if user is questioning about price or an special location",
+        "workflowId": {
+          "__rl": true,
+          "value": "WyxocIZN33BrobBP",
+          "mode": "list",
+          "cachedResultName": "My project — Landscaping Ai Sales Agent ( Dont Know Tool)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "phoneNumber": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('phoneNumber', ``, 'string') }}",
+            "emailAddress": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('emailAddress', ``, 'string') }}",
+            "name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('name', ``, 'string') }}",
+            "chatInput": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('chatInput', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "chatInput"
+          ],
+          "schema": [
+            {
+              "id": "phoneNumber",
+              "displayName": "phoneNumber",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "emailAddress",
+              "displayName": "emailAddress",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "chatInput",
+              "displayName": "chatInput",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        480,
+        320
+      ],
+      "id": "f7110294-cba5-4df9-b583-04532d07d4a9",
+      "name": "Request Human Help"
+    },
+    {
+      "parameters": {
+        "content": "## HOW TO AI SALES AGENT FOR LANDSCAPING\n",
+        "height": 80,
+        "width": 560,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "018ab618-1222-4b2e-8d15-e480faf085b7",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/8c99Bgjc/Commercial-Landscaping-Truck-Trailer-Crew-Mower-Equipment-Lawn-Care-Maintenance-4.webp)",
+        "height": 320,
+        "width": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        680,
+        0
+      ],
+      "id": "06929766-31ee-4159-a248-7522eb2e0d3c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/bvLz0d8v/Screenshot-2025-03-21-at-10-29-38-PM.png)",
+        "height": 360,
+        "width": 500,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        280
+      ],
+      "id": "2aa849d1-8679-4008-a26b-a1b192cbf872",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/QNvWKY0y/Screenshot-2025-03-21-at-10-30-00-PM.png)",
+        "height": 320,
+        "width": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        840,
+        800
+      ],
+      "id": "71688d53-64c8-407f-b411-1667f4dac93b",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/4dSsMMYk/Screenshot-2025-03-21-at-10-30-13-PM.png)",
+        "height": 320,
+        "width": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        700,
+        440
+      ],
+      "id": "493da1bb-287e-45fc-972b-7e6f34b103cd",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/W1Tz0BrX/Screenshot-2025-03-21-at-10-37-47-PM.png)",
+        "height": 560,
+        "width": 640,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        40,
+        560
+      ],
+      "id": "6832c49a-83f9-4b0f-aa2f-21587cd013c7",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/GtRwZCbf/Screenshot-2025-03-21-at-10-45-19-PM.png)",
+        "height": 500,
+        "width": 760,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -940,
+        680
+      ],
+      "id": "31326e3a-f648-44be-9b0e-f6da85fc44e3",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "### relevant unit economics [Link](https://www.meera.ai/pricing-calculator)",
+        "height": 80,
+        "width": 200
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -180,
+        700
+      ],
+      "id": "77a9c23b-32c1-47c8-826e-76a6d3f45949",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/Vvvpb9Zc/Screenshot-2025-03-24-at-5-44-24-PM.png)",
+        "height": 360,
+        "width": 1300,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        1200
+      ],
+      "id": "7a7ed769-6133-4598-bccf-3a195f8f2435",
+      "name": "Sticky Note8"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-24T18:49:31.119Z",
+      "updatedAt": "2025-03-30T23:13:18.599Z",
+      "id": "A2T0DKW8S3MAy4Mp",
+      "name": "readyToProduce"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2025-03-24T23:57:52.000Z",
+  "versionId": "c9d546c8-2a3a-46a9-87fe-35aa666a0c5f"
+}
