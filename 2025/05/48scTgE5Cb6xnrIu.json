@@ -1,0 +1,292 @@
+{
+  "active": false,
+  "connections": {
+    "Check Platform": {
+      "main": [
+        [
+          {
+            "node": "X",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get Content Ideas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Content Ideas": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Check Platform",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "X": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-22T06:29:30.239Z",
+  "id": "48scTgE5Cb6xnrIu",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Generate Content From Google Sheets to X",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $('Get Content Ideas').item.json.Platform }}",
+              "value2": "Twitter"
+            }
+          ]
+        }
+      },
+      "name": "Check Platform",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -324,
+        -120
+      ],
+      "typeVersion": 1,
+      "id": "ea3e2467-93bf-4cf0-8597-0213d94e3009"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1140,
+        -120
+      ],
+      "id": "1727a427-8311-45da-829e-9da481249896",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/11ISi8nwWvaI5nWDbpLY8QblJuCu8xMGnKjeeD-KLXzU/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/11ISi8nwWvaI5nWDbpLY8QblJuCu8xMGnKjeeD-KLXzU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -920,
+        -120
+      ],
+      "id": "0abf4554-9f2e-4f6b-aab7-673af5b650d0",
+      "name": "Get Content Ideas",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "o0DnvAKdOavdHOgz",
+          "name": "Google Sheets account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a Twitter content writer for an automation expert who builds and shares advanced n8n workflows.\n\n🎯 GOAL: Write viral-style tweets that explain the value of a specific n8n automation, based on the workflow subject provided.\n\n👇 Here's how to write each tweet:\n\n1. **Start with a bold, punchy intro line** explaining the value of the workflow. Mention if it’s an AI agent, growth hack, automation, etc.\n2. **Include 4–6 bullet points** that clearly describe what the workflow does — each should start with a verb (e.g. “Generates…”, “Monitors…”, “Sends…”).\n3. **Refer to the screenshot**: Say “See screenshot ⬇️” or “Screenshot below 👇”.\n4. **Add a call-to-action at the end** that encourages replies or engagement:\n   - “Follow + Reply ‘[keyword]’ and I’ll DM you the full workflow (free, no email)”\n   - “DM me ‘[keyword]’ for the free n8n template”\n5. Keep it clear, slightly tech-savvy, and valuable — avoid buzzwords.\n\n✳️ FORMAT:\nHere’s a plug-and-play [automation agent / workflow] for: [{{$node[\"Get Content Ideas\"].json[\"Subject\"]}}]\n\n– [Bullet point 1: What it does]\n– [Bullet point 2]\n– [Bullet point 3]\n– ...\n– [Bullet point N]\n\nScreenshot below 👇\n\nFollow + Reply “[keyword]” and I’ll DM you the full n8n workflow (free).\n\nYou will be given:\n- `workflowSubject` : {{$node[\"Get Content Ideas\"].json[\"Subject\"]}} (e.g. “AI-powered content repurposing for newsletters”)\n- A screenshot (user will attach or describe it)\n- Optional: a keyword or name for reply (e.g. \"Repurpose Agent\")\n\nUse those to write the tweet in the above format.",
+              "role": "system"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -700,
+        -120
+      ],
+      "id": "ead9a58a-79bd-489c-b084-3272c7b7d07a",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "ug5TFYIx7BmAK7H8",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.message.content }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        -100,
+        -120
+      ],
+      "id": "9644c6f7-c66b-402c-b12d-e60a1302fa22",
+      "name": "X",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "MuuHo7zujwUlnFKP",
+          "name": "X account - @storlesskitchen"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/11ISi8nwWvaI5nWDbpLY8QblJuCu8xMGnKjeeD-KLXzU/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/11ISi8nwWvaI5nWDbpLY8QblJuCu8xMGnKjeeD-KLXzU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Idea": "={{ $('Get Content Ideas').item.json.Subject }}",
+            "Description": "={{ $('Get Content Ideas').item.json.Description }}",
+            "Platform": "={{ $('Get Content Ideas').item.json.Platform }}",
+            "X Post ID": "={{ $json.id }}"
+          },
+          "matchingColumns": [
+            "Idea"
+          ],
+          "schema": [
+            {
+              "id": "Idea",
+              "displayName": "Idea",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Platform",
+              "displayName": "Platform",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "X Post ID",
+              "displayName": "X Post ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        116,
+        -120
+      ],
+      "id": "92f9ca49-a4fb-486d-9802-a973ec80d2f4",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "o0DnvAKdOavdHOgz",
+          "name": "Google Sheets account - kfamirosein@gmail.com"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-24T21:56:44.000Z",
+  "versionId": "734364e0-70bd-403f-adbc-40547cbbd920"
+}
