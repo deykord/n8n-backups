@@ -1,0 +1,147 @@
+{
+  "active": false,
+  "connections": {
+    "Test Data": {
+      "main": [
+        [
+          {
+            "node": "Scrape website with Scrappey",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Asking URL Form": {
+      "main": [
+        [
+          {
+            "node": "Test Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-10T21:58:39.587Z",
+  "id": "W4FH1VrL6TUFJCo0",
+  "meta": null,
+  "name": "Scrape every url on the web without getting blocked by Anti-Bot technologies with Scrappey",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2086908e-c301-4392-9cf6-b6461e11dcd4",
+              "name": "url",
+              "type": "string",
+              "value": "={{ $json['URL?'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "65982021-4b5c-4fdf-8079-ca0670187559",
+      "name": "Test Data",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -320,
+        280
+      ],
+      "typeVersion": 3.3
+    },
+    {
+      "parameters": {
+        "content": "## Web Scraping \n\nUsing **Scrappey's** API to scrape every website.\n\nDon't get blocked again by anti-bot technologies while scraping the web.\n",
+        "height": 255.7976193268613,
+        "width": 389
+      },
+      "id": "b6c0fd34-4efe-4aa3-ac7e-3f01a87edbdf",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://publisher.scrappey.com/api/v1",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "sE2XgqctLx4odHQKnliuQZUESkf3Kqjxuw5wWM0voM6ajRO6wt7fMhMGlgck"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "cmd",
+              "value": "request.get"
+            },
+            {
+              "name": "url",
+              "value": "={{ $json.url }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "id": "63665aee-a0e0-40e9-95dd-ba1e826d96dc",
+      "name": "Scrape website with Scrappey",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        160,
+        280
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "formTitle": "Web URL:",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "URL?",
+              "placeholder": "https://n8n.sepvej.com/"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -540,
+        280
+      ],
+      "id": "0fb72267-4cb3-4dfb-8adc-72782db372be",
+      "name": "Asking URL Form",
+      "webhookId": "98aaf73d-edaf-49af-9cc4-d0bda75bbb7d"
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-10T22:02:45.000Z",
+  "versionId": "d2b9dfa2-1431-4c17-824f-bb7ac69b1a40"
+}
