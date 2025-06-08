@@ -1,0 +1,275 @@
+{
+  "active": false,
+  "connections": {
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "doc create": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "doc append": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-28T18:17:04.492Z",
+  "id": "9FS6El4gcfckWqcu",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AI Goldmine Research Anything with Brave GPT - MCP Client",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }} / {{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "=You are a research analyst AI trained to process web search results and generate structured, insightful reports focused on a niche provided by the user.\n\nYour goal is to analyze Brave Search results (title, description, URL) and deliver a comprehensive, well-organized, Google Docs–style report that highlights the most trending products in the ecommerce space and the b2c niche, ideally tiktok. \n\nAbsolutely. Here's your revised **AI Goldmine Report** prompt tailored for **e-commerce brands, agents, and B2C product discovery (especially for TikTok-viral or trending products)**:\n\n---\n\n### 🔍 AI Goldmine Agent Prompt – E-commerce / TikTok Products Focus\n\n---\n\n**--- INPUT DATA ---**\nUse the MCP protocol to gather search results from Brave Search.\n\nIf the user has not yet specified a **niche or product category**, ask them directly:\n**“What specific niche, product category, or TikTok trend should I research for high-potential e-commerce opportunities?”**\n\n---\n\n### Instructions:\n\n1. **Skim and Filter:**\n\n   * Remove spammy, irrelevant, or duplicate entries.\n   * Focus on:\n\n     * TikTok-viral products\n     * B2C products with high engagement\n     * E-commerce trend breakdowns\n     * UGC product examples\n     * Shopify product pages\n     * Product-hunting tools (e.g. Minea, Peeksta)\n     * Niche discovery tools and databases\n     * Independent blogs, newsletters, YouTube breakdowns\n     * Reddit goldmines or Amazon/TikTok analytics\n\n2. **Extract Value:**\n   For each valid result:\n\n   * 🔹 **Title**\n   * 🔹 **What it is / what it does** (in your own words)\n   * 🔹 **Why it’s interesting** (use 2–3 bullet points)\n\n3. **Rate Each One:**\n\n   * Use a 🔥 **1–5 rating** based on:\n\n     * Product potential or uniqueness\n     * Virality / TikTok engagement\n     * Profitability or ease of execution\n\n---\n\n### Format the Output Like This:\n\n## **AI Goldmine Report – \\[Niche/Product Type]**\n\n---\n\n### 🚀 Top Picks (High-Value Finds)\n\nA short list (3–5) of the most compelling, viral, or monetizable ideas with 🔥 ratings.\n\n---\n\n### 📚 Full Report\n\n**1. \\[Title]**\n🔗 URL: \\[link]\n\n**Summary:**\n\\[Brief description of what this product/tool/idea is.]\n\n**Why It’s Interesting:**\n\n* \\[Reason 1]\n* \\[Reason 2]\n\n🔥 **Rating: X/5**\n\n(Repeat this section for all valid entries)\n\n---\n\n### 🧠 Observations & Trends\n\nSummarize any key trends or overlaps across tools, products, and platforms:\n\n* What niches are showing up repeatedly?\n* Any patterns in product categories (e.g., wellness, gadgets, pet products)?\n* What kinds of hooks or videos are driving virality?\n\n---\n\n### ✨ Document Export Instructions:\n\nYou have access to two tools that allow you to export your report to a Google Doc:\n\n* 📝 `doc create`: Use this to create a new Google Document.\n\n  * **Title format:**\n    **AI Goldmine Report – \\[niche/product] – \\[current date]**\n\n* ✏️ `doc append`: Use this to write your final formatted report into the document created above.\n\nUse these tools in order:\n\n1. Create the document with `doc create`.\n2. Append the report content using `doc append`.\n3. **Do not return the content or document link — just export and complete.**\n\n---\n\n---\n\nBegin only once the query (niche/subject) and Brave Search results are available via MCP context."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -520,
+        20
+      ],
+      "id": "bb69132c-d3a4-4317-a34e-74a30631e0cb",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -620,
+        240
+      ],
+      "id": "6aed8a6e-9961-408a-a8b2-c886f2034dad",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -780,
+        240
+      ],
+      "id": "106a0b24-59e6-4d5f-ba85-a2560b45cdae",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "ug5TFYIx7BmAK7H8",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -900,
+        20
+      ],
+      "id": "55c63072-d03e-4fb0-b155-6b3607572846",
+      "name": "When chat message received",
+      "webhookId": "5c8cc99d-f174-48bb-ae09-3c1509096222"
+    },
+    {
+      "parameters": {
+        "sseEndpoint": "https://n8n.sepvej.com/mcp/92f78ee9-c30f-4916-8a6a-5faa2339797b/sse"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        240
+      ],
+      "id": "2080bae4-5cc0-4165-9964-404b5ad229ec",
+      "name": "MCP"
+    },
+    {
+      "parameters": {
+        "folderId": "1TAoIbvNmUGpHfKB5lCvlmjnyoJikfIIi",
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', `Create document with this subject just once`, 'string') }}"
+      },
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2,
+      "position": [
+        -360,
+        240
+      ],
+      "id": "d8a5067c-3df7-4fb5-ab02-ff952f854e71",
+      "name": "doc create",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "mKRDTcGualHldEQM",
+          "name": "Google Docs account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Doc_ID_or_URL', ``, 'string') }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Text', ``, 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2,
+      "position": [
+        -220,
+        240
+      ],
+      "id": "fb6e8e0e-d222-422f-8b19-9c386a41d956",
+      "name": "doc append",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "mKRDTcGualHldEQM",
+          "name": "Google Docs account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/ydxWS16j/Screenshot-2025-05-13-at-1-09-17-PM.png#full-width)",
+        "height": 680,
+        "width": 1000,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1000,
+        440
+      ],
+      "id": "0b7b1d72-21bd-45c1-9d49-d4698e2901b9",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/t47X5SGR/Screenshot-2025-05-13-at-1-15-07-PM.png#full-width)",
+        "height": 680,
+        "width": 1000,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        60,
+        740
+      ],
+      "id": "fb3e5ebe-88bf-47b4-a8ac-11d75337da89",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://i.postimg.cc/gJMDp2rP/Screenshot-2025-05-13-at-1-37-23-PM.png#full-width)",
+        "height": 480,
+        "width": 960,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        60,
+        180
+      ],
+      "id": "76de43cc-1e7f-43ce-b8f5-c520c1b850b6",
+      "name": "Sticky Note2"
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-05-19T21:31:47.721Z",
+      "updatedAt": "2025-05-19T21:31:47.721Z",
+      "id": "LSLdgJyKmCcUJMTR",
+      "name": "Production Complete"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-19T21:31:53.000Z",
+  "versionId": "edcc8fe5-82e4-4f10-9dc7-5141179cf848"
+}
