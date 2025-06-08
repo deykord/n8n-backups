@@ -1,0 +1,895 @@
+{
+  "active": false,
+  "connections": {
+    "3s": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4s": {
+      "main": [
+        [
+          {
+            "node": "Fetch Latest Videos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "YT Tags": {
+      "main": [
+        [
+          {
+            "node": "Update Video's Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gettitle": {
+      "main": [
+        [
+          {
+            "node": "Set Publish Date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every Day": {
+      "main": [
+        [
+          {
+            "node": "Get Videos to reschedule",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new video?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "getLatestVideoID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2.5FlashPrev": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "YT Tags",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get video id": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates from previous Runs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Transcript": {
+      "main": [
+        [
+          {
+            "node": "Adjust Transcript Format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Video Data": {
+      "main": [
+        [
+          {
+            "node": "Loop over Video IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "get video id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Publish Date": {
+      "main": [
+        [
+          {
+            "node": "Loop over All Videos not Published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getLatestVideoID": {
+      "main": [
+        [
+          {
+            "node": "Get Transcript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Description": {
+      "main": [
+        [
+          {
+            "node": "YT Tags",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "YT Title",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Latest Videos": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop over Video IDs": {
+      "main": [
+        [
+          {
+            "node": "Return Private Videos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Video Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Return Private Videos": {
+      "main": [
+        [
+          {
+            "node": "Loop over All Videos not Published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get video Ids seperated": {
+      "main": [
+        [
+          {
+            "node": "Loop over Video IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Video's Metadata": {
+      "main": [
+        [
+          {
+            "node": "3s",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Adjust Transcript Format": {
+      "main": [
+        [
+          {
+            "node": "Create Description",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Videos to reschedule": {
+      "main": [
+        [
+          {
+            "node": "Get video Ids seperated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get Videos to reschedule",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop over All Videos not Published": {
+      "main": [
+        [
+          {
+            "node": "4s",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "gettitle",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates from previous Runs": {
+      "main": [
+        [
+          {
+            "node": "new video?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-09T23:08:40.721Z",
+  "id": "CQUVUWqB1ZvdbUHZ",
+  "meta": null,
+  "name": "Automated YouTube Video Scheduling & AI Metadata Generation 🎬",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "video",
+        "limit": 1,
+        "filters": {},
+        "options": {
+          "order": "date"
+        }
+      },
+      "id": "9a25cb12-ae00-4089-afa5-9325859620d7",
+      "name": "Fetch Latest Videos",
+      "type": "n8n-nodes-base.youTube",
+      "position": [
+        480,
+        600
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3a38f12f-d1d1-47fd-8db7-1d05aeb2fa63",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        700,
+        600
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-nano",
+          "cachedResultName": "GPT-4.1-NANO"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Du bist ein professioneller Texter für SEO-optimierte YouTube-Titel.",
+              "role": "system"
+            },
+            {
+              "content": "=Schreib mir einen passenden SEO Youtube Titel für das Transkript folgendes Videotranskriptes. Gib mir nur den Titel sonst nichts. Maximal 100 Character also halte dich kurz.\n\n{{ $('Adjust Transcript Format').item.json.transcript }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "df72650c-d907-4c6f-8676-4c0231eed9a3",
+      "name": "YT Title",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        2760,
+        680
+      ],
+      "typeVersion": 1.7,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-nano",
+          "cachedResultName": "GPT-4.1-NANO"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Du bist ein professioneller Texteschreiber.\nDu erhältst das Transkript eines wirtschaftsbezogenen Videos und erstellst eine ausführlichere aber auch nicht zu lange  Zusammenfassung (mit Absätzen) darüber, worum es geht.\n\nSchreibe eine ausführlichere Zusammenfassung (mit Absätzen) über den Inhalt des Podcasts. \n\nDein Output wird für die Youtube Video Beschreibung verwendet. Also starte mit sowas wie: \"In diesem Video...\" oder \"In dieser Folge...\". \nSchreibe aus meiner Perspektive also Sachen wie \"meine Meinung\" oder \"meiner Ansicht nach\"...  aus der Ich- Perspektive aber niemals sowas wie \"In dieser Folge lerne ich...\" oder so ähnlich, denn ich erkläre stets den Inhalt bzw. diskutiere darüber. DU SCHREIBST NIEMALS SOWAS WIE \"DER SPRECHER SAGT\"!!! Immer aus meiner Position heraus.\n\nWichtig: Verwende klare und dominante Aussagen, wie sie im Transkript formuliert sind. Vermeide neutrale oder unsichere Formulierungen wie \"es könnte\", \"ich vermute, dass\", \"möglicherweise\" oder ähnliche Phrasen. Die Aussagen sollen selbstbewusst und eindeutig sein, um die Inhalte des Podcasts kraftvoll zu vermitteln.\nFüge einige wenige (2-4) Emojis an wo es sich anbietet. \n   \nEnde den Post mit 2-5 passenden Hashtags. Die Hashtags sollten grob sein also sowas wie #wirtschaft #geld #gold oder so ähnlich - je nachdem was passt.\n",
+              "role": "system"
+            },
+            {
+              "content": "=Hier ist das Transkript: \n\n{{ $json.transcript }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "118cec4d-8e87-4645-9141-bc0fd808394f",
+      "name": "Create Description",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        2460,
+        640
+      ],
+      "typeVersion": 1.7
+    },
+    {
+      "parameters": {},
+      "id": "de1402a6-84b5-4a59-b380-d57991fdc2b3",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -1720,
+        860
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### 🎥Title is kept from the upload, alternatively you can just add the YT Title module in the mix \n# 👇🏻\n",
+        "width": 220,
+        "color": 3
+      },
+      "id": "cccc6405-43e6-4dcb-98fe-726a396b4553",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3200,
+        540
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Adjust the Prompts 👉🏻\n\n# 👇🏻",
+        "height": 200,
+        "color": 3
+      },
+      "id": "338c8a70-500a-4e34-b2ee-67c4bc322dc9",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2460,
+        420
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Youtube Video Description/Tags/etc. Automation\n\n👉🏻 **Repos**: [github.com/JimPresting](https://github.com/JimPresting) 🛠️  \n👉🏻 **YouTube**: [youtube.com/@StardawnAI](https://www.youtube.com/@StardawnAI) 🎥  \n\nStay up to date for guides on Github repos and tutorials on YouTube! 🚀\n\n\n**Note:** By default, this takes only the latest video and adjusts the values. If you upload multiple videos within a day or even at once within one hour, you need to set that value higher, but bear in mind that if you set it to a high number, it will process older, already published videos. Using the *Publish After* option can't be recommended as it might lead to errors with scheduled videos.\nYou can also detach the *Remove Duplicates* node from the ongoing nodes and set the limit of the *Get All Videos* node to *Return all*. This way, everything that has already been uploaded will not be returned in the future. To undo this, you can select *Clear Database* in the *Remove Duplicates* node.\n",
+        "height": 420,
+        "width": 620,
+        "color": 5
+      },
+      "id": "510e30b7-c9e4-498b-b561-41468ad85c4a",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-preview-04-17",
+        "options": {}
+      },
+      "id": "b0290156-4216-4330-b206-865871287814",
+      "name": "2.5FlashPrev",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "position": [
+        2760,
+        560
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Nun folgt das eigentliche Thema/Transkript. Gib mir die Youtube Tags dafür:\n\n{{ $('Adjust Transcript Format').item.json.transcript }}",
+        "options": {
+          "systemMessage": "You will get the transcript of a Youtube video for which you should generate matching tags (YOU NEED TO separate it by comma).\n\nBased on the topic/transcript of the video generate YouTube tags. These tags should be very general about the topics. Give multiple matching YouTube Tags that improve SEO for the video. \n\nExample:\nif the video is about why gold is a good investment you will for example not use gold investments as a tag but rather just gold     \n\nThe tags (if appropriate) should be in German as the channel content is in German.\n\nReturn just the tags one word by one separated via Comma. \n\n\nDieses Video handelt vom zukünftigen Goldpreis und davon, wie er die Renditen von performanten Vermögenswerten wie Aktien und Anleihen in ihrer angepassten Rendite beeinflusst.\n\nErwartetet output:\nGoldpreis, zukünftiger Goldpreis, Goldinvestitionen, Vermögensrenditen, Aktien und Anleihen, Investitionsrenditen, angepasste Rendite, Goldmarkt, Finanzmärkte, Goldpreisprognose, Wirtschaftstrends, Investieren in Gold, Aktienmarktanalyse, Anleihenmarkt, Anlagestrategien, Inflation und Gold, Gold vs. Aktien, Finanzanalyse, Edelmetalle, Portfoliomanagement, Marktausblick, Investmenttipps\n "
+        }
+      },
+      "id": "54034e20-e6f1-4ff3-97a9-ab104036d68a",
+      "name": "YT Tags",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        2760,
+        440
+      ],
+      "typeVersion": 1.9
+    },
+    {
+      "parameters": {
+        "content": "# 📅Scheduling Logic⏰\n\n",
+        "height": 660,
+        "width": 2000,
+        "color": 4
+      },
+      "id": "029b4237-6b3b-4a1f-9afe-c7f5cc9ab5cd",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1800,
+        420
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "id": "db9f6d63-c901-4bb2-b747-30bfa90ade0c",
+      "name": "3s",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        3460,
+        700
+      ],
+      "webhookId": "1e75fe1f-e553-4530-a8bc-5e64208a1184",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "get",
+        "videoId": "={{ $json.videoId }}",
+        "options": {}
+      },
+      "id": "2d1c6509-b26b-48d4-a0f9-d9c2d8655e3b",
+      "name": "gettitle",
+      "type": "n8n-nodes-base.youTube",
+      "position": [
+        -240,
+        760
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Code only returns the videos that are not listed",
+        "width": 180,
+        "color": 5
+      },
+      "id": "fc89a27e-42ce-4bf9-9ac7-8bbb1f21d200",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -500,
+        420
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Video needs to be set to private TOGETHER with the PublishAt parameter in order for it to work.",
+        "height": 260,
+        "width": 220,
+        "color": 3
+      },
+      "id": "34e935b9-3433-433d-a2c2-ec2d1cb458e5",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -60,
+        480
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### Video needs to be Unlisted or Published in order for the scraper to be able to get the transcript\n\n### ADJUST YOUR APIFY API TOKEN HERE      \n# 👇🏻",
+        "height": 240,
+        "width": 280,
+        "color": 3
+      },
+      "id": "6504b741-7551-40e8-998d-8e114c264dc5",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1860,
+        420
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Generate Description, Tags, etc. 🖌️📝 #️⃣",
+        "height": 660,
+        "width": 3200,
+        "color": 4
+      },
+      "id": "10153d2f-7528-456b-a09f-c00f1eccc8e7",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        460,
+        420
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "update",
+        "videoId": "={{ $json.id }}",
+        "title": "={{ $json.snippet.title }}",
+        "regionCode": "DE",
+        "categoryId": "25",
+        "updateFields": {
+          "privacyStatus": "private",
+          "publishAt": "={{ $('Loop over All Videos not Published').item.json.publishAt }}"
+        }
+      },
+      "id": "0a1ea6a0-c203-4592-bad6-44bba34dd2e5",
+      "name": "Set Publish Date",
+      "type": "n8n-nodes-base.youTube",
+      "position": [
+        -60,
+        840
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 14,
+              "triggerAtMinute": 22
+            }
+          ]
+        }
+      },
+      "id": "a434007a-102c-47c1-8268-262c62626db8",
+      "name": "Every Day",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        -1720,
+        620
+      ],
+      "typeVersion": 1.2,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "limit": 2,
+        "filters": {},
+        "options": {
+          "order": "date"
+        }
+      },
+      "id": "de1968b7-d382-421e-875a-2a4bfc52730d",
+      "name": "Get Videos to reschedule",
+      "type": "n8n-nodes-base.youTube",
+      "position": [
+        -1340,
+        600
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract video IDs from YouTube search results\n// This function processes all input items and creates separate items for each videoId\n\n// Initialize empty array for our result items\nconst resultItems = [];\n\n// Process each input item\nfor (const item of items) {\n  // Check if the item has a valid structure\n  if (item.json && item.json.id && item.json.id.videoId) {\n    // Create a new item for each videoId\n    resultItems.push({\n      json: {\n        videoId: item.json.id.videoId\n      }\n    });\n  }\n}\n\n// Return each videoId as a separate item that can be processed individually\nreturn resultItems;"
+      },
+      "id": "c9d1cd3d-bb32-4e94-941f-b40c75e43c8d",
+      "name": "Get video Ids seperated",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        -1120,
+        600
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "c4ee434a-1a5c-468e-9ea2-010938a0c0a2",
+      "name": "Loop over Video IDs",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        -900,
+        600
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "get",
+        "videoId": "={{ $json.videoId }}",
+        "options": {}
+      },
+      "id": "2fe2c78c-5bbb-4767-8c54-64d9519b20d8",
+      "name": "Get Video Data",
+      "type": "n8n-nodes-base.youTube",
+      "position": [
+        -680,
+        620
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "jsCode": "// Utility function to get next Friday at 17:00 UTC in YouTube ISO 8601 format (YYYY-MM-DDTHH:mm:ssZ)\nfunction getNextFridayUTC(startDate, weekOffset = 0) {\n  const date = new Date(startDate); // Work with a copy\n  \n  const currentUTCDay = date.getUTCDay(); // 0 for Sunday, ..., 5 for Friday\n  const daysUntilFriday = (5 - currentUTCDay + 7) % 7; // Calculate days to next Friday\n  \n  date.setUTCDate(date.getUTCDate() + daysUntilFriday + (weekOffset * 7));\n  date.setUTCHours(17, 0, 0, 0); // Set time to 17:00:00.000 UTC\n  \n  // toISOString() returns \"YYYY-MM-DDTHH:mm:ss.sssZ\"\n  // We split at '.' to remove milliseconds and add 'Z' back for \"YYYY-MM-DDTHH:mm:ssZ\"\n  return date.toISOString().split('.')[0] + \"Z\";\n}\n\n// INPUT `items` is an array from n8n.\n// Each item.json is expected to be a YouTube video object from a previous node.\nconst videosToSchedule = items.filter(item => \n  item.json && \n  item.json.status && \n  (item.json.status.privacyStatus === \"unlisted\" || item.json.status.privacyStatus === \"private\")\n  // Adjust this filter if you only want to process \"unlisted\" or only \"private\" videos\n);\n\nif (videosToSchedule.length === 0) {\n  // console.log(\"No videos found matching the filter criteria.\");\n  return []; // Return empty array if no videos to schedule\n}\n\n// Sort videos by their original published/uploaded date (snippet.publishedAt), earliest first.\nvideosToSchedule.sort((a, b) => {\n  const dateA = new Date(a.json?.snippet?.publishedAt || '1970-01-01T00:00:00Z');\n  const dateB = new Date(b.json?.snippet?.publishedAt || '1970-01-01T00:00:00Z');\n  return dateA - dateB;\n});\n\nconst now = new Date(); // Current date to calculate future Fridays\n\n// Map the filtered and sorted videos to the desired output structure for the YouTube update node.\nconst scheduledItems = videosToSchedule.map((item, index) => {\n  const videoData = item.json; // The actual video data object\n  const scheduleDate = getNextFridayUTC(now, index); // Calculate the publishAt date\n  \n  return {\n    json: { // This is the structure the next n8n YouTube node will receive\n      videoId: videoData.id,                             // ID of the video to update\n      publishAt: scheduleDate,                           // The calculated schedule time: YYYY-MM-DDTHH:mm:ssZ\n      title: videoData.snippet?.title || \"Untitled Video\", // Keep original title or use a default\n      \n      // --- CRITICAL PARAMETERS FOR THE YOUTUBE API ---\n      privacy: \"private\", // **MUST BE 'private' FOR 'publishAt' TO WORK!**\n                          // The API requires the video to be set to private when scheduling.\n      \n      // **VERY LIKELY REQUIRED: selfDeclaredMadeForKids**\n      // You MUST tell YouTube if the video is made for kids or not.\n      // Get it from existing data if available, otherwise set a default.\n      selfDeclaredMadeForKids: videoData.status?.selfDeclaredMadeForKids === true ? true : false,\n\n      // **POSSIBLY REQUIRED: categoryId (if updating snippet like title)**\n      // categoryId: videoData.snippet?.categoryId || \"YOUR_DEFAULT_CATEGORY_ID\", \n      // e.g., \"10\" for Music, \"22\" for People & Blogs.\n      // Check YouTube API docs for category IDs.\n      \n      // (Optional) You can include other fields like description if you want to update them\n      // description: videoData.snippet?.description || \"\" \n    }\n  };\n});\n\nreturn scheduledItems; // Return the array of video objects to be processed"
+      },
+      "id": "83538cfe-2cb5-45f2-94f8-fb0c26b6727a",
+      "name": "Return Private Videos",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        -680,
+        440
+      ],
+      "typeVersion": 2,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "amount": 4
+      },
+      "id": "9e8832a6-a68c-4d95-b300-06d6551f8f6e",
+      "name": "4s",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        280,
+        800
+      ],
+      "webhookId": "7d5c70f8-a592-4634-8c5a-0fbd0cebf6a4",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "72a2e03a-a782-417a-a105-7d7f9b17041a",
+      "name": "Loop over All Videos not Published",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        -480,
+        620
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c2e2eecd-ca73-40c9-a364-4713030ab451",
+              "name": "id.videoId",
+              "type": "string",
+              "value": "={{ $json.id.videoId }}"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "b89ffb73-4314-46ca-9981-edbb791a5fa7",
+      "name": "get video id",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        920,
+        640
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "dedupeValue": "={{ $json.id.videoId }}",
+        "options": {}
+      },
+      "id": "fcc55e4b-a8c2-4646-a722-114a66ff0276",
+      "name": "Remove Duplicates from previous Runs",
+      "type": "n8n-nodes-base.removeDuplicates",
+      "position": [
+        1140,
+        640
+      ],
+      "typeVersion": 2,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "adfea7c7-ed64-4e1e-a9c3-dc5e33aa1147",
+              "operator": {
+                "type": "array",
+                "operation": "notExists",
+                "singleValue": true
+              },
+              "leftValue": "={{$('Remove Duplicates from previous Runs').all() }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e6d30ffd-2ef4-4464-bab9-be327e6e4a38",
+      "name": "new video?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1360,
+        640
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "get",
+        "videoId": "={{ $('get video id').item.json.id.videoId }}",
+        "options": {}
+      },
+      "id": "e0a49602-dfce-4178-8b8a-dd0277edc782",
+      "name": "getLatestVideoID",
+      "type": "n8n-nodes-base.youTube",
+      "position": [
+        1540,
+        720
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.apify.com/v2/acts/pintostudio~youtube-transcript-scraper/run-sync-get-dataset-items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "YOURAPITOKEN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"videoUrl\": \"https://www.youtube.com/watch?v={{ $json.id }}\"\n}",
+        "options": {}
+      },
+      "id": "0a083e15-57c5-4a38-a5a1-24e2c944c9ca",
+      "name": "Get Transcript",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1860,
+        680
+      ],
+      "typeVersion": 4.2,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst transcriptStrings = items.flatMap(item => {\n  const dataArray = item.json.data;\n\n  if (!dataArray || !Array.isArray(dataArray)) {\n    return [];\n  }\n\n  const segmentTexts = dataArray.map(segment => {\n      if (segment && typeof segment.text === 'string') {\n          return segment.text;\n      } else {\n          return '';\n      }\n  });\n\n  return segmentTexts;\n});\n\nconst transcript = transcriptStrings.join(' ');\n\nreturn [\n  {\n    json: {\n      transcript: transcript,\n    },\n  },\n];"
+      },
+      "id": "3e00c984-226b-4167-a335-c43d10e8c9a7",
+      "name": "Adjust Transcript Format",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        2140,
+        680
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "update",
+        "videoId": "={{ $('getLatestVideoID').first().json.id }}",
+        "title": "={{ $('Fetch Latest Videos').first().json.snippet.title }}",
+        "regionCode": "DE",
+        "categoryId": "25",
+        "updateFields": {
+          "description": "={{ $('Create Description').first().json.message.content }}\n\nDiese textbasierte Zusammenfassung des Videos wurde automatisch mit dem KI-Modell gpt-4.1-nano erstellt.]\n",
+          "tags": "={{ $('YT Tags').first().json.message.content }}"
+        }
+      },
+      "id": "c3d4a181-4e15-4d17-8501-e8ddfee555f8",
+      "name": "Update Video's Metadata",
+      "type": "n8n-nodes-base.youTube",
+      "position": [
+        3200,
+        700
+      ],
+      "typeVersion": 1
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-09T23:08:40.721Z",
+  "versionId": "790a2467-c01c-4108-a703-352b7c4239e2"
+}
