@@ -1,0 +1,1022 @@
+{
+  "active": false,
+  "connections": {
+    "Gemini 2.0 Flash": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Model Selector",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Model Selector": {
+      "main": [
+        [
+          {
+            "node": "Smarty Pants",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dynamic Brain": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Smarty Pants",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Draft": {
+      "ai_tool": [
+        [
+          {
+            "node": "Smarty Pants",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contacts": {
+      "ai_tool": [
+        [
+          {
+            "node": "Smarty Pants",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Event": {
+      "ai_tool": [
+        [
+          {
+            "node": "Smarty Pants",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tavily": {
+      "ai_tool": [
+        [
+          {
+            "node": "Smarty Pants",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Output": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack Trigger": {
+      "main": [
+        [
+          {
+            "node": "Model Selector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Smarty Pants": {
+      "main": [
+        [
+          {
+            "node": "Log Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Download File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download File": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings_OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Model-Selector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini 2.0-Flash": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Model-Selector",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dynamic-Brain": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Model-Selector": {
+      "main": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "knowledgeBase": {
+      "ai_tool": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "knowledgeBase",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-31T19:54:53.024Z",
+  "id": "raNGgfcyoPsrGmdp",
+  "meta": null,
+  "name": "Dynamical Brain",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "google/gemini-2.0-flash-001",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2560,
+        960
+      ],
+      "id": "ae99bfea-9ff1-4c70-8437-0ee974b91d42",
+      "name": "Gemini 2.0 Flash"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.blocks[0].elements[0].elements[1].text }}",
+        "options": {
+          "systemMessage": "=# Overview\nYou are an AI agent responsible for selecting the most suitable large language model to handle a given user request. Choose only one model from the list below based strictly on each model’s strengths.  \n\n## Instructions\nAnalyze the user’s request and return the exact model name that best fits the task. Your response must contain only the model name. No explanations, no formatting, no extra text.\n\n## Available Models and Strengths\n- `google/gemini-2.0-flash-001`: best for fast, lightweight, conversational tasks or simple general-purpose queries  \n- `openai/gpt-4.1-mini`: best for tool calling creating calendar events or getting contact information\n- `anthropic/claude-3.7-sonnet`: best for writing high-quality content, research summaries, or tasks requiring clear, professional language  \n- `openai/o1`: best for deep logical reasoning and coding in a conversational way  \n\n### Output Format:\nReturn only one of the following strings:\n- google/gemini-2.0-flash-001  \n- openai/gpt-4.1-mini  \n- anthropic/claude-3.7-sonnet  \n- openai/o1\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        2320,
+        720
+      ],
+      "id": "48836611-a39c-4422-81f9-e4ff1e2f0520",
+      "name": "Model Selector"
+    },
+    {
+      "parameters": {
+        "model": "={{ $('Model Selector').item.json.output.trimEnd() }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2780,
+        960
+      ],
+      "id": "960dcd04-21bf-45d7-a1af-54cafc652e77",
+      "name": "Dynamic Brain"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        3120,
+        960
+      ],
+      "id": "a2e7a7bf-c3d7-400b-ac72-366631bf5d8b",
+      "name": "Create Draft",
+      "webhookId": "6be69b91-607c-45a2-9df4-5be8d4ff544c"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appK0rbtvf9e7vt6w",
+          "mode": "list",
+          "cachedResultName": "Contacts",
+          "cachedResultUrl": "https://airtable.com/appK0rbtvf9e7vt6w"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl08JGCfUK1RhXsG",
+          "mode": "list",
+          "cachedResultName": "Contacts",
+          "cachedResultUrl": "https://airtable.com/appK0rbtvf9e7vt6w/tbl08JGCfUK1RhXsG"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        3240,
+        960
+      ],
+      "id": "ca0ab29a-6f24-4c31-8323-85408e0cdbd8",
+      "name": "Contacts"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "nateherk88@gmail.com",
+          "mode": "list",
+          "cachedResultName": "nateherk88@gmail.com"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "additionalFields": {
+          "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        3000,
+        960
+      ],
+      "id": "3f69729a-5c62-458d-bfad-2c21da8d1c0e",
+      "name": "Create Event"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Use this tool to search the web. ",
+        "method": "POST",
+        "url": "https://api.tavily.com/search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"query\": \"{searchTerm}\",\n  \"topic\": \"general\",\n  \"search_depth\": \"advanced\",\n  \"chunks_per_source\": 3,\n  \"max_results\": 1,\n  \"time_range\": null,\n  \"days\": 7,\n  \"include_answer\": true,\n  \"include_raw_content\": false,\n  \"include_images\": false,\n  \"include_image_descriptions\": false,\n  \"include_domains\": [],\n  \"exclude_domains\": []\n}",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "name": "searchTerm",
+              "description": "What the user is searching for. "
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        3360,
+        960
+      ],
+      "id": "4692e6aa-4da8-479f-b981-4dabf2b1c8d9",
+      "name": "Tavily"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1b6Xi7EqH0TZfIvTxC0_KYcJPg_zsqdylaWowHvfWnYY",
+          "mode": "list",
+          "cachedResultName": "Dynamic Model Log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b6Xi7EqH0TZfIvTxC0_KYcJPg_zsqdylaWowHvfWnYY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b6Xi7EqH0TZfIvTxC0_KYcJPg_zsqdylaWowHvfWnYY/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $now.format('yyyy-MM-dd hh:mm a') }}",
+            "Input": "={{ $('Slack Trigger').item.json.blocks[0].elements[0].elements[1].text }}",
+            "Output": "={{ $json.output.trimEnd() }}",
+            "Model": "={{ $('Model Selector').item.json.output.trimEnd() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Input",
+              "displayName": "Input",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Output",
+              "displayName": "Output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Model",
+              "displayName": "Model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        3080,
+        720
+      ],
+      "id": "74d4243c-0636-416c-bdc9-b77c0ca103ff",
+      "name": "Log Output"
+    },
+    {
+      "parameters": {
+        "trigger": [
+          "app_mention"
+        ],
+        "channelId": {
+          "__rl": true,
+          "value": "C08L6NPLT98",
+          "mode": "list",
+          "cachedResultName": "youtube"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [
+        2080,
+        720
+      ],
+      "id": "3012e0ec-b601-4245-b3a4-83755569bc6c",
+      "name": "Slack Trigger",
+      "webhookId": "f5b6119f-375e-44ad-8e27-ac8549165b21"
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C08L6NPLT98",
+          "mode": "list",
+          "cachedResultName": "youtube"
+        },
+        "text": "={{ $('Smarty Pants').item.json.output.trimEnd() }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        3320,
+        720
+      ],
+      "id": "9157ef52-beae-4274-9bff-b547658ae3b4",
+      "name": "Slack",
+      "webhookId": "1a0e0d6b-891f-4e1a-b5ac-be6822a00dcd"
+    },
+    {
+      "parameters": {
+        "content": "## Slack Trigger\n",
+        "height": 240,
+        "width": 220
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2020,
+        640
+      ],
+      "id": "733a80cc-8adf-4978-b64e-0e20ff0730f7",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Model Selector Agent\n\n",
+        "height": 240,
+        "width": 360,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2260,
+        640
+      ],
+      "id": "611e186f-533c-46e0-9b21-3020c1f39589",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Smart Tools Agent\n\n",
+        "height": 240,
+        "width": 360,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2640,
+        640
+      ],
+      "id": "3cbab9db-e5ea-4de3-8cee-6a95173de364",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Slack Response\n",
+        "height": 240,
+        "width": 220
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3260,
+        640
+      ],
+      "id": "9bda0cab-75fa-422c-9454-e9a0f849e1da",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Log Run\n",
+        "height": 240,
+        "width": 220,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3020,
+        640
+      ],
+      "id": "953c1345-a263-4c50-b9b3-c3a5d5d8b011",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## Dynamic Brain",
+        "height": 200,
+        "width": 200,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2720,
+        900
+      ],
+      "id": "75710ceb-ab5a-49f0-8b50-9fc0d02d5c15",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## Tools",
+        "height": 200,
+        "width": 540,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2940,
+        900
+      ],
+      "id": "b82e8b37-b1ff-452a-acb1-d6fcdb3f8667",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## Flash 2.0",
+        "height": 200,
+        "width": 200,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2500,
+        900
+      ],
+      "id": "515bbfdb-efc2-4c80-a056-ebb2732be915",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Slack Trigger').item.json.blocks[0].elements[0].elements[1].text }}",
+        "options": {
+          "systemMessage": "=Here is the current date/time: {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        2700,
+        720
+      ],
+      "id": "6f7cb443-f861-4e49-b981-65b1263be583",
+      "name": "Smarty Pants"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        2680,
+        1780
+      ],
+      "id": "e75ff28b-1cb5-4d8c-b220-be1bc31db288",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2940,
+        1780
+      ],
+      "id": "86312041-fd5e-4077-9d52-bbef7c1f5432",
+      "name": "Download File"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {
+          "queryName": "match_documents"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        3180,
+        1780
+      ],
+      "id": "63599d39-b487-4856-a7a6-1a17b1ca16c2",
+      "name": "Supabase Vector Store"
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        3000,
+        2040
+      ],
+      "id": "68b2560f-1b0c-4b07-ae43-90785994e549",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        3320,
+        2040
+      ],
+      "id": "8760c1f5-35a1-476a-8a1c-7235e7550e4b",
+      "name": "Recursive Character Text Splitter"
+    },
+    {
+      "parameters": {
+        "content": "## Manual Trigger\n",
+        "height": 240
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2620,
+        1700
+      ],
+      "id": "554820bd-75f4-4e43-8f9e-fdbeb64acd6b",
+      "name": "Sticky Note13"
+    },
+    {
+      "parameters": {
+        "content": "## Download File\n\n",
+        "height": 240,
+        "width": 220,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2880,
+        1700
+      ],
+      "id": "2ab9ca1d-3d01-4459-b37d-a3b5996a82c3",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "content": "## Insert to Supabase\n\n",
+        "height": 240,
+        "width": 360,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3120,
+        1700
+      ],
+      "id": "0ba1d844-ca94-4531-8ef2-1f7cf9dcfe5f",
+      "name": "Sticky Note15"
+    },
+    {
+      "parameters": {
+        "content": "## Vectorizing",
+        "height": 240,
+        "width": 700,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2780,
+        1960
+      ],
+      "id": "5160921e-fad4-49cc-9d86-b7abc69d4fa7",
+      "name": "Sticky Note16"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2860,
+        2040
+      ],
+      "id": "e69b2023-a2bd-4481-9df1-068df205ec39",
+      "name": "Embeddings_OpenAI"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        2540,
+        1260
+      ],
+      "id": "7721a7f9-cf31-4be8-b42c-5380c8f268dd",
+      "name": "When chat message received",
+      "webhookId": "e5725d85-7e40-48ab-aa50-51dfa9f3d076"
+    },
+    {
+      "parameters": {
+        "content": "## Model Selector Agent\n\n",
+        "height": 240,
+        "width": 360,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2740,
+        1180
+      ],
+      "id": "3b019f8e-61e3-4950-b5cc-c06ba62bab6e",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## Dynamic Brain",
+        "height": 200,
+        "width": 200,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2740,
+        1440
+      ],
+      "id": "a23b9761-954b-4ef4-9333-4883cdc86117",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "## Flash 2.0",
+        "height": 200,
+        "width": 200,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2520,
+        1440
+      ],
+      "id": "c020f938-67ba-4794-bfc6-2bfd9dc491d2",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "## Smart RAG Agent\n\n",
+        "height": 240,
+        "width": 360,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3120,
+        1180
+      ],
+      "id": "6f365f64-a574-41ca-9f9c-2a3ce34c8c77",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('When chat message received').item.json.chatInput }}",
+        "options": {
+          "systemMessage": "=# Overview\nYou are an AI agent that works at a company called Tech Haven, and you have access to a knowledge base that has policy and FAQ information. Your job is to respond to the user's query by using your \"knowledgeBase\" tool and answering their question. "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        3180,
+        1260
+      ],
+      "id": "423f6cb5-761b-43b3-8b6e-b372151349e6",
+      "name": "RAG Agent"
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.0-flash-001",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2580,
+        1500
+      ],
+      "id": "1f26cda8-3cdb-4212-9f5f-25aeef8bf102",
+      "name": "Gemini 2.0-Flash"
+    },
+    {
+      "parameters": {
+        "model": "={{ $json.output.trimEnd() }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2800,
+        1500
+      ],
+      "id": "8d3a0fce-3600-4ab7-8255-b1283f865b31",
+      "name": "Dynamic-Brain"
+    },
+    {
+      "parameters": {
+        "content": "## Slack Trigger\n",
+        "height": 240
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2480,
+        1180
+      ],
+      "id": "1e790612-7cbb-4b6e-8121-ce951235de72",
+      "name": "Sticky Note12"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview  \nYou are an AI agent responsible for selecting the most suitable large language model to handle a given user request. Choose only one model from the list below based strictly on each model’s strengths.  \n\n## Instructions  \nAnalyze the user’s request and return the exact model name that best fits the task. Your response must contain only the model name. No explanations, no formatting, no extra text.  \n\n## Available Models and Strengths  \n- `openai/gpt-4.1-mini`: best for simple, factual, or lightweight queries that require minimal reasoning  \n- `anthropic/claude-3.5-sonnet`: best for standard or moderately complex tasks, including multi-step reasoning or basic problem solving  \n\n### Output Format:  \nReturn only one of the following strings:  \n- openai/gpt-4.1-mini  \n- anthropic/claude-3.5-sonnet  \n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        2800,
+        1260
+      ],
+      "id": "f2edc9b5-d698-458d-8200-759897fbd58f",
+      "name": "Model-Selector"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "knowledgeBase",
+        "toolDescription": "Call this tool to retrieve policy and FAQ information",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.1,
+      "position": [
+        3000,
+        1500
+      ],
+      "id": "3f7963d2-a40b-4952-829d-4f9669e1ec52",
+      "name": "knowledgeBase"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        3320,
+        1500
+      ],
+      "id": "77608e23-3998-451e-bda6-9d066ca596d2",
+      "name": "Embeddings OpenAI"
+    },
+    {
+      "parameters": {
+        "content": "## Knowledge Base",
+        "height": 200,
+        "width": 520,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2960,
+        1440
+      ],
+      "id": "c15e2628-accf-4c28-9d84-7558632687b1",
+      "name": "Sticky Note17"
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-03T22:36:17.000Z",
+  "versionId": "a5553ec7-6876-4c4f-8f28-743868c0fe8c"
+}
