@@ -1,0 +1,1367 @@
+{
+  "active": false,
+  "connections": {
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Confirm of next try",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "End of work",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Post on X",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Try Again ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rewriter": {
+      "main": [
+        [
+          {
+            "node": "Send post for approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Brief": {
+      "main": [
+        [
+          {
+            "node": "Idea creator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post on X": {
+      "main": [
+        [
+          {
+            "node": "Add post to examples",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Try Again ": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Content creator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Idea creator": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check History": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Content creator",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Content creator",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Examples": {
+      "ai_tool": [
+        [
+          {
+            "node": "Rewriter",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "Rewriter",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update history": {
+      "main": [
+        [
+          {
+            "node": "Discord confirm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get brand brief": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get_Brand_Brief": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Content creator",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Content creator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Content creator": {
+      "main": [
+        [
+          {
+            "node": "Rewriter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Rewriter",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Idea creator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirm of next try": {
+      "main": [
+        [
+          {
+            "node": "AI Content creator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get_Content_Fedback": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Content creator",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add post to examples": {
+      "main": [
+        [
+          {
+            "node": "Update history",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send post for approval": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Idea creator",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get Brief",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-22T06:24:54.623Z",
+  "id": "OTTEeqeTs0yPfDtZ",
+  "meta": null,
+  "name": "Automated Tweet Generator & Publisher with GPT-4, Discord, and Google Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "id": "1dbf817b-3233-4f71-979b-3326345d22a6",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1620,
+        820
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "1784315684",
+        "contextWindowLength": 25
+      },
+      "id": "9c6ab112-5550-4039-9f39-7cb66812a538",
+      "name": "Simple Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        1760,
+        820
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "name": "Get_Brand_Brief",
+        "workflowId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "NannfIKD8dUY1iOW",
+          "cachedResultName": "Get Brand Brief"
+        },
+        "workflowInputs": {
+          "value": {},
+          "schema": [],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "id": "67afbb16-76d9-4050-9e12-76bcf4cb3493",
+      "name": "Get_Brand_Brief",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "position": [
+        1900,
+        820
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "name": "Get_Content_Fedback",
+        "workflowId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "xdg5KIv5xSaMXBAD",
+          "cachedResultName": "Get Content Fedback"
+        },
+        "workflowInputs": {
+          "value": {},
+          "schema": [],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "id": "cc049c34-e13b-4b11-854a-ac7c5b207900",
+      "name": "Get_Content_Fedback",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "position": [
+        2060,
+        820
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Avalible idea for post:\n{{ $json['Post Idea'] }}",
+        "options": {
+          "systemMessage": "=You are a viral post creator for [YOUR NAME] as personal brand. Use the below steps to create content.\n\nSteps who alwas you must do :\n\n1.Always start by getting the brand brief using the Get_Brand_Brief tool.\n\n2.Create a post on the requested topic that aligns with the brand brief.\n\n3.Get feedback and a score on the post you created in step 2 by using the Get_Content_Feedback tool.\n\n4.If the score is below 0.7, use the feedback from step 3 to refine the post, then repeat steps 3 and 4.\n\n5. Check if this post was createed before usinmg history data form google sheets (Check History), if post was already publish find another  post.\n\n6.The final output should be the approved post.\n\nAlways go for all steps, don't skip any steps. always check post in use of get_content fedback  to check if poist is ok.\n\n\nMaintain a spartan tone of voice. Include emojis where necessary. Be confident, and conversational, creative and funny.This is for Twitter, keep responses 3 sentences maximum. Be offensive and controversial. Always output only lowercase letters. Do not be grammatically correct.",
+          "maxIterations": 10
+        }
+      },
+      "id": "a7e550f1-c33c-4a23-9600-06c46d9287c8",
+      "name": "AI Content creator",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1800,
+        560
+      ],
+      "typeVersion": 1.8
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "guildId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1359075430514167838",
+          "cachedResultUrl": "https://discord.com/channels/1241749058217971885/1359075430514167838",
+          "cachedResultName": "n8n-post-approval"
+        },
+        "content": "=Post Send 😍:\n{{ $json.output }}",
+        "options": {}
+      },
+      "id": "76890b0c-9deb-4ec5-8b04-7fcf85b9901a",
+      "name": "Discord confirm",
+      "type": "n8n-nodes-base.discord",
+      "position": [
+        5680,
+        520
+      ],
+      "webhookId": "4189ef95-876e-4d7c-aea4-89c2a63f852b",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "86fa3efe-22c2-4689-a89d-3dc8559491c3",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6c000874-282a-43d7-86bc-864160dbb968",
+      "name": "If2",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        4000,
+        480
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "f78093f8-1c7f-486e-bd7a-9095ac16a801",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $('Try Again ').item.json.data.approved }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a3970ef2-d147-46ca-85db-8b863fb95698",
+      "name": "If1",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        3860,
+        680
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "NannfIKD8dUY1iOW",
+          "cachedResultName": "Get Brand Brief"
+        },
+        "workflowInputs": {
+          "value": {},
+          "schema": [],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "id": "66c0c12e-9d52-4141-8434-74b9fc8e2379",
+      "name": "Get Brief",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "position": [
+        540,
+        560
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a5e0b3f6-a9b2-458d-83fd-ccef132fcc9f",
+              "name": "Post Idea",
+              "type": "array",
+              "value": "={{ $json.output.suggestions }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "476fba92-1cf4-4c92-8212-bcaaacee3c3d",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1060,
+        560
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"suggestions\": [\n    \"Create a post about AI in e-commerce.\",\n    \"Create a post about AI-powered sales tools.\"\n  ]\n}\n"
+      },
+      "id": "1fd02c33-8fc8-4718-a2d3-263e81adf76a",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "position": [
+        880,
+        760
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a professional content writer. Create 10 topic suggestions that align with the provided brand brief.\n\nJSON output format:\n\n{\n  \"suggestions\": [\n    \"Create a post about [...]\",\n    ...\n  ]\n}\n\nBrand brief:\n{{ $json.content }}",
+        "hasOutputParser": true
+      },
+      "id": "af03f2b2-6c4a-4089-963f-8808dca7aa08",
+      "name": "Idea creator",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [
+        700,
+        560
+      ],
+      "typeVersion": 1.6
+    },
+    {
+      "parameters": {},
+      "id": "31272db9-e2ae-4210-81a5-9714847b73d2",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        160,
+        540
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Idea creator\n## AI Agent who finds relevant ideas for posts on social media. He finds ideas with help of the brand brief.\n",
+        "height": 760,
+        "width": 880,
+        "color": 4
+      },
+      "id": "cfed8f0a-8ba8-44f6-b4e7-79eb25657837",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        400,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Content creator\n## Writes the first draft of a post based on the brand brief, with feedback on which post will fit best.\n",
+        "height": 760,
+        "width": 1000,
+        "color": 4
+      },
+      "id": "65c0039c-327a-4f10-88b9-4d62e6c25148",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1420,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "id": "b2d2f451-fc64-4d5d-8963-56ca308c0bb1",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        2660,
+        780
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "45323465"
+      },
+      "id": "f8728f55-9542-4051-98c9-44afc010d369",
+      "name": "Simple Memory1",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        2820,
+        780
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0/edit?usp=drivesdk",
+          "cachedResultName": "Content Creator for X"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0/edit#gid=0",
+          "cachedResultName": "History"
+        },
+        "options": {}
+      },
+      "id": "385d6def-5b71-45b5-91b3-36c5e3b40e9a",
+      "name": "Check History",
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "position": [
+        2240,
+        820
+      ],
+      "typeVersion": 4.5
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0/edit?usp=drivesdk",
+          "cachedResultName": "Content Creator for X"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 193556585,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0/edit#gid=193556585",
+          "cachedResultName": "Examples"
+        },
+        "options": {}
+      },
+      "id": "e017eeef-f4a6-4ca5-9b40-9dd292de3d60",
+      "name": "Check Examples",
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "position": [
+        3120,
+        780
+      ],
+      "typeVersion": 4.5
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rewrite this post to my style:  {{ $json.output }}",
+        "options": {
+          "systemMessage": "=You are a viral post Rewriter for [YOUR NAME] as personal brand. Your task is rewrite existing post to his style of speaking and his style of writing. Use the below steps to create content.\n\nSteps who alwas you must do :\n\n1.Anylayze first draw on post in user prompt.\n2.Get Examples form tools  Get_Examples(google sheets) of already writing post,a nd anylaze style of speaking and writing.\n3.Rewrite post with all previus data, match style of user, be a lilt e clever and non to schematic.\n4.The final output should be the approved post.\n\nAlways go for all steps, don't skip any steps. always check post in use of get_content fedback  to check if poist is ok.\n\n\nMaintain a spartan tone of voice. Include emojis where necessary. Be confident, and conversational, creative and funny.This is for Twitter, keep responses 3 sentences maximum. Be offensive and controversial. Always output only lowercase letters. Do not be grammatically correct.\n\n"
+        }
+      },
+      "id": "d5c27971-f03e-4a4d-a881-c7ed42109510",
+      "name": "Rewriter",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        2840,
+        560
+      ],
+      "typeVersion": 1.8
+    },
+    {
+      "parameters": {
+        "content": "# Rewriter\n## This agent rewrites posts to match your style using examples from a Google Sheet.\n",
+        "height": 780,
+        "width": 900,
+        "color": 4
+      },
+      "id": "0695be7e-45fb-4b52-a632-2d2dabbb8784",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2560,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Additional approval\n## Sends the post for approval in a Discord server, or you can use Telgram—whichever you prefer. This step is optional.\n",
+        "height": 780,
+        "width": 840,
+        "color": 5
+      },
+      "id": "4dbccf89-83b0-4aaf-b5af-b61f63c31a78",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3560,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendAndWait",
+        "guildId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1359075430514167838",
+          "cachedResultUrl": "https://discord.com/channels/1241749058217971885/1359075430514167838",
+          "cachedResultName": "n8n-post-approval"
+        },
+        "message": "=Aprove this post:\n{{ $json.output }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double"
+          }
+        },
+        "options": {}
+      },
+      "id": "5ab8a670-26f8-4e51-9de8-ea9cbcde1553",
+      "name": "Send post for approval",
+      "type": "n8n-nodes-base.discord",
+      "position": [
+        3720,
+        480
+      ],
+      "webhookId": "be56d68f-4420-4429-806a-e498c305c367",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendAndWait",
+        "guildId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1241749058217971885",
+          "cachedResultUrl": "https://discord.com/channels/1241749058217971885",
+          "cachedResultName": "Dark Dynasty"
+        },
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "message": "=Try Again ?",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double",
+            "approveLabel": "✓ Try",
+            "disapproveLabel": "✗ Stop"
+          }
+        },
+        "options": {}
+      },
+      "id": "bf1cb816-8058-4aed-a01d-61d087395a82",
+      "name": "Try Again ",
+      "type": "n8n-nodes-base.discord",
+      "position": [
+        3660,
+        680
+      ],
+      "webhookId": "be56d68f-4420-4429-806a-e498c305c367",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "guildId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1359075430514167838",
+          "cachedResultUrl": "https://discord.com/channels/1241749058217971885/1359075430514167838",
+          "cachedResultName": "n8n-post-approval"
+        },
+        "content": "End of workflow.",
+        "options": {}
+      },
+      "id": "56cf13c1-2777-4be3-9693-48ed02ca1c01",
+      "name": "End of work",
+      "type": "n8n-nodes-base.discord",
+      "position": [
+        3980,
+        840
+      ],
+      "webhookId": "a8499d3f-6d92-4537-b363-aa1d65969aaf",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "guildId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1359075430514167838",
+          "cachedResultUrl": "https://discord.com/channels/1241749058217971885/1359075430514167838",
+          "cachedResultName": "n8n-post-approval"
+        },
+        "content": "Let's try Again",
+        "options": {}
+      },
+      "id": "ff7e0ac6-3280-4e16-afa7-a935fe2544e8",
+      "name": "Confirm of next try",
+      "type": "n8n-nodes-base.discord",
+      "position": [
+        4220,
+        680
+      ],
+      "webhookId": "d943a4a0-c959-4bb3-be34-bf00dcc8d01a",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "text": "={{ $('Rewriter').item.json.output }}",
+        "additionalFields": {}
+      },
+      "id": "1c90e43a-764c-46a6-a75e-531cfb2affcd",
+      "name": "Post on X",
+      "type": "n8n-nodes-base.twitter",
+      "position": [
+        4700,
+        600
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0/edit?usp=drivesdk",
+          "cachedResultName": "Content Creator for X"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0/edit#gid=0",
+          "cachedResultName": "History"
+        },
+        "columns": {
+          "value": {
+            "Post": "={{ $('AI Content creator').item.json.output }}",
+            "Time": "={{ $now }}",
+            "Published": "TRUE"
+          },
+          "schema": [
+            {
+              "id": "Post",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Post",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Time",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Time",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Published",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "Published",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "b2e3fa20-4928-4a9f-aed3-f3a2e727b77d",
+      "name": "Update history",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        5240,
+        640
+      ],
+      "typeVersion": 4.5
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0/edit?usp=drivesdk",
+          "cachedResultName": "Content Creator for X"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 193556585,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fe1JuLiHgjOQxFC95knZRLAh4y1gv3dF_HmE_cpgxE0/edit#gid=193556585",
+          "cachedResultName": "Examples"
+        },
+        "columns": {
+          "value": {
+            "Examples": "={{ $('AI Content creator').item.json.output }}"
+          },
+          "schema": [
+            {
+              "id": "Examples",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "Examples",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Examples"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "764814c3-c02e-4b7c-a36e-d0dbce3c019d",
+      "name": "Add post to examples",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        5220,
+        420
+      ],
+      "typeVersion": 4.5
+    },
+    {
+      "parameters": {
+        "content": "# Post On X(Twitter)",
+        "height": 780,
+        "width": 480,
+        "color": 5
+      },
+      "id": "4dd7bce9-07ee-4be2-b5b5-42089371de48",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        4520,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Update History and Examples",
+        "height": 780,
+        "width": 420,
+        "color": 5
+      },
+      "id": "b5ce288c-3310-4304-b8bc-3d6ee4a638ff",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        5080,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Confirm of End Workflow",
+        "height": 780,
+        "width": 360,
+        "color": 5
+      },
+      "id": "7952e1c1-b757-4497-af13-8994ca751b4d",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        5540,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "e1c06b19-c286-4b5d-ba23-64be5ef9edf5",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        960,
+        1580
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "resource": "block",
+        "operation": "getAll",
+        "blockId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "[YOUR URL]"
+        },
+        "returnAll": true
+      },
+      "id": "59b185b6-90f2-47a1-9c4c-ae945e62bbb5",
+      "name": "Notion",
+      "type": "n8n-nodes-base.notion",
+      "position": [
+        1180,
+        1580
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "content"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "70204685-28ff-4853-b672-8f20a8720277",
+      "name": "Aggregate",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        1400,
+        1580
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "827e1eab-4db9-4943-ae9e-f4a52b91342a",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json.content.join() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0e3df556-5bf2-4c4b-9176-7627aebab709",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1620,
+        1580
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "content": "# Sub Workflow Get Brand Brief\n## Move to a separate workflow, add the trigger \"When Executed by Another Workflow\", and connect it to the main workflow \"AI Content Creator\".\n",
+        "height": 820,
+        "width": 1620,
+        "color": 2
+      },
+      "id": "b13e89b9-d6e3-49c6-b3cb-8fbc6f8eb9a7",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        640,
+        1300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "NannfIKD8dUY1iOW",
+          "cachedResultName": "Get Brand Brief"
+        },
+        "workflowInputs": {
+          "value": {},
+          "schema": [],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "id": "36ca0a93-6823-41e7-8244-1163f1ae58ef",
+      "name": "Get brand brief",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "position": [
+        3200,
+        1640
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=#RULES\nYou are tasked with evaluating a piece of content written for [YOUR NAME]. Your role is to assess how well the post aligns with Łukasz personal brand, using the below brief as your guide.\n\nPlease analyze the post based on the following criteria:\n\nDoes the post have unwanted artifacts like \"Let's try again\" or \"Here's a new post\"?\n\nDoes the content reflect Łuaksz core values, voice, and style as described in the brief?\n\nDoes it engage Łuaksz target audience as described in the brief?\n\nDoes it emphasize Łuaksz expertise and domain authority as described in the brief?\n\nIs the tone, messaging, and approach consistent with the brief's objectives and positioning?\n\nAfter evaluation, output a score between 0 and 1, representing the alignment between the post and the brand brief. The score should be output in the following JSON format:\n\n\n{\n  \"description\": \"[short description here]\",\n  \"score\": [insert score here]\n}\n\n\n#Brand Brief:\n{{ $json.content }}",
+              "role": "system"
+            },
+            {
+              "content": "={{ $('When Executed by Another Workflow').item.json.query }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "id": "91705c32-0f9d-4e10-a35d-7caccf47c735",
+      "name": "OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        3400,
+        1640
+      ],
+      "typeVersion": 1.8
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fee5f699-a3a7-431e-9d87-b6a0477ba3c8",
+              "name": "feedback",
+              "type": "string",
+              "value": "={{ $json.message.content.description }}"
+            },
+            {
+              "id": "47c14c4f-aefa-4fd4-b94e-64aaeba38b5a",
+              "name": "score",
+              "type": "number",
+              "value": "={{ $json.message.content.score }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "45e17820-96ab-4204-a093-b413dbd2763d",
+      "name": "Edit Fields2",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        3780,
+        1640
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "content": "# Sub Workflow Get Content Feedback\n## Move to a separate workflow, add the trigger \"When Executed by Another Workflow\", and connect it to the main workflow \"AI Content Creator\".\n",
+        "height": 800,
+        "width": 1660,
+        "color": 2
+      },
+      "id": "3d466e84-67b7-45e4-b41f-d8726b8a6548",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2840,
+        1320
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# Main workflow",
+        "height": 1200,
+        "width": 6080,
+        "color": 7
+      },
+      "id": "cec92031-d05b-475e-bf61-d7445ee197f2",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "22b2cfec-989f-47c4-acbc-45e010061931",
+      "name": "OpenAI Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        680,
+        780
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "content": "# ✅ AI X Post Creator – Quick Start Guide\n\nThis workflow automatically generates viral posts for your personal brand on X (Twitter).  \nIt creates a content idea based on your brand brief, writes a short post, evaluates the post’s alignment with your tone, checks if it was published before (via Google Sheets), rewrites if needed, sends it for approval on Discord, publishes to X, and updates history logs.\n\n---\n\n## 🔧 What You Need to Replace\n\n| Placeholder              | Where to Update                                                       |\n|--------------------------|------------------------------------------------------------------------|\n| **[YOUR NAME]**          | Prompt nodes: `AI Content creator`, `Rewriter`, `OpenAI`              |\n| **[YOUR URL]**           | Node: `Notion` (if you use Notion for brief)                          |\n| **OpenAi API**           | All `OpenAI` nodes – add your actual OpenAI credentials               |\n| **Google Sheets **       | All Google Sheets nodes – connect your real spreadsheet               |\n| **Discord Bot **         | Discord nodes – replace with your bot token & correct channel IDs     |\n| **X**                    | Twitter node – add your real X (Twitter) OAuth2 credentials           |\n| **Get Brand Brief**      | Sub-workflow ID – must return brand brief as text                     |\n| **Get Content Feedback** | Sub-workflow ID – must return post evaluation in JSON (score + notes) |\n\n---\n\n## 🧩 Required Subworkflows\n\n### 1. **Get Brand Brief**  \nCreate a sub-workflow that returns a brand tone/voice as a single `text` field.\n\n### 2. **Get Content Feedback**  \nCreate another sub-workflow that takes a post and brand brief, then returns:\n\n```json\n{\n  \"description\": \"Short evaluation of the post\",\n  \"score\": 0.0 – 1.0\n}\n",
+        "height": 1020,
+        "width": 1220,
+        "color": 3
+      },
+      "id": "2776bb1e-0126-4e53-9399-ffa38395ba95",
+      "name": "Sticky Note10",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        4760,
+        1280
+      ],
+      "typeVersion": 1
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-22T06:24:54.623Z",
+  "versionId": "4b062b6e-c78d-45e7-9e18-c774e9dc950b"
+}
