@@ -1,0 +1,888 @@
+{
+  "active": false,
+  "connections": {
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Set Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Create Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Video": {
+      "main": [
+        [
+          {
+            "node": "Gemini - Generate Upload URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Prompt": {
+      "main": [
+        [
+          {
+            "node": "Gemini - Ask Questions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Fields": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Values": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Video": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download File": {
+      "main": [
+        [
+          {
+            "node": "Gemini - Upload File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Apify - Fetch Reels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Creators": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Search Creators",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apify - Fetch Reels": {
+      "main": [
+        [
+          {
+            "node": "Save Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini - Upload File": {
+      "main": [
+        [
+          {
+            "node": "Save Values",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini - Ask Questions": {
+      "main": [
+        [
+          {
+            "node": "Set Guideline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini - Generate Upload URL": {
+      "main": [
+        [
+          {
+            "node": "Download File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Get Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-28T18:24:51.141Z",
+  "id": "Cyg5fZGEE3AGpWAi",
+  "meta": null,
+  "name": "Your Very Own Gen Z AI Marketer",
+  "nodes": [
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "id": "66ccdba9-4adb-44e7-acb4-5e79bdd03334",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        1200,
+        700
+      ],
+      "webhookId": "39f8a826-b775-488d-a660-57d2023451d4",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a21fe2d1-533b-4f09-94aa-9312c3dd05b8",
+              "name": "prompt",
+              "type": "string",
+              "value": "=Analyze reels: 1. How it starts  2. How it ends 3. What is going on video.  For us important to understand main params of the video to be able reproduct it. Params: 1. Background 2. Pose 3. Text 4. Clothes 5. Context 6. People/participants/roles  Example of result: Example 1: - Girl in the frame in evening dress - Party - Text: “Let's already admit that the most important ponte of a man is a gorgeous wife by his side” - Formatting: White text in the center on the background of a dynamic frame.  Example 2: - Behind-the-scenes moments from the shooting of the video - A girl with a beautiful figure, large breasts in a swimsuit and bathing skirt - Text below “When at 35 you explain to your man that you need a hand in the frame for the strongest part”."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "32870c9f-4ab3-4d35-ad4b-0f4c576a05c2",
+      "name": "Set Prompt",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1360,
+        700
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/upload/v1beta/files",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "<your_token_here>"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Goog-Upload-Protocol",
+              "value": "resumable"
+            },
+            {
+              "name": "X-Goog-Upload-Command",
+              "value": "start"
+            },
+            {
+              "name": "X-Goog-Upload-Header-Content-Length",
+              "value": "={{ $json.Video[0].size }}"
+            },
+            {
+              "name": "X-Goog-Upload-Header-Content-Type",
+              "value": "={{ $json.Video[0].type }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n\"file\": {\n\"display_name\": \"{{ $json.Video[0].filename }}\"\n}\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "9eb0c75f-6c8c-4a16-9ce9-1fa29ef41f2b",
+      "name": "Gemini - Generate Upload URL",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        520,
+        700
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Gemini - Generate Upload URL').item.json.headers['x-goog-upload-url'] }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "<your_token_here>"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Length",
+              "value": "={{ $('Get Video').item.json.Video[0].size }}"
+            },
+            {
+              "name": "X-Goog-Upload-Offset",
+              "value": "0"
+            },
+            {
+              "name": "X-Goog-Upload-Command",
+              "value": "upload, finalize"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {
+          "response": {}
+        }
+      },
+      "id": "74d0a649-b21a-44bf-833d-8270896b609d",
+      "name": "Gemini - Upload File",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        860,
+        700
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "<your_token_here>"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"contents\": [\n      {\n         \"parts\": [\n            {\n               \"text\": \"{{ $json.prompt }}\"\n            },\n            {\n               \"file_data\": {\n                  \"mime_type\": \"{{ $('Save Values').item.json.mimeType }}\",\n                  \"file_uri\": \"{{ $('Save Values').item.json.gemini_file_url }}\"\n               }\n            }\n         ]\n      }\n   ]\n}\n",
+        "options": {
+          "response": {}
+        }
+      },
+      "id": "2e7e95e3-0107-4d3d-95a3-6f9196ac75b1",
+      "name": "Gemini - Ask Questions",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1560,
+        700
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4fb7b732-17f9-41a2-986d-5d62b1331242",
+              "name": "gemini_file_url",
+              "type": "string",
+              "value": "={{ $json.file.uri }}"
+            },
+            {
+              "id": "5f3018b4-571f-433c-a07b-2fb86f63b9b6",
+              "name": "mimeType",
+              "type": "string",
+              "value": "={{ $json.file.mimeType }}"
+            },
+            {
+              "id": "c5532f11-ec31-49f8-aa26-7f42b7d24fa4",
+              "name": "airtable_rec_id",
+              "type": "string",
+              "value": "={{ $('Get Video').item.json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d5714986-e332-46c1-95dc-a24b6e2e1f7d",
+      "name": "Save Values",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1040,
+        700
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/apify~instagram-scraper/run-sync-get-dataset-items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "<your_token_here>"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"addParentData\": false,\n    \"directUrls\": [\n        \"https://www.instagram.com/{{ $json['Instagram Username'] }}/\"\n    ],\n    \"enhanceUserSearchWithFacebookPage\": false,\n    \"isUserReelFeedURL\": false,\n    \"isUserTaggedFeedURL\": false,\n    \"onlyPostsNewerThan\": \"{{ new Date().toISOString().slice(0, 10).replace(/-\\d+$/, '-01') }}\",\n    \"resultsLimit\": 20,\n    \"resultsType\": \"stories\"\n}",
+        "options": {}
+      },
+      "id": "bdb04d57-5fe0-4a1f-aebc-bf0b2a9560e3",
+      "name": "Apify - Fetch Reels",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        700,
+        0
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "views",
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "920f2bc1-5904-45bd-bbdb-06eef6241c6d",
+      "name": "Sort",
+      "type": "n8n-nodes-base.sort",
+      "position": [
+        1120,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "f983115b-e034-4108-99ad-7384ee852150",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "position": [
+        1320,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"url\": {{ JSON.stringify($json.videoUrl) }}\n,\n  \"views\": {{ $json.videoViewCount }},\n\"caption\": {{ JSON.stringify($json.caption) }}\n,\n\"creator\": \"{{ $('Loop Over Items').item.json.Name }}\"\n}",
+        "options": {}
+      },
+      "id": "8c4c0bbd-3f21-4aef-843d-749d943774d7",
+      "name": "Save Fields",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        900,
+        0
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "79fa9080-1f01-4579-87ba-c20e2836ded5",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        440,
+        0
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "6gkO35O8e27oFfyq",
+          "cachedResultName": "Gemini - Video Analysis 2"
+        },
+        "options": {}
+      },
+      "id": "542a1c53-7e22-4659-8cc0-23ec506919a2",
+      "name": "Execute Workflow1",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "position": [
+        1800,
+        0
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Get Video').item.json.Video[0].url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "636bce54-b31a-4096-91e1-36d2eec69059",
+      "name": "Download File",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        700,
+        700
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "mode": "list",
+          "value": "appndgSF4faN4jPXi",
+          "cachedResultUrl": "https://airtable.com/appndgSF4faN4jPXi",
+          "cachedResultName": "Philipp's Base"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": "tbldgihe8Tx1DsAWq",
+          "cachedResultUrl": "https://airtable.com/appndgSF4faN4jPXi/tbldgihe8Tx1DsAWq",
+          "cachedResultName": "Videos"
+        },
+        "columns": {
+          "value": {
+            "Video": "={{ [ {\"url\":$json.url} ] }}",
+            "Views": "={{ $json.views }}",
+            "Caption": "={{ $json.caption }}",
+            "Creator": "={{ [$json.creator] }}"
+          },
+          "schema": [
+            {
+              "id": "Caption",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "readOnly": false,
+              "required": false,
+              "displayName": "Caption",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Video",
+              "type": "array",
+              "display": true,
+              "removed": false,
+              "readOnly": false,
+              "required": false,
+              "displayName": "Video",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Guideline",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "readOnly": false,
+              "required": false,
+              "displayName": "Guideline",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Creation Date",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "readOnly": true,
+              "required": false,
+              "displayName": "Creation Date",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Creator",
+              "type": "array",
+              "display": true,
+              "removed": false,
+              "readOnly": false,
+              "required": false,
+              "displayName": "Creator",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Views",
+              "type": "number",
+              "display": true,
+              "removed": false,
+              "readOnly": false,
+              "required": false,
+              "displayName": "Views",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "Name"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "typecast": true
+        }
+      },
+      "id": "d5313af6-4a1b-454e-9767-cf3171cc047e",
+      "name": "Create Video",
+      "type": "n8n-nodes-base.airtable",
+      "position": [
+        1580,
+        0
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "base": {
+          "__rl": true,
+          "mode": "list",
+          "value": "appndgSF4faN4jPXi",
+          "cachedResultUrl": "https://airtable.com/appndgSF4faN4jPXi",
+          "cachedResultName": "Philipp's Base"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": "tbldgihe8Tx1DsAWq",
+          "cachedResultUrl": "https://airtable.com/appndgSF4faN4jPXi/tbldgihe8Tx1DsAWq",
+          "cachedResultName": "Videos"
+        },
+        "id": "={{ $json.id }}",
+        "options": {}
+      },
+      "id": "2a1b1f69-d621-4ec3-b6e2-5315357db902",
+      "name": "Get Video",
+      "type": "n8n-nodes-base.airtable",
+      "position": [
+        320,
+        700
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "mode": "list",
+          "value": "appndgSF4faN4jPXi",
+          "cachedResultUrl": "https://airtable.com/appndgSF4faN4jPXi",
+          "cachedResultName": "Philipp's Base"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": "tbldgihe8Tx1DsAWq",
+          "cachedResultUrl": "https://airtable.com/appndgSF4faN4jPXi/tbldgihe8Tx1DsAWq",
+          "cachedResultName": "Videos"
+        },
+        "columns": {
+          "value": {
+            "id": "={{ $('Get Video').first().json.id }}",
+            "Guideline": "={{ $json.candidates[0].content.parts[0].text }}"
+          },
+          "schema": [
+            {
+              "id": "id",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "readOnly": true,
+              "required": false,
+              "displayName": "id",
+              "defaultMatch": true
+            },
+            {
+              "id": "ID",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "readOnly": true,
+              "required": false,
+              "displayName": "ID",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Video",
+              "type": "array",
+              "display": true,
+              "removed": true,
+              "readOnly": false,
+              "required": false,
+              "displayName": "Video",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Guideline",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "readOnly": false,
+              "required": false,
+              "displayName": "Guideline",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "id"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "83566def-5346-486a-8654-5af00b18b9f0",
+      "name": "Set Guideline",
+      "type": "n8n-nodes-base.airtable",
+      "position": [
+        1740,
+        700
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "mode": "list",
+          "value": "appndgSF4faN4jPXi",
+          "cachedResultUrl": "https://airtable.com/appndgSF4faN4jPXi",
+          "cachedResultName": "Philipp's Base"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": "tbl8uSud7C0kZe3RO",
+          "cachedResultUrl": "https://airtable.com/appndgSF4faN4jPXi/tbl8uSud7C0kZe3RO",
+          "cachedResultName": "Creators"
+        },
+        "returnAll": false,
+        "limit": null,
+        "options": {}
+      },
+      "id": "648bcbfb-0fd5-4892-9183-996f2a0bbde6",
+      "name": "Search Creators",
+      "type": "n8n-nodes-base.airtable",
+      "position": [
+        220,
+        0
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months"
+            }
+          ]
+        }
+      },
+      "id": "bc438aef-05af-427a-9d66-b7da5cfe05b5",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "79458d5c-1562-41e4-9561-b28f9189032f",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        100,
+        700
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuqlkyXErGzrg1FXofk8G2BVndzjCUhPrciQ&s#full-width)",
+        "height": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -620,
+        60
+      ],
+      "id": "237dde2d-e5c7-42aa-88d9-413add816c86",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiUTBpc3UbWiihGjEUDy0m7QHxbin8et62aw&s#full-width)",
+        "height": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -380,
+        140
+      ],
+      "id": "78912df3-f8a3-4ea9-9948-f41dcf5f2319",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "![Source example](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMyVAv1MobujzsfKH-4L-qE8J1LA6XtfY2lg&ss#full-width)",
+        "height": 440,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -140,
+        220
+      ],
+      "id": "265aff12-717a-46c0-aae1-e33cc183b6b5",
+      "name": "Sticky Note2"
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-28T18:21:29.086Z",
+      "updatedAt": "2025-04-28T18:21:29.086Z",
+      "id": "qwbUNeviBcOfBzUg",
+      "name": "API Config."
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-28T18:24:51.141Z",
+  "versionId": "40b01c9b-1775-4563-ad19-9c2306a434ba"
+}
