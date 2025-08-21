@@ -1,0 +1,255 @@
+{
+  "active": false,
+  "connections": {
+    "Fetch Templates Page": {
+      "main": [
+        [
+          {
+            "node": "Split Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Workflows": {
+      "main": [
+        [
+          {
+            "node": "Fetch Full Template",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Full Template": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Fetch Templates Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-11T21:00:01.206Z",
+  "id": "KohwjFUGqGEeq5UZ",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Fetch N8N Free Templates Based on keyword search",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://api.n8n.io/templates/search",
+        "options": {},
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "page",
+              "value": "={{ $('On form submission').item.json['which page you want to return?'] }}"
+            },
+            {
+              "name": "rows",
+              "value": "={{ $('On form submission').item.json['How manyrows per page you want to return?'] }}"
+            },
+            {
+              "name": "search",
+              "value": "={{ $json['What is your search query?'] }}"
+            }
+          ]
+        }
+      },
+      "name": "Fetch Templates Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        320
+      ],
+      "id": "a3ff346a-7e63-4575-9a66-28df06e5d591"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "workflows",
+        "options": {}
+      },
+      "name": "Split Workflows",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 1,
+      "position": [
+        0,
+        320
+      ],
+      "id": "f6ae404f-62d5-4eca-a393-39a9a7776e78"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.n8n.io/templates/workflows/{{ $json.id }}",
+        "options": {
+          "splitIntoItems": false
+        }
+      },
+      "name": "Fetch Full Template",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        220,
+        320
+      ],
+      "id": "d281ae02-1e67-41cc-bbbc-0f1a98e3b2c0"
+    },
+    {
+      "parameters": {
+        "formTitle": "What is your search query?",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "What is your search query?"
+            },
+            {
+              "fieldLabel": "How manyrows per page you want to return?",
+              "fieldType": "number"
+            },
+            {
+              "fieldLabel": "which page you want to return?",
+              "fieldType": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -440,
+        320
+      ],
+      "id": "65ab2278-4ce6-4638-b9bf-970e91706be8",
+      "name": "On form submission",
+      "webhookId": "856b4147-8161-470d-a929-7c50706d0361"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Get the JSON data from the previous node\nconst inputData =  $json.workflow;\n\nconst filteredData = {\n  name: $json.workflow.name,\n  meta:$json.workflow.workflow.meta,\n  nodes: $json.workflow.workflow.nodes,\n  connections: $json.workflow.workflow.connections,\n  settings: $json.workflow.workflow.settings\n};\nreturn filteredData;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        320
+      ],
+      "id": "bac18275-1c21-4c63-b7de-7af652896f51",
+      "name": "Code",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "mode": "each",
+        "options": {
+          "fileName": "={{ $json.name }}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        320
+      ],
+      "id": "71229a08-4574-4254-b9d0-f0ef1fd860cd",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "Deykord",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n-backups",
+          "mode": "list",
+          "cachedResultName": "n8n-backups",
+          "cachedResultUrl": "https://github.com/deykord/n8n-backups"
+        },
+        "filePath": "=free-templates/{{ $('On form submission').item.json['What is your search query?'] }}/{{ $('Fetch Full Template').item.json.workflow.id }} - {{ $('Fetch Full Template').item.json.workflow.name }}",
+        "binaryData": true,
+        "commitMessage": "={{ $('Code').item.json.name }}"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        320
+      ],
+      "id": "40f41bfa-cbdf-4c31-be38-9576946a3d84",
+      "name": "GitHub",
+      "webhookId": "a18355f5-9600-4fae-8161-3fca420579f1",
+      "credentials": {
+        "githubApi": {
+          "id": "k0pho8rSjZFuseEf",
+          "name": "GitHub account - Deykord"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-28T18:16:58.775Z",
+      "updatedAt": "2025-04-28T18:16:58.775Z",
+      "id": "5fWvt038qtjyrogG",
+      "name": "Ready For Production"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-09T02:49:15.000Z",
+  "versionId": "a0efe022-3486-4593-9e96-a1aa6d05496a"
+}
