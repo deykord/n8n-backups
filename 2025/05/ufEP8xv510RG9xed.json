@@ -1,0 +1,659 @@
+{
+  "active": false,
+  "connections": {
+    "Counter": {
+      "main": [
+        [
+          {
+            "node": "Get Tweets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Count": {
+      "main": [
+        [
+          {
+            "node": "Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Increase": {
+      "main": [
+        [
+          {
+            "node": "Increase Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increase Count": {
+      "main": [
+        [
+          {
+            "node": "Set Count and Cursor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Count and Cursor": {
+      "main": [
+        [
+          {
+            "node": "Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add to Sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Info": {
+      "main": [
+        [
+          {
+            "node": "Add to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Set Increase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Tweets": {
+      "main": [
+        [
+          {
+            "node": "Extract Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Set Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-31T18:49:09.370Z",
+  "id": "ufEP8xv510RG9xed",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Scrape Twitter",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bc47f40e-0850-4762-9efb-999608a2c096",
+              "name": "counter",
+              "value": "={{ $json.count }}",
+              "type": "number"
+            },
+            {
+              "id": "92034c06-3976-4099-a7a5-28a252204472",
+              "name": "cursor",
+              "value": "={{ $json.cursor }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        200,
+        100
+      ],
+      "id": "53b50eb9-cb5b-4378-b061-1bd51c9ce59a",
+      "name": "Counter"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b2f9c3c3-32f4-48b4-b72f-76f03c35b750",
+              "name": "count",
+              "value": 1,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        100
+      ],
+      "id": "a4b469b7-fdcb-43e2-861a-26d5ffe7b557",
+      "name": "Set Count"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "928894d0-2876-4996-9b1e-3d365b903771",
+              "leftValue": "={{ $('Counter').item.json.counter }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1100,
+        100
+      ],
+      "id": "6e8ef29d-30aa-47aa-9b05-33cdf2b3d8c1",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a252eb06-03cd-4e3f-84b0-2a46082606ca",
+              "name": "counter",
+              "value": "={{ $('Counter').item.json.counter }}",
+              "type": "number"
+            },
+            {
+              "id": "43222ff8-c354-4afa-b050-7d55fe30c865",
+              "name": "cursor",
+              "value": "={{ $('Get Tweets').item.json.next_cursor }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        420,
+        420
+      ],
+      "id": "946ef1b6-5e74-49c3-baab-c73d33ca5c06",
+      "name": "Set Increase"
+    },
+    {
+      "parameters": {
+        "jsCode": "// This code should be placed in an n8n Function node\n\n// Get the input items\nconst items = $input.all();\n\n// Process each item in the array\nreturn items.map(item => {\n  // Create a new value for the count field\n  let newCount = 1;\n  \n  // If there's an existing counter value, use it as a base\n  if (item.json && item.json.counter !== undefined) {\n    newCount = item.json.counter + 1;\n  }\n  \n  // Ensure json property exists\n  if (!item.json) {\n    item.json = {};\n  }\n  \n  // Set the value to the new field name \"count\"\n  item.json.count = newCount;\n  \n  // Return the modified item\n  return item;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        600,
+        420
+      ],
+      "id": "c4618e60-1613-4e6d-8141-b952f3a4dce9",
+      "name": "Increase Count"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5be1f203-28ea-4635-b42d-01f2a5bb367f",
+              "name": "count",
+              "value": "={{ $json.count }}",
+              "type": "string"
+            },
+            {
+              "id": "b68f8c17-c045-4b5b-8f8b-367ec72b72a3",
+              "name": "cursor",
+              "value": "={{ $('Set Increase').item.json.cursor }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        780,
+        420
+      ],
+      "id": "89498620-9416-441c-9931-88611ffd849f",
+      "name": "Set Count and Cursor"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1iIqQSUdgN2B7yNYq_BCifyLr2CEYIr10eqzjXUOq5G8",
+          "mode": "list",
+          "cachedResultName": "Twitter Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1iIqQSUdgN2B7yNYq_BCifyLr2CEYIr10eqzjXUOq5G8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1iIqQSUdgN2B7yNYq_BCifyLr2CEYIr10eqzjXUOq5G8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Tweet ID": "={{ $json.tweetId }}",
+            "URL": "={{ $json.url }}",
+            "Content": "={{ $json.content }}",
+            "Likes": "={{ $json.likeCount }}",
+            "Retweets": "={{ $json.retweetCount }}",
+            "Replies": "={{ $json.replyCount }}",
+            "Quotes": "={{ $json.quoteCount }}",
+            "Views": "={{ $json.viewCount }}",
+            "Date": "={{ $json.createdAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Tweet ID",
+              "displayName": "Tweet ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "URL",
+              "displayName": "URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Content",
+              "displayName": "Content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Likes",
+              "displayName": "Likes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Retweets",
+              "displayName": "Retweets",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Replies",
+              "displayName": "Replies",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Quotes",
+              "displayName": "Quotes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Views",
+              "displayName": "Views",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        740,
+        100
+      ],
+      "id": "8e88e6ae-4f4b-408a-8a4b-49198a27bfdc",
+      "name": "Add to Sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "o0DnvAKdOavdHOgz",
+          "name": "Google Sheets account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// This approach handles both single tweets and collections\n// It focuses on properly formatting the output for n8n\n// First, let's log what we're working with for debugging\nconsole.log(\"Input item structure:\", JSON.stringify($input.item, null, 2));\n\n// Function to format the date in a more human-readable way\nfunction formatDate(dateString) {\n  if (!dateString) return '';\n  \n  try {\n    const date = new Date(dateString);\n    // Format: \"March 13, 2025 at 19:25\"\n    return date.toLocaleString('en-US', {\n      year: 'numeric',\n      month: 'long',\n      day: 'numeric',\n      hour: '2-digit',\n      minute: '2-digit'\n    });\n  } catch (error) {\n    console.log(\"Error formatting date:\", error);\n    return dateString; // Return original if parsing fails\n  }\n}\n\n// Check if this is a Twitter Search result with multiple tweets\nif ($input.item.json.tweets && Array.isArray($input.item.json.tweets) && $input.item.json.tweets.length > 0) {\n  // This is a collection of tweets\n  // In n8n, to output multiple items, we need to use an array of objects with a json property\n  const items = $input.item.json.tweets.map(tweet => {\n    return {\n      json: {\n        tweetId: tweet.id || '',\n        url: tweet.url || '',\n        content: tweet.text || '',\n        likeCount: tweet.likeCount || 0,\n        retweetCount: tweet.retweetCount || 0,\n        replyCount: tweet.replyCount || 0,\n        quoteCount: tweet.quoteCount || 0,\n        viewCount: tweet.viewCount || 0,\n        createdAt: formatDate(tweet.createdAt)\n      }\n    };\n  });\n  \n  console.log(`Processing ${items.length} tweets`);\n  \n  // Return all items\n  return items;\n} else {\n  // This is a single tweet, just extract and return its data\n  const tweetData = {\n    tweetId: $input.item.json.id || '',\n    url: $input.item.json.url || '',\n    content: $input.item.json.text || '',\n    likeCount: $input.item.json.likeCount || 0,\n    retweetCount: $input.item.json.retweetCount || 0,\n    replyCount: $input.item.json.replyCount || 0,\n    quoteCount: $input.item.json.quoteCount || 0,\n    viewCount: $input.item.json.viewCount || 0,\n    createdAt: formatDate($input.item.json.createdAt)\n  };\n  \n  console.log(\"Processing single tweet\");\n  \n  // Return as a single item\n  return {\n    json: tweetData\n  };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        100
+      ],
+      "id": "277e7f15-e3ec-46c2-9268-074b67af0211",
+      "name": "Extract Info"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        260,
+        420
+      ],
+      "id": "64406920-4074-4355-a1c1-a85d1b4b5efb",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "url": "https://api.twitterapi.io/twitter/tweet/advanced_search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $('On form submission').item.json[\"What is query ?\"] }}"
+            },
+            {
+              "name": "queryType",
+              "value": "={{ $('On form submission').item.json[\"What is query type ?\"] }}"
+            },
+            {
+              "name": "cursor",
+              "value": "={{ $json.cursor }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        380,
+        100
+      ],
+      "id": "32f15cbc-b0c9-4012-871a-aebc368ab8db",
+      "name": "Get Tweets",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "vgcFFIG8S5mbyqQC",
+          "name": "twitterapi API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Subject",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "What is query ?"
+            },
+            {
+              "fieldLabel": "What is query type ?"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -220,
+        100
+      ],
+      "id": "0678decb-c0d4-4a20-85de-5bb35f2b8d04",
+      "name": "On form submission",
+      "webhookId": "7fc96029-70e8-4cb1-ab61-7a69d5c0823a"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "options": {
+          "systemMessage": "=You are an AI-native growth strategist and automation workflow designer.\n\nI will give you a list of tweet-style automation ideas (raw and informal).\nEach line is a hook, pain point, or spark for a useful automation workflow.\n\nFor each one:\n\nSTEP 1 – Interpret & Refine\nRewrite the idea into a clear automation use case\n\nSummarize what the automation does in 1 sentence\n\nSTEP 2 – Title It\nGive the automation a catchy product-style name (as if you were shipping it as a micro-SaaS or prebuilt n8n workflow)\n\nSTEP 3 – Find 3–5 Relevant Subreddits\nWhere would the audience for this workflow hang out?\n\nThink in terms of:\n\nr/NoCode, r/automation, r/Entrepreneur, r/ChatGPT, r/YoutubeCreators, r/Productivity, etc.\n\nSTEP 4 – Find 3–5 Relevant Twitter/X Accounts\nWho on Twitter would likely love, share, or build this?\n\nPrioritize:\n\nIndie hackers, solopreneurs, AI agents, productivity nerds, automation builders\n\nCreators, newsletter writers, bootstrappers, growth hackers\n\nSTEP 5 – Markdown Output\nReturn results like this:\n\nmarkdown\nCopy\nEdit\n## [Workflow Title]\n\n*✨ Description:*  \n[One-liner explanation of what it does]\n\n*🔹 Relevant Subreddits*\n- r/Subreddit1\n- r/Subreddit2\n- r/Subreddit3\n\n*🔹 Relevant Twitter/X Accounts*\n- @user1 — [short reason]\n- @user2 — [short reason]\n- @user3 — [short reason]\nFormat only in markdown. Be smart, relevant, and useful.\n\n\nalso create a result like this in 3rd coloumn of google sheet with this prompt \nInput:\n\nWorkflow title (e.g., \"YouTube AI Trend Video Creator\")\n\nBrief description of the workflow (1-2 sentences)\n\nKey benefits/results (e.g., saves time, grows channel, no editing skills needed)\n\nCTA (e.g., \"Drop a 🔥 if you want early access!\")\n\nSteps to automate:\n\nReceive Input: Accept user input of workflow title, description, benefits, and CTA via webhook or form.\n\nGenerate Thread Outline: Use an AI node (e.g., OpenAI GPT-4) to create a 6-tweet thread outline in the style of @daniel_koonce that includes:\n\nHook (problem + solution)\n\nHow it works (step-by-step)\n\nWhy it matters (benefits)\n\nResults/outcome\n\nCTA to engage (reply, DM, etc.)\n\nFormat Output: Convert AI response into tweet-sized chunks (max 280 characters).\n\nOptional Scheduling: Connect to Twitter API node to schedule or post tweets as a thread.\n\nOutput: Return formatted thread text with hashtags relevant to automation, AI, and content creation."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        1900,
+        80
+      ],
+      "id": "e830b564-eb27-4b11-ba63-76c286cdcdf5",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1iIqQSUdgN2B7yNYq_BCifyLr2CEYIr10eqzjXUOq5G8",
+          "mode": "list",
+          "cachedResultName": "Twitter Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1iIqQSUdgN2B7yNYq_BCifyLr2CEYIr10eqzjXUOq5G8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1054206917,
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1iIqQSUdgN2B7yNYq_BCifyLr2CEYIr10eqzjXUOq5G8/edit#gid=1054206917"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "Ideas"
+          ],
+          "schema": [
+            {
+              "id": "Ideas",
+              "displayName": "Ideas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "output",
+              "displayName": "output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2440,
+        80
+      ],
+      "id": "7b7b062f-a5cd-4fd6-b9fd-35230c1ac5b4",
+      "name": "Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "o0DnvAKdOavdHOgz",
+          "name": "Google Sheets account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1940,
+        300
+      ],
+      "id": "59030131-559f-4ade-8fe1-f446bd2fc675",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "ug5TFYIx7BmAK7H8",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-31T20:03:53.000Z",
+  "versionId": "1d4ee88a-d166-4aa9-bd10-2c96c95bd6f5"
+}
