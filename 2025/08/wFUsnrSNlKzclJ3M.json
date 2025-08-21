@@ -1,0 +1,140 @@
+{
+  "active": true,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "Clip",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-03T16:11:58.799Z",
+  "id": "wFUsnrSNlKzclJ3M",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "3. Cut Clips",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://no-code-architects-toolkit-576206210693.europe-west1.run.app/v1/ffmpeg/compose",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"id\": \"{{ $json.id }}\",\n  \"inputs\": [\n    {\n      \"file_url\": \"{{ $json['Video URL (from Videos)'] }}\",\n      \"options\": [\n        {\n          \"option\": \"-ss\",\n          \"argument\": \"{{ $json['Start Time'] }}\"\n        },\n        {\n          \"option\": \"-t\",\n          \"argument\": \"{{ $json.Duration }}\"\n        }\n      ]\n    }\n  ],\n  \"filters\": [],\n  \"outputs\": [\n    {\n      \"options\": [\n        {\n          \"option\": \"-c\",\n          \"argument\": \"copy\"\n        }\n      ]\n    }\n  ],\n  \"metadata\": {\n    \"thumbnail\": true\n  },\n\"webhook_url\": \"https://hooks.airtable.com/workflows/v1/genericWebhook/appIx2JYOFT2bZ71q/wflrPcwe3gDddLHMi/wtrNcMdLptagWROVm\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        120,
+        -60
+      ],
+      "id": "637a025e-31b8-4498-9e0f-4884e3f9a98a",
+      "name": "Clip",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "SDzAaixvVALhjp9N",
+          "name": "NCA Toolkit"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appIx2JYOFT2bZ71q",
+          "mode": "list",
+          "cachedResultName": "Content-workflow",
+          "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblpRSGBTcaFlAmPX",
+          "mode": "list",
+          "cachedResultName": "Clips",
+          "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q/tblpRSGBTcaFlAmPX"
+        },
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "viwh9dm9s1eCFZRd9",
+            "mode": "list",
+            "cachedResultName": "Cut Clip",
+            "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q/tblpRSGBTcaFlAmPX/viwh9dm9s1eCFZRd9"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -100,
+        -60
+      ],
+      "id": "fa112a63-f8d9-4824-a2d2-3689200834c0",
+      "name": "Airtable",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "zhf3hH9SvGXHCfxd",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        -60
+      ],
+      "id": "c8bd9bb7-0b1a-40e1-ad99-29050761149e",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-15T18:45:36.000Z",
+  "versionId": "1e26a510-ee71-4f70-adfa-a342c71353be"
+}
