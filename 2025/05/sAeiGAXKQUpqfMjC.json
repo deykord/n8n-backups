@@ -1,0 +1,176 @@
+{
+  "active": false,
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Construct & Execute LLM Prompt",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store conversation history": {
+      "ai_memory": [
+        [
+          {
+            "node": "Construct & Execute LLM Prompt",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "When chat message received",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Construct & Execute LLM Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-05T19:31:00.766Z",
+  "id": "sAeiGAXKQUpqfMjC",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Turn Conversations into Cash – Launch Your Self-Hosted AI Sales Closer with LangChain + n8n",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "",
+        "options": {
+          "allowedOrigins": "*",
+          "loadPreviousSession": "memory",
+          "responseMode": "lastNode"
+        }
+      },
+      "id": "32de78da-2d59-43b3-9b7d-109d8e6772ed",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "position": [
+        20,
+        260
+      ],
+      "webhookId": "bdfd38f5-041d-4ec1-8480-9589272a201e",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {
+          "temperature": 0.7,
+          "safetySettings": {
+            "values": [
+              {
+                "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                "threshold": "BLOCK_NONE"
+              }
+            ]
+          }
+        }
+      },
+      "id": "c3da3d40-e587-4ac9-b4db-548019f247e7",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "position": [
+        320,
+        500
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "NfT134BOD89kq6qA",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "e681d04e-9a3a-4313-8dae-0dbaee28237b",
+      "name": "Store conversation history",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        520,
+        500
+      ],
+      "notesInFlow": false,
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "code": {
+          "execute": {
+            "code": "const { PromptTemplate } = require('@langchain/core/prompts');\nconst { ConversationChain } = require('langchain/chains');\nconst { BufferMemory } = require('langchain/memory');\n\nconst template = `\nYou are roleplaying as a high-performance AI Sales Closer — engineered for maximum conversion, psychological precision, and sales execution. Your character is a veteran dealmaker, deeply skilled in persuasive communication, buyer psychology, objection handling, and closing strategy. You operate with calm confidence, directness, and unshakable control over the sales cycle. Every response is crafted to drive movement, reduce friction, and close revenue with minimal delay.\n\nThe user addresses you as \"Chief,\" and you refer to them as \"Closer.\"\n\nOperational Guidelines:\n\nCommunicate exclusively in English\n\nNever use interrogative language — no questions; only decisive, assertive statements\n\nBe concise, compelling, and conversion-oriented — avoid fluff or theoretical discussion\n\nContext Framework:\n\nOngoing conversation: {chat_history}\n\nUser input: {input}\n\nYour Core Competencies Include:\n\nHigh-ticket and B2B sales conversation design\n\nObjection anticipation and psychological rebuttals\n\nDeal acceleration through urgency and value framing\n\nConsultative selling structure and CTA delivery\n\nSales narrative engineering and buyer trust signals\n\nYour goal is clear: drive the sale forward. Eliminate uncertainty, articulate value with conviction, and move the conversation toward a confident \"yes.\"\n`;\n\nconst prompt = new PromptTemplate({\n  template: template,\n  inputVariables: [\"input\", \"chat_history\"], \n});\n\nconst items = this.getInputData();\nconst model = await this.getInputConnectionData('ai_languageModel', 0);\nconst memory = await this.getInputConnectionData('ai_memory', 0);\nmemory.returnMessages = false;\n\nconst chain = new ConversationChain({ llm:model, memory:memory, prompt: prompt, inputKey:\"input\", outputKey:\"output\"});\nconst output = await chain.call({ input: items[0].json.chatInput});\n\nreturn output;\n"
+          }
+        },
+        "inputs": {
+          "input": [
+            {
+              "type": "main",
+              "maxConnections": 1,
+              "required": true
+            },
+            {
+              "type": "ai_languageModel",
+              "maxConnections": 1,
+              "required": true
+            },
+            {
+              "type": "ai_memory",
+              "maxConnections": 1,
+              "required": true
+            }
+          ]
+        },
+        "outputs": {
+          "output": [
+            {
+              "type": "main"
+            }
+          ]
+        }
+      },
+      "id": "4df73ca5-2668-4a0e-b74e-66ddf749abe5",
+      "name": "Construct & Execute LLM Prompt",
+      "type": "@n8n/n8n-nodes-langchain.code",
+      "position": [
+        620,
+        260
+      ],
+      "retryOnFail": false,
+      "typeVersion": 1
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-28T18:16:58.775Z",
+      "updatedAt": "2025-04-28T18:16:58.775Z",
+      "id": "5fWvt038qtjyrogG",
+      "name": "Ready For Production"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-05T20:42:16.000Z",
+  "versionId": "f2f2b2d3-3b1a-4ea7-bca9-96d6d4eadf0d"
+}
