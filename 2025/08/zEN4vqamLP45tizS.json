@@ -1,0 +1,133 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "Caption",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-07T21:35:53.387Z",
+  "id": "zEN4vqamLP45tizS",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "5. Add Captions",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appIx2JYOFT2bZ71q",
+          "mode": "list",
+          "cachedResultName": "Content-workflow",
+          "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblpRSGBTcaFlAmPX",
+          "mode": "list",
+          "cachedResultName": "Clips",
+          "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q/tblpRSGBTcaFlAmPX"
+        },
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "viwWfUSTcS6PGFY8z",
+            "mode": "list",
+            "cachedResultName": "Caption Clip",
+            "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q/tblpRSGBTcaFlAmPX/viwWfUSTcS6PGFY8z"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "9a6fb2d9-f8e6-43e2-93b3-b1606b1a1d40",
+      "name": "Airtable",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "zhf3hH9SvGXHCfxd",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1c525e28-aac2-4fb8-a1fc-238d783998cc",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://no-code-architects-toolkit-576206210693.europe-west1.run.app/v1/video/caption",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n    \"video_url\": \"\",\n    \"settings\": {\n        \"line_color\": \"#FFFFFF\",\n        \"word_color\": \"#FFFF00\",\n        \"all_caps\": false,\n        \"max_words_per_line\": 3,\n        \"font_size\": 60,\n        \"bold\": false,\n        \"italic\": false,\n        \"underline\": false,\n        \"strikeout\": false,\n        \"outline_width\": 3,\n        \"shadow_offset\": 4,\n        \"style\": \"highlight\",\n        \"font_family\": \"The Bold Font\",\n        \"position\": \"bottom_center\"\n    },\n    \"id\": \"\",\n    \"webhook_url\": \"https://hooks.airtable.com/workflows/v1/genericWebhook/appIx2JYOFT2bZ71q/wflHETRIJcSat8tWe/wtrdyhTU5BRMFnYjs\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        0
+      ],
+      "id": "6a617400-5422-4d0f-8b6f-e7aa50d51913",
+      "name": "Caption",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "SDzAaixvVALhjp9N",
+          "name": "NCA Toolkit"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-07T21:39:40.000Z",
+  "versionId": "cb2d6eb0-1e56-4351-9a13-d42724740f08"
+}
