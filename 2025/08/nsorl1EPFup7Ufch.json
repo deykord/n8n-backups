@@ -1,0 +1,292 @@
+{
+  "active": true,
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "New Domain - Old Domain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New Domain - Old Domain": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Nameservers": {
+      "main": [
+        [
+          {
+            "node": "Update DNS in Porkbun",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Create DNS Zone in Netlify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create DNS Zone in Netlify": {
+      "main": [
+        [
+          {
+            "node": "Extract Nameservers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-16T22:57:01.879Z",
+  "id": "nsorl1EPFup7Ufch",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Porkbun - Netlify",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.porkbun.com/api/json/v3/domain/listall",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n\t\"secretapikey\": \"sk1_6c22bc6280b710ad92bd9481557abe0efe30943f96d24192377cd154ca53ec0a\",\n\t\"apikey\": \"pk1_8e970a154679f20296edb61ca8f5d08351d573591c4d95b219fe0bd1e72fd256\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        -20
+      ],
+      "id": "72a6befb-a973-4938-86a5-45601b433a5d",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "domains",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -20
+      ],
+      "id": "1ac25d00-b250-4e50-b0cc-ab8ad528e260",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d1c35b37-88b5-430c-99eb-7b238565cd43",
+              "leftValue": "={{ $json.isNewDomain }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        860,
+        -20
+      ],
+      "id": "1c30d214-f71c-489c-856a-500dd2ebeeea",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// ------------------------------------------------------------------\n// 1. Grab the date string that came from the previous node\nconst rawDate = $input.item.json.createDate;   // -> \"2025-02-03 03:50:08\"\n\n// ------------------------------------------------------------------\n// 2. Convert it to a real Date object\n//    Replace the single space with 'T' so it becomes ISO‑8601\nconst createdDate = new Date(rawDate.replace(' ', 'T'));\n\n// ------------------------------------------------------------------\n// 3. Calculate the timestamp for 24 hours ago\nconst twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);\n\n// ------------------------------------------------------------------\n// 4. Check if the domain was created *after* 24 h ago\nconst isNewDomain = createdDate > twentyFourHoursAgo;\nconst isOldDomain = createdDate < twentyFourHoursAgo;\n// ------------------------------------------------------------------\n// 5. Return (or throw away) the item accordingly\n  // Return the full item that the next node expects\n  return {\n    domain: $input.item.json.domain,\n    createDate: rawDate,\n    status: $input.item.json.status,\n    isNewDomain,\n    isOldDomain\n  };"
+      },
+      "id": "64cd8e30-201a-40d2-8b0e-d52ed801dc04",
+      "name": "New Domain - Old Domain",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        -20
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "21075923-5ea4-4235-97f4-34cef0b15440",
+              "name": "dns_servers[0]",
+              "value": "={{ $json.dns_servers[0] }}",
+              "type": "string"
+            },
+            {
+              "id": "e6d71047-a0b8-49b2-ba33-9ac352f1bf1d",
+              "name": "dns_servers[1]",
+              "value": "={{ $json.dns_servers[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "28d7de67-e899-4eb6-9bff-6e17fc730520",
+              "name": "dns_servers[2]",
+              "value": "={{ $json.dns_servers[2] }}",
+              "type": "string"
+            },
+            {
+              "id": "4896329c-6c50-4c8f-8202-32ea66f9cc76",
+              "name": "dns_servers[3]",
+              "value": "={{ $json.dns_servers[3] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1320,
+        -20
+      ],
+      "id": "1da7940c-0f1c-4914-8d21-8a9ebfc2427a",
+      "name": "Extract Nameservers"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.porkbun.com/api/json/v3/domain/updateNs/{{ $('Create DNS Zone in Netlify').item.json.name }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"secretapikey\":\"sk1_6c22bc6280b710ad92bd9481557abe0efe30943f96d24192377cd154ca53ec0a\",\n\t\"apikey\":\"pk1_8e970a154679f20296edb61ca8f5d08351d573591c4d95b219fe0bd1e72fd256\",\n    \"ns\": [\n            \"{{ $json.dns_servers[0] }}\",\n            \"{{ $json.dns_servers[1] }}\",\n            \"{{ $json.dns_servers[2] }}\",\n            \"{{ $json.dns_servers[3] }}\"\n        \t]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1540,
+        -20
+      ],
+      "id": "fa2f137f-543a-40a4-a4e7-594b4cd68b3f",
+      "name": "Update DNS in Porkbun"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.netlify.com/api/v1/dns_zones",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"{{ $json.domain }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        -20
+      ],
+      "id": "dfca6a95-ce93-4451-84be-62b05cdad5ec",
+      "name": "Create DNS Zone in Netlify",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "bCPi0FzThFcakgEv",
+          "name": "Netlify"
+        },
+        "httpBearerAuth": {
+          "id": "vmcJ91ivb4j7azBY",
+          "name": "Netlify"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -20,
+        -20
+      ],
+      "id": "15a3a9ca-ae0d-4e08-be1e-151744433c93",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-17T01:30:28.000Z",
+  "versionId": "a315dd25-32d1-4a6b-bef0-f85bf8a2ad65"
+}
