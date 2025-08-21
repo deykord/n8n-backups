@@ -1,0 +1,367 @@
+{
+  "active": false,
+  "connections": {
+    "Read Google Sheet": {
+      "main": [
+        [
+          {
+            "node": "Split Into Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Into Batches": {
+      "main": [
+        [
+          {
+            "node": "Prepare AI Search Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process AI Results": {
+      "main": [
+        [
+          {
+            "node": "Check Results Quality",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Results Quality": {
+      "main": [
+        [
+          {
+            "node": "Update Google Sheet - Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Google Sheet - No Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Batch Report": {
+      "main": [
+        [
+          {
+            "node": "Batch Delay",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Handler": {
+      "main": [
+        [
+          {
+            "node": "Log Errors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Errors": {
+      "main": [
+        [
+          {
+            "node": "Process AI Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Batch Delay": {
+      "main": [
+        [
+          {
+            "node": "Split Into Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-09T00:17:42.525Z",
+  "id": "NIL5QjJu2wB4nWbR",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Enrichment",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": "YOUR_GOOGLE_SHEET_ID",
+        "sheetName": "Sheet1",
+        "options": {}
+      },
+      "id": "328ba2ce-5bb4-493e-8941-042f2f60ab37",
+      "name": "Read Google Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -1680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 10,
+        "options": {}
+      },
+      "id": "d4a62869-2b8c-4a03-a033-8a92b2d40936",
+      "name": "Split Into Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst enrichedItems = [];\n\nfor (const item of items) {\n  const member = item.json;\n  \n  const searchContext = {\n    primary_username: member.username,\n    location: member.location || '',\n    bio_summary: member.bio ? member.bio.substring(0, 200) : '',\n    community: member.community || '',\n    username_variations: [\n      member.username,\n      member.username.replace(/[._-]/g, ''),\n      member.username.replace(/[._-]/g, ' '),\n      member.username.toLowerCase(),\n      member.username.replace(/\\d+$/, '')\n    ].filter(Boolean),\n    search_queries: {\n      linkedin: `\"${member.username}\" site:linkedin.com ${member.location ? '\"' + member.location + '\"' : ''}`,\n      instagram: `\"${member.username}\" site:instagram.com`,\n      twitter: `\"${member.username}\" site:twitter.com OR site:x.com`,\n      facebook: `\"${member.username}\" site:facebook.com`,\n      youtube: `\"${member.username}\" site:youtube.com`,\n      tiktok: `\"${member.username}\" site:tiktok.com`,\n      general: `\"${member.username}\" ${member.location || ''} social media profile`\n    }\n  };\n  \n  enrichedItems.push({\n    ...member,\n    search_context: searchContext,\n    processing_status: 'prepared',\n    batch_timestamp: new Date().toISOString()\n  });\n}\n\nreturn enrichedItems;"
+      },
+      "id": "1f1eee39-ba61-4407-bcd2-65e8486eaa57",
+      "name": "Prepare AI Search Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1240,
+        300
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "72e1b613-48fc-4f72-bf3a-c99d04b61de0",
+      "name": "AI Social Media Search",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [
+        -1020,
+        300
+      ],
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "amount": 3,
+        "unit": "seconds"
+      },
+      "id": "c15c9966-1e3a-46c7-a305-5816a236129f",
+      "name": "Rate Limit Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        300
+      ],
+      "webhookId": "d2975efd-90e3-4823-98b6-78177aefd294"
+    },
+    {
+      "parameters": {},
+      "id": "bdd797be-47cb-4341-bedf-75d0df123d11",
+      "name": "AI Web Search Verification",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [
+        -580,
+        300
+      ],
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "jsCode": "function parseAIResponse(aiResponse) {\n  try {\n    let content = aiResponse.message?.content || aiResponse.content || '';\n    \n    const jsonMatch = content.match(/\\{[\\s\\S]*\\}/);\n    if (jsonMatch) {\n      return JSON.parse(jsonMatch[0]);\n    }\n    \n    return {};\n  } catch (error) {\n    console.log('Error parsing AI response:', error);\n    return {};\n  }\n}\n\nconst originalMember = $('Prepare AI Search Context').first().json;\nconst aiSearchResult = $('AI Social Media Search').first().json;\nconst webVerificationResult = $('AI Web Search Verification').first().json;\n\nconst searchResults = parseAIResponse(aiSearchResult);\nconst verificationResults = parseAIResponse(webVerificationResult);\n\nconst mergedResults = {\n  linkedin: verificationResults.linkedin || searchResults.linkedin || {},\n  instagram: verificationResults.instagram || searchResults.instagram || {},\n  twitter: verificationResults.twitter || searchResults.twitter || {},\n  facebook: verificationResults.facebook || searchResults.facebook || {},\n  youtube: verificationResults.youtube || searchResults.youtube || {},\n  tiktok: verificationResults.tiktok || searchResults.tiktok || {}\n};\n\nfunction validateURL(url) {\n  if (!url) return '';\n  try {\n    new URL(url);\n    return url;\n  } catch {\n    if (url.includes('/') && !url.startsWith('http')) {\n      return 'https://' + url;\n    }\n    return '';\n  }\n}\n\nfunction validateConfidence(confidence) {\n  const score = parseInt(confidence) || 0;\n  return Math.max(0, Math.min(100, score));\n}\n\nconst enrichedMember = {\n  ...originalMember,\n  linkedin_url: validateURL(mergedResults.linkedin.url || ''),\n  linkedin_confidence: validateConfidence(mergedResults.linkedin.confidence || 0),\n  linkedin_verified: mergedResults.linkedin.verified || false,\n  \n  instagram_url: validateURL(mergedResults.instagram.url || ''),\n  instagram_confidence: validateConfidence(mergedResults.instagram.confidence || 0),\n  instagram_verified: mergedResults.instagram.verified || false,\n  \n  twitter_url: validateURL(mergedResults.twitter.url || ''),\n  twitter_confidence: validateConfidence(mergedResults.twitter.confidence || 0),\n  twitter_verified: mergedResults.twitter.verified || false,\n  \n  facebook_url: validateURL(mergedResults.facebook.url || ''),\n  facebook_confidence: validateConfidence(mergedResults.facebook.confidence || 0),\n  facebook_verified: mergedResults.facebook.verified || false,\n  \n  youtube_url: validateURL(mergedResults.youtube.url || ''),\n  youtube_confidence: validateConfidence(mergedResults.youtube.confidence || 0),\n  youtube_verified: mergedResults.youtube.verified || false,\n  \n  tiktok_url: validateURL(mergedResults.tiktok.url || ''),\n  tiktok_confidence: validateConfidence(mergedResults.tiktok.confidence || 0),\n  tiktok_verified: mergedResults.tiktok.verified || false,\n  \n  search_timestamp: new Date().toISOString(),\n  total_profiles_found: Object.values(mergedResults).filter(platform => platform.url && validateConfidence(platform.confidence) >= 60).length,\n  avg_confidence: Math.round(\n    Object.values(mergedResults)\n      .filter(platform => platform.confidence)\n      .reduce((sum, platform) => sum + validateConfidence(platform.confidence), 0) / \n    Object.values(mergedResults).filter(platform => platform.confidence).length || 0\n  ),\n  search_notes: verificationResults.search_notes || searchResults.search_notes || 'AI-powered social media search completed',\n  processing_status: 'completed'\n};\n\ndelete enrichedMember.search_context;\n\nreturn [enrichedMember];"
+      },
+      "id": "da234b62-67f1-4c7e-a69b-55568800448a",
+      "name": "Process AI Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -360,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "8h9i0j1k-2l3m-4n5o-6p7q-r8s9t0u1v2w3",
+              "leftValue": "={{$json.total_profiles_found}}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "3802262c-248b-4dc2-972d-e3d77150310f",
+      "name": "Check Results Quality",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -140,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": "YOUR_GOOGLE_SHEET_ID",
+        "sheetName": "Sheet1",
+        "options": {}
+      },
+      "id": "a62c2208-bbf2-488f-b5f4-b806711b0145",
+      "name": "Update Google Sheet - Success",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        80,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": "YOUR_GOOGLE_SHEET_ID",
+        "sheetName": "Sheet1",
+        "options": {}
+      },
+      "id": "8816583d-1722-4afa-97f9-75a355f0b828",
+      "name": "Update Google Sheet - No Results",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        80,
+        400
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "8e3491cc-457a-485b-8479-0567a97ce82a",
+      "name": "Generate Batch Insights",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [
+        300,
+        300
+      ],
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "subject": "Social Media Enrichment - Batch {{$('Split Into Batches').first().json.batchIndex}} Complete",
+        "options": {
+          "attachments": []
+        }
+      },
+      "id": "46c337f7-2435-4f9d-bac5-f30edff81eb7",
+      "name": "Send Batch Report",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        520,
+        300
+      ],
+      "webhookId": "2dcb8beb-c13e-4035-b0e7-ae76cc98cf69"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "4n5o6p7q-8r9s-0t1u-2v3w-x4y5z6a7b8c9",
+              "leftValue": "={{$json.error}}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "67cd7089-02e6-4904-8f97-1127c9372cc8",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst errorItems = [];\n\nfor (const item of items) {\n  if (item.json.error) {\n    const errorData = {\n      username: item.json.username || 'Unknown',\n      error_type: item.json.error.type || 'AI_Processing_Error',\n      error_message: item.json.error.message || 'Unknown error occurred',\n      timestamp: new Date().toISOString(),\n      retry_count: item.json.retry_count || 0,\n      processing_status: 'error'\n    };\n    \n    errorItems.push(errorData);\n    console.error('Processing error for user:', errorData);\n  }\n}\n\nreturn errorItems;"
+      },
+      "id": "e5e0c63f-004b-4da4-a805-67d605ffdda8",
+      "name": "Log Errors",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -580,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 60,
+        "unit": "seconds"
+      },
+      "id": "62b53141-217b-40e2-be24-904bed00b776",
+      "name": "Batch Delay",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        740,
+        300
+      ],
+      "webhookId": "e88a0098-2b9a-4ed4-a9c7-12e80f98812d"
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-09T00:17:42.525Z",
+  "versionId": "6826ab50-3d82-4f88-a334-c76671913a57"
+}
