@@ -1,0 +1,361 @@
+{
+  "active": false,
+  "connections": {
+    "Check for New Domains": {
+      "main": [
+        [
+          {
+            "node": "Get Porkbun Domains",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Porkbun Domains": {
+      "main": [
+        [
+          {
+            "node": "Check API Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check API Success": {
+      "main": [
+        [
+          {
+            "node": "Split Domain List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Domain List": {
+      "main": [
+        [
+          {
+            "node": "Check if New Domain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if New Domain": {
+      "main": [
+        [
+          {
+            "node": "Filter New Domains Only",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter New Domains Only": {
+      "main": [
+        [
+          {
+            "node": "Get Site ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Site ID": {
+      "main": [
+        [
+          {
+            "node": "Add Domain to Netlify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Domain to Netlify": {
+      "main": [
+        [
+          {
+            "node": "Get Netlify DNS Records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Netlify DNS Records": {
+      "main": [
+        [
+          {
+            "node": "Extract Nameservers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Nameservers": {
+      "main": [
+        [
+          {
+            "node": "Update Porkbun DNS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-20T16:57:12.496Z",
+  "id": "QVixdU0asahLJDC4",
+  "meta": null,
+  "name": "Netlify to Porkbun domain registration & DNS update",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 1
+            }
+          ]
+        }
+      },
+      "id": "c948a132-7edf-414c-bd2b-5ce52687bc9d",
+      "name": "Check for New Domains",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://porkbun.com/api/json/v3/domain/listall",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "porkbunApi",
+        "options": {}
+      },
+      "id": "28fe7aea-a20d-438b-bc81-b4b535077f3d",
+      "name": "Get Porkbun Domains",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        200,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "SUCCESS",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "4a9743ff-0e80-42e5-9e64-4c127e527964",
+      "name": "Check API Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        400,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "domains",
+        "options": {}
+      },
+      "id": "7b819efb-4e5a-4d76-9f9f-6f44214cf3ad",
+      "name": "Split Domain List",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        600,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get current timestamp\nconst now = new Date();\nconst oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);\n\n// Check if domain was created in the last 24 hours\nconst createdDate = new Date($input.item.json.createDate);\nconst isNewDomain = createdDate > oneDayAgo;\n\n// Return the domain info with a flag indicating if it's new\nreturn {\n  domain: $input.item.json.domain,\n  createDate: $input.item.json.createDate,\n  isNewDomain: isNewDomain,\n  status: $input.item.json.status\n};"
+      },
+      "id": "01cb2486-53d5-45f5-aafd-07484b1afd9e",
+      "name": "Check if New Domain",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "1",
+              "leftValue": "={{ $json.isNewDomain }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d9f08e27-3fcb-4ad6-a23a-7be3475e96d4",
+      "name": "Filter New Domains Only",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.netlify.com/api/v1/sites/{{ $('Get Site ID').item.json.siteId }}/domains",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "netlifyApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"domain\": \"{{ $json.domain }}\"\n}",
+        "options": {}
+      },
+      "id": "81d2759c-47c6-4279-afe1-c38c071c01a8",
+      "name": "Add Domain to Netlify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1400,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.netlify.com/api/v1/sites/{{ $('Get Site ID').item.json.siteId }}/domains/{{ $('Add Domain to Netlify').item.json.domain }}/dns_records",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "netlifyApi",
+        "options": {}
+      },
+      "id": "80531a36-5ef4-4606-82a2-639bde1db736",
+      "name": "Get Netlify DNS Records",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1600,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract nameservers from Netlify response\nconst dnsRecords = $input.item.json;\nconst nameservers = [];\n\n// Look for NS records that point to Netlify's nameservers\nif (Array.isArray(dnsRecords)) {\n  dnsRecords.forEach(record => {\n    if (record.type === 'NS' && record.value) {\n      nameservers.push(record.value);\n    }\n  });\n}\n\n// If no NS records found, use Netlify's default nameservers\nif (nameservers.length === 0) {\n  nameservers.push(\n    'dns1.p01.nsone.net',\n    'dns2.p01.nsone.net',\n    'dns3.p01.nsone.net',\n    'dns4.p01.nsone.net'\n  );\n}\n\nreturn {\n  domain: $('Filter New Domains Only').item.json.domain,\n  nameservers: nameservers\n};"
+      },
+      "id": "070048e7-c693-493e-b31b-3e3bcc3d877b",
+      "name": "Extract Nameservers",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1800,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://porkbun.com/api/json/v3/domain/updateNs/{{ $json.domain }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "porkbunApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"ns\": {{ JSON.stringify($json.nameservers) }}\n}",
+        "options": {}
+      },
+      "id": "e31b2bf2-8c26-40dc-b746-819d9446ae68",
+      "name": "Update Porkbun DNS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        2000,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "7e4d729d-8cd8-484c-aa0a-505ddccce8dd",
+      "name": "Get Site ID",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        1200,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "675f655d-de35-4a3e-8ef5-050a84d04d10",
+      "name": "Success Notification",
+      "type": "n8n-nodes-base.noticeSend",
+      "typeVersion": 1,
+      "position": [
+        2200,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "784520f5-6033-4de8-9556-55b076eb3c84",
+      "name": "Error Notification",
+      "type": "n8n-nodes-base.noticeSend",
+      "typeVersion": 1,
+      "position": [
+        2200,
+        200
+      ]
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-16T21:58:18.000Z",
+  "versionId": "4f8cfb79-37d4-4bde-95b4-fc6147662133"
+}
