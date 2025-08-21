@@ -1,0 +1,201 @@
+{
+  "active": false,
+  "connections": {
+    "Client Photo Upload": {
+      "main": [
+        [
+          {
+            "node": "Validate Input Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Input Data": {
+      "main": [
+        [
+          {
+            "node": "AI Image Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Image Analysis": {
+      "main": [
+        [
+          {
+            "node": "Generate Consultation Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Consultation Report": {
+      "main": [
+        [
+          {
+            "node": "Log Consultation Data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Client Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Consultation Data": {
+      "main": [
+        [
+          {
+            "node": "Respond to Client",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Client Email": {
+      "main": [
+        [
+          {
+            "node": "Respond to Client",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-17T08:24:17.564Z",
+  "id": "hkF6aykZXyMYRPSr",
+  "meta": null,
+  "name": "Hair System AI Consultation - Fixed - Claude Creation MCP",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "webhook-trigger",
+      "name": "Client Photo Upload",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        120,
+        300
+      ],
+      "typeVersion": 2.1,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validate required fields and image data\nconst requiredFields = ['clientName', 'email', 'phone'];\nconst inputData = $input.first().json;\n\n// Check required fields\nconst missingFields = requiredFields.filter(field => !inputData[field]);\n\nif (missingFields.length > 0) {\n  throw new Error(`Missing required fields: ${missingFields.join(', ')}`);\n}\n\n// Check if image is provided\nif (!inputData.image && !$input.first().binary?.image) {\n  throw new Error('No image provided for analysis');\n}\n\n// Prepare data for next step\nreturn {\n  json: {\n    clientName: inputData.clientName,\n    email: inputData.email,\n    phone: inputData.phone,\n    currentHairConcerns: inputData.currentHairConcerns || '',\n    lifestyle: inputData.lifestyle || '',\n    budget: inputData.budget || '',\n    timestamp: new Date().toISOString(),\n    consultationId: `hs_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`\n  },\n  binary: $input.first().binary\n};"
+      },
+      "id": "validate-data",
+      "name": "Validate Input Data",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        400,
+        300
+      ],
+      "typeVersion": 2,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "prompt": "HAIR SYSTEM CONSULTATION ANALYSIS\n\nAnalyze the provided image for hair restoration consultation. Based on what you can observe, provide analysis in these areas:\n\n1. VISIBLE HAIR CHARACTERISTICS:\n- Hair color and texture observations\n- Apparent hair density patterns\n- Visible styling and length\n\n2. GENERAL RECOMMENDATIONS:\n- Suitable hair system types (lace front, full lace, monofilament)\n- Recommended attachment methods\n- Maintenance considerations\n\n3. STYLING SUGGESTIONS:\n- Appropriate hair lengths and styles\n- Lifestyle compatibility notes\n\nProvide professional, actionable recommendations. Note: This is a general assessment - in-person consultation recommended for precise measurements and color matching.",
+        "options": {},
+        "requestOptions": {}
+      },
+      "id": "analyze-photo",
+      "name": "AI Image Analysis",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        600,
+        300
+      ],
+      "typeVersion": 1.1,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "prompt": "Create a comprehensive hair system consultation report based on the analysis and client information.\n\nClient Details:\n- Name: {{$('Validate Input Data').first().json.clientName}}\n- Concerns: {{$('Validate Input Data').first().json.currentHairConcerns}}\n- Lifestyle: {{$('Validate Input Data').first().json.lifestyle}}\n- Budget: {{$('Validate Input Data').first().json.budget}}\n\nAnalysis Results:\n{{$('AI Image Analysis').first().json.text}}\n\nFormat as a professional consultation report with:\n\n1. EXECUTIVE SUMMARY\n2. CLIENT ASSESSMENT\n3. RECOMMENDED SOLUTIONS (3 options with pros/cons)\n4. COST ESTIMATES\n5. MAINTENANCE PLAN\n6. NEXT STEPS\n7. FAQ SECTION\n\nTone: Professional, encouraging, educational.",
+        "options": {},
+        "requestOptions": {}
+      },
+      "id": "generate-report",
+      "name": "Generate Consultation Report",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        800,
+        300
+      ],
+      "typeVersion": 1.1,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "fromEmail": "consultations@yourhairsalon.com",
+        "toEmail": "={{$('Validate Input Data').first().json.email}}",
+        "subject": "Hair System Consultation Report - {{$('Validate Input Data').first().json.consultationId}}",
+        "options": {}
+      },
+      "id": "send-email",
+      "name": "Send Client Email",
+      "type": "n8n-nodes-base.emailSend",
+      "position": [
+        1020,
+        400
+      ],
+      "typeVersion": 2.1,
+      "webhookId": "f1e161bd-53f2-4130-9a26-008fd6944db5",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Log consultation data\nconst data = $('Validate Input Data').first().json;\nconst analysis = $('AI Image Analysis').first().json.text;\nconst report = $('Generate Consultation Report').first().json.text;\n\nconst consultationData = {\n  consultationId: data.consultationId,\n  clientName: data.clientName,\n  email: data.email,\n  phone: data.phone,\n  analysis: analysis,\n  report: report,\n  timestamp: data.timestamp,\n  status: 'pending_review'\n};\n\nconsole.log('Consultation logged:', consultationData);\nreturn { json: consultationData };"
+      },
+      "id": "log-consultation",
+      "name": "Log Consultation Data",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        1000,
+        200
+      ],
+      "typeVersion": 2,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "id": "respond-success",
+      "name": "Respond to Client",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [
+        1340,
+        340
+      ],
+      "typeVersion": 1.5,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/New_York",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": false
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-17T08:27:29.000Z",
+  "versionId": "7eac92d9-3be3-4548-a6da-4382fdfa3f16"
+}
