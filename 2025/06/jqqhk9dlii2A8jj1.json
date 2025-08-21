@@ -1,0 +1,378 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "appendSocialMedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-08T23:53:33.961Z",
+  "id": "jqqhk9dlii2A8jj1",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Social Media Profile Enrichment",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -180
+      ],
+      "id": "ea537414-5f13-48df-86c9-a88761278000",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Bl19S3Rld2Oxbf6I4ULI-H_RL0XPf62ZSt8cYKv905U",
+          "mode": "list",
+          "cachedResultName": "Skool Members",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bl19S3Rld2Oxbf6I4ULI-H_RL0XPf62ZSt8cYKv905U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "wholesaling",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bl19S3Rld2Oxbf6I4ULI-H_RL0XPf62ZSt8cYKv905U/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        220,
+        -180
+      ],
+      "id": "d57a2633-2609-4391-973b-bf9069102c33",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "o0DnvAKdOavdHOgz",
+          "name": "Google Sheets account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=#CONTEXT#\n\nYou are tasked with finding the social media accounts for each person in a provided list and verify that account exists. For each person, you are given their name, a description of what they do, and the city they are in \nname : {{ $json.username }}\nlocation : {{ $json.location }}\nBio : {{ $json.bio }}\n\n\n#OBJECTIVE#\n\nFind and return the main social media accounts (such as LinkedIn, Twitter, Facebook, Instagram) for each person using the provided information.\n\n\n\n#INSTRUCTIONS#\n\n1. For each person, use the values from the available columns that correspond to their name, description, and city \n2. Search the web for social media profiles that match the person's name, description, and city.\n\n3. Prioritize official and personal accounts that are clearly associated with the individual.\n\n4. For each found account, return the platform name and the profile URL.\n\n5. If no social media accounts are found, return an empty array for that person.\n\n6. Do not include any information that cannot be verified from public web sources.\n\n\n\n#EXAMPLES#\n\nInput:\n\n  Column 1: Jane Smith\n\n  Column 2: Marketing Manager\n\n  Kollege Group: New York\n\n\n\nExpected Output:\n\n  [\n\n    \"platform\": \"LinkedIn\", \"url\": \"https://www.linkedin.com/in/janesmith\",\n\n    \"platform\": \"Twitter\", \"url\": \"https://twitter.com/janesmith\"\n\n  ]\n\n\n\nIf no accounts are found:\n\n  []",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        700,
+        -180
+      ],
+      "id": "1aa4a87e-c119-4ffb-adaa-1a4892b3ef76",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        520,
+        160
+      ],
+      "id": "eba714dc-3fc4-40bc-a863-35978773ab43",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "ug5TFYIx7BmAK7H8",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"LinkedIn\": \"\",\n\t\"Twitter\": \"\",\n    \"Facebook\": \"\",\n    \"Instagram\": \"\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        900,
+        40
+      ],
+      "id": "67220acc-598f-4fae-96e5-8d4df8346876",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": " 1.Execute searches systematically, append results immediately to Google Sheets using appendSocialMedia tool, and return ALL verified matches found.\ncall this tool at this point",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1Bl19S3Rld2Oxbf6I4ULI-H_RL0XPf62ZSt8cYKv905U",
+          "mode": "list",
+          "cachedResultName": "Skool Members",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bl19S3Rld2Oxbf6I4ULI-H_RL0XPf62ZSt8cYKv905U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "wholesaling",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Bl19S3Rld2Oxbf6I4ULI-H_RL0XPf62ZSt8cYKv905U/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "username": "={{ $json.username }}",
+            "username_link": "={{ $json.username_link }}",
+            "community": "={{ $json.community }}",
+            "online_status": "={{ $json.online_status }}",
+            "joined_time": "={{ $json.joined_time }}",
+            "location": "={{ $json.location }}",
+            "bio": "={{ $json.bio }}",
+            "LinkedIn": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('LinkedIn', ``, 'string') }}",
+            "Twitter": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Twitter', ``, 'string') }}",
+            "Facebook": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Facebook', ``, 'string') }}",
+            "Instagram": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Instagram', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "username_link"
+          ],
+          "schema": [
+            {
+              "id": "community",
+              "displayName": "community",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "username_link",
+              "displayName": "username_link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "online_status",
+              "displayName": "online_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "joined_time",
+              "displayName": "joined_time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "bio",
+              "displayName": "bio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LinkedIn",
+              "displayName": "LinkedIn",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Twitter",
+              "displayName": "Twitter",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Facebook",
+              "displayName": "Facebook",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Instagram",
+              "displayName": "Instagram",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        740,
+        180
+      ],
+      "id": "d359955f-bd68-4b2a-9320-3bc32d729bc6",
+      "name": "appendSocialMedia",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "o0DnvAKdOavdHOgz",
+          "name": "Google Sheets account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        480,
+        -180
+      ],
+      "id": "2c4b220a-3e20-4486-94cb-a00acd94f2a1",
+      "name": "Loop Over Items"
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-09T01:35:58.000Z",
+  "versionId": "3982ee5c-a43b-4a9e-9b83-9dfed9b2f4f6"
+}
