@@ -1,0 +1,800 @@
+{
+  "active": true,
+  "connections": {
+    "Get Transcript File": {
+      "main": [
+        [
+          {
+            "node": "Get SRT File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get SRT File": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Get SRT File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get SRT File1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Airtable1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable1": {
+      "main": [
+        [
+          {
+            "node": "Get Transcript File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-03T12:25:44.448Z",
+  "id": "wS6Vn5anEulgZ3ge",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "2. Identify Clips",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "={{ $json['Transcript URL'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        100
+      ],
+      "id": "4f5359da-eb48-4f38-baac-c4458185f978",
+      "name": "Get Transcript File"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Airtable1').item.json['SRT URL'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        100
+      ],
+      "id": "2e671487-2119-4573-b07a-721948936c3f",
+      "name": "Get SRT File"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Get Transcript File').item.json.data }}\nPlease analyze the transcript above and extract compelling segments that are roughly 1–2 MINUTES in length (approximately 150–300 words). Each clip should:\n\nDeliver Complete Value\n\nContain a full narrative arc or complete explanation\n\nBuild to a clear \"aha moment\" or key revelation\n\nInclude all necessary context and supporting points\n\nBe Independently Meaningful\n\nCapture entire thought sequences, not just individual points\n\nInclude setup, development, and conclusion of ideas\n\nContain enough context that a new viewer can fully understand\n\nHave Natural Flow\n\nStart at the beginning of a new thought or topic\n\nEnd after completing the full explanation/story\n\nInclude transitions between connected ideas\n\nPrioritize Rich Content like:\n\nExtended explanations of key concepts\n\nComplete case studies or detailed examples\n\nFull strategic frameworks or methodologies\n\nComprehensive problem-solution sequences\n\n🎯 Clip Length Guidance:\n\nTarget 1 minute (100–150 words)\n\nErr on the side of longer clips to ensure completeness\n\nIf a valuable sequence runs longer, include the full sequence\n\nTopics of Interest (prioritize comprehensive segments about):\ngenerating money\n\ncreating good content\n\ncreating community\n\ngrowing a brand\n\nautomation\n\ncontent automation\n\nFor each clip, provide:\nThe exact transcript (complete sequences only)\n\nDo not modify the text — always maintain the original text from the transcript\n\nCritical Requirements:\nNever cut mid-explanation or mid-story\n\nAlways include complete context\n\nStart the clip when that idea first begins\n\nCapture full idea development, not just conclusions\n\nWhen in doubt, include more context rather than less\n\nGenerate 5 unique clips\n\nSample output:\ndo not put quotes around the clip contents.\n\nClip1:\n[Clip1 contents]\n\nClip2:\n[Clip2 contents]\n\nClip3:\n[Clip3 contents]\n\nClip4:\n[Clip4 contents]\n\nClip5:\n[Clip5 contents]\n\n",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are a video editor tasked with looking at a video and pulling out shorter clips from the longer video but that still make sense and are enjoyable to watch."
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        700,
+        100
+      ],
+      "id": "36d31ab5-c381-4f65-b23d-d3db7d6d82bf",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": "anthropic/claude-3.7-sonnet",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        788,
+        320
+      ],
+      "id": "4efd6770-1c9c-47da-80aa-b6d15e839dca",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "1veD9sbnmpyD8n6l",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "={{ $json.text }}\nReview the text above which contains clips taken from a longer video transcript.\n\nReturn the exact text from each clip in a JSON, with a short auto generated 4 to 5 word description. Do **not** change the clip text in anyway.\n\n[{\\\"clip\\\": \\\"CLIP_TEXT_ONLY\\\", \\\"description\\\": \\\"4 TO 5 WORD DESCRIPTION\\\"}.....]"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1076,
+        100
+      ],
+      "id": "1b5baf8e-b691-4397-b294-d85b74683e30",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "ug5TFYIx7BmAK7H8",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message.content.clips",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1672,
+        0
+      ],
+      "id": "cf216664-b094-4b0b-aba5-a9fba3157a00",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "jsCode": "const results = [];\n\nconst escapeRegex = (str) => str.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\n\nfunction calculateTextSimilarity(text1, text2) {\n  if (!text1 || !text2) return 0;\n  \n  // Split into words and create sets\n  const words1 = new Set(text1.toLowerCase().split(/\\s+/));\n  const words2 = new Set(text2.toLowerCase().split(/\\s+/));\n  \n  // Calculate intersection\n  const intersection = new Set([...words1].filter(x => words2.has(x)));\n  \n  // Return normalized similarity score\n  return intersection.size / Math.max(words1.size, words2.size);\n}\n\nfor (const item of items) {\n  const srt = item.json.data || '';\n  const clip = item.json.clip || '';\n\n  if (!srt || !clip) {\n    results.push({\n      json: {\n        clip: clip,\n        startId: null,\n        endId: null,\n        clipBlock: null\n      }\n    });\n    continue;\n  }\n\n  // Split SRT into blocks and preprocess\n  const blocks = srt.trim().split(/\\n\\s*\\n/);\n  \n  // Create a mapping of text content to block information\n  const blockInfo = blocks.map(block => {\n    const lines = block.split('\\n');\n    const id = parseInt(lines[0], 10);\n    const text = lines.slice(2).join(' ').trim();\n    return { id, text, fullText: block };\n  });\n  \n  // Find best start and end blocks by comparing text similarity\n  let bestStartBlock = null;\n  let bestEndBlock = null;\n  let maxStartScore = 0;\n  let maxEndScore = 0;\n  \n  // Create normalized versions for comparison\n  const normalizedClip = clip.toLowerCase().replace(/[^\\w\\s]/g, '');\n  const clipStart = normalizedClip.slice(0, 100);\n  const clipEnd = normalizedClip.slice(-100);\n  \n  // Evaluate each block for potential start and end matches\n  blockInfo.forEach(block => {\n    // Calculate similarity with beginning of clip\n    const startScore = calculateTextSimilarity(block.text.toLowerCase(), clipStart);\n    \n    // Calculate similarity with end of clip\n    const endScore = calculateTextSimilarity(block.text.toLowerCase(), clipEnd);\n    \n    // Update best start block\n    if (startScore > maxStartScore) {\n      maxStartScore = startScore;\n      bestStartBlock = block;\n    }\n    \n    // Update best end block\n    if (endScore > maxEndScore) {\n      maxEndScore = endScore;\n      bestEndBlock = block;\n    }\n  });\n  \n  // Only proceed if we found reasonable matches\n  const SCORE_THRESHOLD = 0.15; // Minimum similarity score\n  let startId = null;\n  let endId = null;\n  let clipBlock = null;\n  \n  if (maxStartScore >= SCORE_THRESHOLD && maxEndScore >= SCORE_THRESHOLD && bestStartBlock && bestEndBlock) {\n    startId = bestStartBlock.id.toString();\n    endId = bestEndBlock.id.toString();\n    \n    // Get all blocks from start to end (inclusive)\n    const startIndex = blockInfo.findIndex(b => b.id === bestStartBlock.id);\n    const endIndex = blockInfo.findIndex(b => b.id === bestEndBlock.id);\n    \n    if (startIndex !== -1 && endIndex !== -1 && startIndex <= endIndex) {\n      // Extract the full text for each block in the range\n      const clipBlocks = blockInfo.slice(startIndex, endIndex + 1);\n      // Join the fullText of each block with double newlines\n      clipBlock = clipBlocks.map(b => b.fullText).join('\\n\\n');\n    }\n  }\n\n  results.push({\n    json: {\n      clip: clip,\n      startId,\n      endId,\n      clipBlock\n    }\n  });\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2112,
+        100
+      ],
+      "id": "82eb4363-dcbe-44cd-b629-3291369700dc",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appIx2JYOFT2bZ71q",
+          "mode": "list",
+          "cachedResultName": "Content-workflow",
+          "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblpRSGBTcaFlAmPX",
+          "mode": "list",
+          "cachedResultName": "Clips",
+          "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q/tblpRSGBTcaFlAmPX"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Clip Description": "={{ $('Merge').item.json.description }}",
+            "Start Time": 0,
+            "End Time": 0,
+            "Assessed Width": 0,
+            "Assessed Height": 0,
+            "Assessed Center x-Width": 0,
+            "Assessed  Center y-Height": 0,
+            "SRT": "={{ $json.clipBlock }}",
+            "Transcript": "={{ $json.clip }}",
+            "Video URL (from Videos)": "={{ $('Airtable1').item.json['Video URL'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Clip ID",
+              "displayName": "Clip ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Clip Description",
+              "displayName": "Clip Description",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Transcript",
+              "displayName": "Transcript",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "SRT",
+              "displayName": "SRT",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Start Time",
+              "displayName": "Start Time",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "End Time",
+              "displayName": "End Time",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Duration",
+              "displayName": "Duration",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Clip URL",
+              "displayName": "Clip URL",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Thumbnail URL",
+              "displayName": "Thumbnail URL",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Crop x-Width",
+              "displayName": "Crop x-Width",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Crop y-Height",
+              "displayName": "Crop y-Height",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Center x-Width",
+              "displayName": "Center x-Width",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Center y-Height",
+              "displayName": "Center y-Height",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Clip Left x-Width",
+              "displayName": "Clip Left x-Width",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Clip Top y-Height",
+              "displayName": "Clip Top y-Height",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Cropped Clip",
+              "displayName": "Cropped Clip",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Final Clip",
+              "displayName": "Final Clip",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Videos",
+              "displayName": "Videos",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Video URL (from Videos)",
+              "displayName": "Video URL (from Videos)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Video Aspect Ratio (from Videos)",
+              "displayName": "Video Aspect Ratio (from Videos)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Clip Aspect Ratio (from Videos)",
+              "displayName": "Clip Aspect Ratio (from Videos)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Video x-Width (from Videos)",
+              "displayName": "Video x-Width (from Videos)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Video y-Height (from Videos)",
+              "displayName": "Video y-Height (from Videos)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Clip x-Width (from Videos)",
+              "displayName": "Clip x-Width (from Videos)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Clip y-Height (from Videos)",
+              "displayName": "Clip y-Height (from Videos)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Record ID",
+              "displayName": "Record ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Assessed Width",
+              "displayName": "Assessed Width",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Assessed Height",
+              "displayName": "Assessed Height",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Assessed Center x-Width",
+              "displayName": "Assessed Center x-Width",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Assessed  Center y-Height",
+              "displayName": "Assessed  Center y-Height",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Imported table",
+              "displayName": "Imported table",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        2340,
+        100
+      ],
+      "id": "919a40f1-d6a3-4c76-a80c-158ea9ea6754",
+      "name": "Airtable",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "zhf3hH9SvGXHCfxd",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1892,
+        100
+      ],
+      "id": "2a3b74e5-074c-4071-a4c5-f4591e41247d",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message.content.clips",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1452,
+        200
+      ],
+      "id": "b6113535-3e8a-4129-a04d-a92db631a471",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Airtable1').item.json['SRT URL'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1680,
+        200
+      ],
+      "id": "bd17bbb9-8adc-4153-b982-5fde39510f07",
+      "name": "Get SRT File1"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -180,
+        100
+      ],
+      "id": "5d1187b7-b4ca-4149-9b37-607612677d8d",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appIx2JYOFT2bZ71q",
+          "mode": "list",
+          "cachedResultName": "Content-workflow",
+          "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl3ElhjH2OT4a8fG",
+          "mode": "list",
+          "cachedResultName": "Videos",
+          "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q/tbl3ElhjH2OT4a8fG"
+        },
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "viwWuyhT9KJXXOWEA",
+            "mode": "list",
+            "cachedResultName": "Generate Clip Scripts",
+            "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q/tbl3ElhjH2OT4a8fG/viwWuyhT9KJXXOWEA"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        40,
+        100
+      ],
+      "id": "78a8867a-3948-420d-9646-b75180ce202d",
+      "name": "Airtable1",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "zhf3hH9SvGXHCfxd",
+          "name": "Airtable account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Airtable Trigger": {
+      "lastTimeChecked": "2025-08-06T17:16:10Z"
+    },
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-15T18:44:28.000Z",
+  "versionId": "d5105ed4-cf0a-4a6c-bcab-99b8772fd042"
+}
