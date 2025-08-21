@@ -1,0 +1,100 @@
+{
+  "active": true,
+  "connections": {
+    "Brave Search Request": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-30T15:30:47.329Z",
+  "id": "yMPxyJnhvdYj22JP",
+  "meta": null,
+  "name": "AI Goldmine Research Anything with Brave GPT - MCP Server",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "92f78ee9-c30f-4916-8a6a-5faa2339797b"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        0
+      ],
+      "id": "cd18b18a-4df8-4b94-949e-3d1cd54722ba",
+      "name": "MCP Server Trigger",
+      "webhookId": "92f78ee9-c30f-4916-8a6a-5faa2339797b"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Get the data from brave search API",
+        "url": "https://api.search.brave.com/res/v1/web/search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "parametersQuery": {
+          "values": [
+            {
+              "name": "q"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "Accept",
+              "valueProvider": "fieldValue",
+              "value": "application/json"
+            },
+            {
+              "name": "Accept-Encoding",
+              "valueProvider": "fieldValue",
+              "value": "gzip"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        -80,
+        220
+      ],
+      "id": "53142ab0-64c7-441c-9bb8-0770aa51f3ab",
+      "name": "Brave Search Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "5R17K5fiK66QHqOX",
+          "name": "Brave Search API key"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-28T18:16:58.775Z",
+      "updatedAt": "2025-04-28T18:16:58.775Z",
+      "id": "5fWvt038qtjyrogG",
+      "name": "Ready For Production"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-15T09:47:21.000Z",
+  "versionId": "06ab3913-7a73-49d6-9665-d7db9de02191"
+}
