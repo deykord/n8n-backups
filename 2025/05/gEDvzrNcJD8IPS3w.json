@@ -1,0 +1,21 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2025-05-06T07:28:47.868Z",
+  "id": "gEDvzrNcJD8IPS3w",
+  "meta": null,
+  "name": "How to Build a Savage Debate Bot That DESTROYS Weak Arguments (Using OpenAI & n8n)",
+  "nodes": [],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-06T07:28:47.868Z",
+  "versionId": "12b2d7be-ddcd-41c5-9661-e05e2e13d5ba"
+}
