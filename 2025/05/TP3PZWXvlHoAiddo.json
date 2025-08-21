@@ -1,0 +1,914 @@
+{
+  "active": false,
+  "connections": {
+    "Post to X": {
+      "main": [
+        [
+          {
+            "node": "GS - Update Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "Generate X Post",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "Generate X Post",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Fields": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Rewrite X Post to 220 Characters",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator2": {
+      "ai_tool": [
+        [
+          {
+            "node": "Rewrite X Post to 220 Characters",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GS - Add Tweet": {
+      "main": [
+        [
+          {
+            "node": "Post to X",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate X Post": {
+      "main": [
+        [
+          {
+            "node": "Verify character limit constraints",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Final Fields": {
+      "main": [
+        [
+          {
+            "node": "GS - Add Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "If Array is empty?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Array is empty?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Generate X Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Latest Videos": {
+      "main": [
+        [
+          {
+            "node": "Set Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Test workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Fetch Latest Videos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rewrite X Post to 220 Characters": {
+      "main": [
+        [
+          {
+            "node": "Verify character limit constraints",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify character limit constraints": {
+      "main": [
+        [
+          {
+            "node": "Rewrite X Post to 220 Characters",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Final Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-22T06:31:07.362Z",
+  "id": "TP3PZWXvlHoAiddo",
+  "meta": null,
+  "name": "Automatically promote your YouTube video on X",
+  "nodes": [
+    {
+      "parameters": {
+        "text": "={{ $('Verify character limit constraints').item.json.message.content.post }}",
+        "additionalFields": {}
+      },
+      "id": "657d62eb-732d-41c3-86b6-e96a42504388",
+      "name": "Post to X",
+      "type": "n8n-nodes-base.twitter",
+      "position": [
+        2700,
+        200
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "content": "## Fetch the latest YouTube video and dedupe\n\nEnter your YouTube Channel ID in the \"Channel ID\" field of this node. You can find your [Channel ID here](https://youtube.com/account_advanced).",
+        "height": 970,
+        "width": 450,
+        "color": 4
+      },
+      "id": "3de98823-1946-4748-94e3-186809d4bf70",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        740,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "limit": 2,
+        "filters": {
+          "channelId": "UC3JB8Cnync-WCDYKwOYSQUg",
+          "publishedAfter": "={{ new Date(new Date().getTime() - 1200 * 60000).toISOString() }}"
+        },
+        "options": {}
+      },
+      "id": "722da9ec-72b0-4ef6-a822-86a2ddc62e12",
+      "name": "Fetch Latest Videos",
+      "type": "n8n-nodes-base.youTube",
+      "position": [
+        800,
+        200
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "a5a6b0e2-6e4a-44fc-a240-9aa973087e58",
+      "name": "Calculator",
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "position": [
+        1300,
+        400
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "29783eb5-441d-4ca8-9dbd-ee5a09b258b7",
+      "name": "Wikipedia",
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "position": [
+        1420,
+        400
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 2,
+              "triggerAtMinute": "={{ Math.floor(Math.random() * 60) }}"
+            }
+          ]
+        }
+      },
+      "id": "8e4b3807-fc65-4383-a6eb-cf87ae540c5f",
+      "name": "Check Every 2 Hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        400,
+        200
+      ],
+      "typeVersion": 1.2,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Validate: Is Post under 240 characters?\nIf the generated tweet does not meet length constraints, regenerate it.",
+        "height": 969,
+        "width": 637,
+        "color": 4
+      },
+      "id": "b5904151-9548-4813-aa56-6fd658e48c0c",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1680,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "8bf729df-e553-4d63-9431-295a48476987",
+      "name": "Calculator2",
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "position": [
+        1980,
+        340
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1Ql9TGAzZCSdSqrHvkZLcsBPoNMAjNpPVsELkumP2heM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ql9TGAzZCSdSqrHvkZLcsBPoNMAjNpPVsELkumP2heM/edit?usp=drivesdk",
+          "cachedResultName": "AlexK1919 Social Posts"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ql9TGAzZCSdSqrHvkZLcsBPoNMAjNpPVsELkumP2heM/edit#gid=0",
+          "cachedResultName": "Sheet1"
+        },
+        "columns": {
+          "value": {
+            "xid": "={{ Math.random().toString(36).substr(2, 12) }}",
+            "date": "={{ new Date().toISOString().split('T')[0] }}",
+            "post": "={{ $json.message.content.post }}",
+            "time": "={{ new Date().toLocaleTimeString('en-US', { hour12: false }) }}",
+            "status": "Post written",
+            "channel": "X"
+          },
+          "schema": [
+            {
+              "id": "xid",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "xid",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "status",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "date",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "time",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "time",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "channel",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "channel",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "post",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "post",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "image_url",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "image_url",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "video_url",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "video_url",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": []
+        },
+        "options": {
+          "useAppend": true
+        }
+      },
+      "id": "c121babc-f247-484f-8a59-6d797bd6a4eb",
+      "name": "GS - Add Tweet",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        2420,
+        200
+      ],
+      "typeVersion": 4.3
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1Ql9TGAzZCSdSqrHvkZLcsBPoNMAjNpPVsELkumP2heM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ql9TGAzZCSdSqrHvkZLcsBPoNMAjNpPVsELkumP2heM/edit?usp=drivesdk",
+          "cachedResultName": "AlexK1919 Social Posts"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ql9TGAzZCSdSqrHvkZLcsBPoNMAjNpPVsELkumP2heM/edit#gid=0",
+          "cachedResultName": "Sheet1"
+        },
+        "columns": {
+          "value": {
+            "xid": "={{ $('GS - Add Tweet').item.json.xid }}",
+            "date": "={{ new Date().toISOString().split('T')[0] }}",
+            "post": "={{ $json.text }}",
+            "time": "={{ new Date().toLocaleTimeString('en-US', { hour12: false }) }}",
+            "status": "Posted to X",
+            "channel": "X",
+            "post_url": "=https://twitter.com/alexkim/status/{{ $json.id }}"
+          },
+          "schema": [
+            {
+              "id": "xid",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "xid",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "status",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "date",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "time",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "time",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "channel",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "channel",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "post",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "post",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "post_url",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "post_url",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "image_url",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "image_url",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "video_url",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "video_url",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "xid"
+          ]
+        },
+        "options": {}
+      },
+      "id": "1632fdb8-9303-4f01-8994-c3572fbef996",
+      "name": "GS - Update Tweet",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        2700,
+        400
+      ],
+      "typeVersion": 4.3
+    },
+    {
+      "parameters": {},
+      "id": "b47d5f42-8efa-4fb2-ada4-5865e2ba9123",
+      "name": "When clicking \"Test workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        400,
+        400
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=New X Post:\n{{ $('GS - Add Tweet Again').item.json.Content }}\n\n{{ $json.URL }} ",
+        "options": {}
+      },
+      "id": "03ff3ab7-db0e-4890-a37e-c90aba5666d5",
+      "name": "Discord",
+      "type": "n8n-nodes-base.discord",
+      "position": [
+        2980,
+        200
+      ],
+      "typeVersion": 2,
+      "webhookId": "a4d666a1-455b-4d18-9ef6-e9de8500361b"
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "dedupeValue": "={{ $json.id.videoId }}",
+        "options": {
+          "scope": "workflow",
+          "historySize": 10000
+        }
+      },
+      "id": "fb1e8cbb-55a4-4148-bb8d-88bc5e204e3f",
+      "name": "Remove Duplicates",
+      "type": "n8n-nodes-base.removeDuplicates",
+      "position": [
+        800,
+        400
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "content": "## Generate X Post",
+        "height": 970,
+        "width": 390,
+        "color": 4
+      },
+      "id": "97a06d4b-4d6b-4987-a5e9-1bb31fa7810b",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1240,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Write an engaging post about my latest YouTube video for X (Twitter) of no more than 220 characters in length. Link to the video at https://youtu.be/{{ $('Set Fields').first().json.id.videoId }} use this title and description:  {{ $('Set Fields').first().json.snippet.title }} {{ $('Set Fields').first().json.snippet.description }}. If there is no description available, use your best guess as to the context of the video. Make sure the YouTube link is at the end of the content."
+            },
+            {
+              "content": "Be witty. Humanize the content. No emojis.",
+              "role": "assistant"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "id": "61d17d9e-ac33-487e-8330-2865d214ec0b",
+      "name": "Generate X Post",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        1300,
+        200
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c2e2eecd-ca73-40c9-a364-4713030ab451",
+              "name": "id.videoId",
+              "type": "string",
+              "value": "={{ $json.id.videoId }}"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "ac62bccc-aa43-4ff2-a7dc-f3ea5ca04efb",
+      "name": "Set Fields",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1000,
+        200
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {},
+      "id": "8c3a50e5-5835-44f4-92e1-8b9a705f9f83",
+      "name": "Wikipedia1",
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "position": [
+        2100,
+        340
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Rewrite the content so it is less than 220 characters long in total length. Content:  {{ $('Generate X Post').item.json.message.content.post }}\nMake sure the YouTube Link is at the end of the content."
+            },
+            {
+              "content": "Be witty. Humanize the content. No emojis.",
+              "role": "assistant"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "id": "3998d45c-0400-445c-b307-86b1eaab6549",
+      "name": "Rewrite X Post to 220 Characters",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        1980,
+        140
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 1,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "0a6ebbb6-4b14-4c7e-9390-215e32921663",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              },
+              "leftValue": "={{ $json.message.content.post.length }}",
+              "rightValue": 280
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3598369f-ea3d-457e-864c-36ff9c025664",
+      "name": "Verify character limit constraints",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1740,
+        200
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "content": "## Add to Google Sheet",
+        "height": 970,
+        "width": 230,
+        "color": 4
+      },
+      "id": "3687d00a-2a5c-4c95-b84a-0ec51c75d040",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2360,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Post to X and update Google Sheet with Post Link",
+        "height": 970,
+        "width": 230,
+        "color": 4
+      },
+      "id": "e1b1f847-6ef2-487d-896e-d65f8aaa01fb",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2640,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "otherOptions": {}
+      },
+      "id": "d8af8dfd-4a2c-4ae6-bc76-a59ac2aa7f03",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "position": [
+        2980,
+        400
+      ],
+      "webhookId": "f2269822-19a4-43a4-9a91-06bc69d183b4",
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "content": "## Optional functions",
+        "height": 970,
+        "width": 230,
+        "color": 5
+      },
+      "id": "095a3fac-3c8e-48d0-9fdf-2e81ca0008fe",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2920,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "0b75359b-f66a-46d8-a96f-fe8b7f6b2ed5",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        2980,
+        600
+      ],
+      "webhookId": "3404c1a8-9118-48aa-ba03-e9e436f5a7a6",
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "64d6ed67-6df6-4c2e-9571-953b7997e982",
+      "name": "Set Final Fields",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1980,
+        540
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "adfea7c7-ed64-4e1e-a9c3-dc5e33aa1147",
+              "operator": {
+                "type": "array",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $('Remove Duplicates').all() }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6c227558-b46a-457c-94ae-295fd0d12eb2",
+      "name": "If Array is empty?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1000,
+        400
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "content": "# Use AI to Promote Your Latest YouTube Video on X",
+        "height": 970,
+        "width": 390,
+        "color": 5
+      },
+      "id": "5d7f37b2-0a26-460e-ab8e-bb52ab12563d",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        300,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# AlexK1919 \n![Alex Kim](https://media.licdn.com/dms/image/v2/D5603AQFOYMkqCPl6Sw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718309808352?e=1736985600&v=beta&t=pQKm7lQfUU1ytuC2Gq1PRxNY-XmROFWbo-BjzUPxWOs)\n\n#### I’m Alex Kim, an AI-Native Workflow Automation Architect Building Solutions to Optimize your Personal and Professional Life.\n\n### About Me\nhttps://beacons.ai/alexk1919\n\n### Products Used \n[OpenAI](https://openai.com)\n[X](https://x.com/)\n[YouTube](https://youtube.com/)\n",
+        "height": 970,
+        "width": 250,
+        "color": 6
+      },
+      "id": "1a7305a4-ec70-457e-8a8b-7f233c660841",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-22T06:31:07.362Z",
+  "versionId": "5f15a7e3-3860-4111-8aa1-4e5a60ee7c68"
+}
