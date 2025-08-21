@@ -1,0 +1,106 @@
+{
+  "active": true,
+  "connections": {
+    "OpenAI - Chat": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "OpenAI - Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-11T03:07:19.846Z",
+  "id": "xl7GEmOE4iGOTjm4",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "OBS Livestream Ai Chat",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "862f149b-ba35-4151-8f24-0096c3c760f9",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        -140
+      ],
+      "id": "002617df-5777-4601-a907-2a427213f93f",
+      "name": "Webhook",
+      "webhookId": "862f149b-ba35-4151-8f24-0096c3c760f9"
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "model": "gpt-4o",
+        "prompt": {
+          "messages": [
+            {
+              "content": "=You are generating realistic Twitch chat reactions to what a streamer just said: \"{{$json.transcript}}\"  Generate ONE short, casual chat message (max 10 words) that sounds like a real viewer reacting. Use internet slang, emojis, and be enthusiastic. Examples: - \"YOOO that's insane! 🔥\" - \"no way lmaooo\" - \"POG moment right there\" - \"chat is this real??\"  Only respond with the chat message, nothing else."
+            }
+          ]
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "id": "8f241c41-d7be-4073-90c8-a7cd75048e86",
+      "name": "OpenAI - Chat",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        200,
+        -140
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "ug5TFYIx7BmAK7H8",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "d5cebf39-3870-4651-8784-7bb324964b5a",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        500,
+        -140
+      ]
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-12T03:14:31.000Z",
+  "versionId": "02a19914-59e3-489d-9837-17ddbe545e9b"
+}
