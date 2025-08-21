@@ -1,0 +1,138 @@
+{
+  "active": true,
+  "connections": {
+    "Calendly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-04T17:59:58.006Z",
+  "id": "VYn5GYryc3KL3NTo",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Calendar Connection To CRM",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "events": [
+          "invitee.created"
+        ]
+      },
+      "type": "n8n-nodes-base.calendlyTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5726c479-4005-43c6-8610-f90eddc1a75d",
+      "name": "Calendly Trigger",
+      "webhookId": "bb843655-13ee-434e-9d90-6df9c0df1fe8",
+      "credentials": {
+        "calendlyOAuth2Api": {
+          "id": "VMWiQ6k5aATiAuid",
+          "name": "Calendly account Dev Account - sepvdani@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "14bf0291-6c1f-817e-bb3b-cb5a7026102c",
+          "mode": "list",
+          "cachedResultName": "Sales CRM",
+          "cachedResultUrl": "https://www.notion.so/14bf02916c1f817ebb3bcb5a7026102c"
+        },
+        "title": "={{ $json.payload.name }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Phone|phone_number",
+              "phoneValue": "={{ $json.payload.questions_and_answers[0].answer }}"
+            },
+            {
+              "key": "Email|email",
+              "emailValue": "={{ $json.payload.email }}"
+            },
+            {
+              "key": "Estimated Value|number",
+              "numberValue": 150
+            },
+            {
+              "key": "Priority|select",
+              "selectValue": "Medium"
+            },
+            {
+              "key": "Status|status",
+              "statusValue": "Lead"
+            }
+          ]
+        },
+        "blockUi": {
+          "blockValues": [
+            {
+              "type": "heading_1",
+              "textContent": "Background info"
+            },
+            {
+              "type": "heading_1",
+              "textContent": "History of interactions"
+            },
+            {
+              "type": "heading_1",
+              "textContent": "Action items"
+            },
+            {
+              "type": "to_do"
+            },
+            {
+              "type": "toggle",
+              "textContent": "New interaction"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "e4a14e9d-913a-4a2b-b4a4-4eabd137c688",
+      "name": "Notion",
+      "credentials": {
+        "notionApi": {
+          "id": "3YYMK9V0baQmRP2C",
+          "name": "Notion account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Calendly Trigger": {
+      "webhookURI": "https://api.calendly.com/webhook_subscriptions/f839573c-dc51-4bea-9832-93aa5b9b0d6a"
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-11T22:35:21.000Z",
+  "versionId": "7296bdf7-ab68-47ba-8e08-3d55f089cc3c"
+}
