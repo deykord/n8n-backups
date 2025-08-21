@@ -1,0 +1,425 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract City Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract City Name": {
+      "main": [
+        [
+          {
+            "node": "City Found?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "City Found?": {
+      "main": [
+        [
+          {
+            "node": "Send Error Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Processing Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Processing Message": {
+      "main": [
+        [
+          {
+            "node": "Zillow API Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zillow API Request": {
+      "main": [
+        [
+          {
+            "node": "API Success?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "API Success?": {
+      "main": [
+        [
+          {
+            "node": "Send API Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send No Data Message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send Analysis Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-05T23:40:10.895Z",
+  "id": "5qBxzw2521LaXBZP",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Agent Which BEATS Real Estate Agents in n8n",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        160
+      ],
+      "webhookId": "webhook-telegram-trigger",
+      "id": "a9325b8d-6a43-423a-bcd0-f6704de05beb",
+      "credentials": {
+        "telegramApi": {
+          "id": "i0u3hCZwHwGZwLil",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "// Input: message text from Telegram\n// Output: extracted city name\n\nconst message = items[0].json.message.text;\n\n// Simple regex to extract city name - assumes city is mentioned in the message\n// For production, consider using a more robust NLP solution\nlet cityMatch = message.match(/(?:in|at|for|about)\\s+([A-Z][a-z]+(\\s+[A-Z][a-z]+)*)/i);\n\nif (!cityMatch) {\n  // Try another pattern that might catch city mentions without prepositions\n  cityMatch = message.match(/([A-Z][a-z]+(\\s+[A-Z][a-z]+)*)/i);\n}\n\nlet city = cityMatch ? cityMatch[1].trim() : '';\n\n// If still no city found, look for commonly formatted city names\nif (!city) {\n  const cityRegex = /([A-Z][a-z]+(?:\\s+[A-Z][a-z]+)*),?\\s+([A-Z]{2})/g;\n  const cityStateMatch = message.match(cityRegex);\n  if (cityStateMatch) {\n    // Extract just the city part\n    city = cityStateMatch[0].split(',')[0].trim();\n  }\n}\n\nreturn [{\n  json: {\n    chatId: items[0].json.message.chat.id,\n    messageId: items[0].json.message.message_id,\n    userId: items[0].json.message.from.id,\n    cityName: city,\n    originalMessage: message\n  }\n}];"
+      },
+      "name": "Extract City Name",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        160
+      ],
+      "id": "5cd58cd4-e880-45f0-bee2-18f229429cd0"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.cityName }}",
+              "operation": "isEmpty"
+            }
+          ]
+        }
+      },
+      "name": "City Found?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        160
+      ],
+      "id": "91e8233e-0587-46f0-a100-94428f4ea64b"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "I couldn't identify a city in your message. Please mention a city name clearly, for example \"Show me properties in Seattle\" or \"Real estate in Austin\".",
+        "additionalFields": {
+          "reply_to_message_id": "={{ $json.messageId }}"
+        }
+      },
+      "name": "Send Error Message",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        120,
+        60
+      ],
+      "id": "6503565d-e8d8-4e12-9bc4-612e958f715d",
+      "webhookId": "21641d27-eb94-426a-9a32-df9d3b491017",
+      "credentials": {
+        "telegramApi": {
+          "id": "i0u3hCZwHwGZwLil",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "=Searching for real estate data in {{ $json.cityName }}. Please wait a moment...",
+        "additionalFields": {
+          "reply_to_message_id": "={{ $json.messageId }}"
+        }
+      },
+      "name": "Send Processing Message",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        120,
+        260
+      ],
+      "id": "2fe62cb5-b430-4bd7-9f91-b0158c07e83d",
+      "webhookId": "96842184-6eb8-4b9f-8c5d-61d0089b11d0",
+      "credentials": {
+        "telegramApi": {
+          "id": "i0u3hCZwHwGZwLil",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://zillow-com1.p.rapidapi.com/propertyExtendedSearch",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "location",
+              "value": "={{ $('City Found?').item.json.cityName }}"
+            },
+            {
+              "name": "home_type",
+              "value": "Houses"
+            },
+            {
+              "name": "page",
+              "value": "2"
+            },
+            {
+              "name": "pageSize",
+              "value": "100"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-rapidapi-host",
+              "value": "zillow-com1.p.rapidapi.com"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Zillow API Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        320,
+        260
+      ],
+      "id": "4216cfaa-ff82-4d93-8ad0-9cf2742a39a8",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "5WFOvQCyl7AMmlJU",
+          "name": "Rapid API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.status }}",
+              "operation": "equal",
+              "value2": 200
+            }
+          ]
+        }
+      },
+      "name": "API Success?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        520,
+        260
+      ],
+      "id": "79b3d11f-71f5-48e4-8f05-b52779d35bea"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $node[\"Extract City Name\"].json.chatId }}",
+        "text": "Sorry, I couldn't retrieve real estate data for {{ $node[\"Extract City Name\"].json.cityName }} at this time. Please try again later.",
+        "additionalFields": {
+          "reply_to_message_id": "={{ $node[\"Extract City Name\"].json.messageId }}"
+        }
+      },
+      "name": "Send API Error",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        720,
+        160
+      ],
+      "id": "31f1f9a2-ce81-45fe-aa22-de9fcddef525",
+      "webhookId": "c398f56b-558a-4bdf-bedb-dd9416273ad8",
+      "credentials": {
+        "telegramApi": {
+          "id": "i0u3hCZwHwGZwLil",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "{{ $json.analysisResult.error }} Please try another city or check the spelling.",
+        "additionalFields": {
+          "reply_to_message_id": "={{ $json.messageId }}"
+        }
+      },
+      "name": "Send No Data Message",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        260
+      ],
+      "id": "6957e4a5-4a67-436b-b90e-2b7cf08f8612",
+      "webhookId": "9ffe81ab-c028-464d-9a61-b96b660faa5e",
+      "credentials": {
+        "telegramApi": {
+          "id": "i0u3hCZwHwGZwLil",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Send Processing Message').item.json.result.chat.id }}",
+        "text": "={{ $json.analysisResult }}",
+        "additionalFields": {}
+      },
+      "name": "Send Analysis Results",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        600
+      ],
+      "id": "d045854a-43fa-42ea-ad4b-0db9f1176d2b",
+      "webhookId": "bf17add0-c0c3-44fe-a913-e167ffa4a960",
+      "credentials": {
+        "telegramApi": {
+          "id": "i0u3hCZwHwGZwLil",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Act as an expert real estate data analyst. Summarize and analyze property market trends for a specified location using this fetched data form zillow website :{{ $json.props }} and {{ $json.totalResultCount }} . Provide actionable insights for buyers, sellers, and investors.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        740,
+        440
+      ],
+      "id": "2135345c-9f51-4381-8f5c-8f9a1b390313",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        980,
+        860
+      ],
+      "id": "c1fa7ab8-3b7c-4665-b057-0c30315a7a80",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "ug5TFYIx7BmAK7H8",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-28T18:21:29.086Z",
+      "updatedAt": "2025-04-28T18:21:29.086Z",
+      "id": "qwbUNeviBcOfBzUg",
+      "name": "API Config."
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-06T17:55:03.000Z",
+  "versionId": "e24486e1-144a-47f0-a613-001cd53344e3"
+}
