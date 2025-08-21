@@ -1,0 +1,150 @@
+{
+  "active": true,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "main": [
+        [
+          {
+            "node": "Transcribe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-24T21:05:08.321Z",
+  "id": "yeATsV3GqHHMKXer",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "1. Create SRT",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://no-code-architects-toolkit-576206210693.europe-west1.run.app/v1/media/transcribe",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"media_url\":\"{{ $json['Video URL'] }}\",\n    \"task\": \"transcribe\",\n    \"include_text\": true,\n    \"include_srt\": true,\n    \"response_type\": \"cloud\",\n    \"language\": \"en\",\n    \"webhook_url\":       \"https://hooks.airtable.com/workflows/v1/genericWebhook/appIx2JYOFT2bZ71q/wflE5fT4W5Mb45daJ/wtrkLYUCFbfOm0ewL\",\n    \"id\": \"{{ $json['Record ID'] }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -280,
+        0
+      ],
+      "id": "6e4b65eb-f8f5-4201-941d-f5c111f461fd",
+      "name": "Transcribe",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "SDzAaixvVALhjp9N",
+          "name": "NCA Toolkit"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -780,
+        0
+      ],
+      "id": "30fb54bc-88ea-481f-894b-e8d64394876f",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appIx2JYOFT2bZ71q",
+          "mode": "list",
+          "cachedResultName": "Content-workflow",
+          "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl3ElhjH2OT4a8fG",
+          "mode": "list",
+          "cachedResultName": "Videos",
+          "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q/tbl3ElhjH2OT4a8fG"
+        },
+        "options": {
+          "view": {
+            "__rl": true,
+            "value": "viw4grChodmyGEjpx",
+            "mode": "list",
+            "cachedResultName": "Generate Transcript",
+            "cachedResultUrl": "https://airtable.com/appIx2JYOFT2bZ71q/tbl3ElhjH2OT4a8fG/viw4grChodmyGEjpx"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -520,
+        0
+      ],
+      "id": "7d4ef2c9-c882-433d-9a45-197f44ed250a",
+      "name": "Airtable",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "zhf3hH9SvGXHCfxd",
+          "name": "Airtable account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Airtable Trigger": {
+      "lastTimeChecked": "2025-08-06T17:16:10Z"
+    },
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-08-03T12:05:11.463Z",
+      "updatedAt": "2025-08-03T12:05:11.463Z",
+      "id": "NsoGScA9T6bD9vMj",
+      "name": "NCA Toolkit"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-15T19:34:04.000Z",
+  "versionId": "1ca10cc6-a5e3-414d-bcb9-d15a4459954d"
+}
