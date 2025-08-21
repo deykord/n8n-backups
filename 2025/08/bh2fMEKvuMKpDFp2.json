@@ -1,0 +1,456 @@
+{
+  "active": true,
+  "connections": {
+    "Create Task": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Project": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Projects Database": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Tasks Database": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Database": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Page": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get All Databases": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Child Blocks": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append After Block": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get User": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Many Users": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-13T19:42:36.680Z",
+  "id": "bh2fMEKvuMKpDFp2",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Notion Assistant Tools - MCP Server",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "2afd194c-a821-4440-b8f9-26aeb95c140d"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 1,
+      "position": [
+        -228,
+        -380
+      ],
+      "id": "2139493c-3c0c-4f15-8859-f753980311f5",
+      "name": "MCP Server Trigger",
+      "webhookId": "2afd194c-a821-4440-b8f9-26aeb95c140d"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "24fd82b0-dc86-8109-9010-c3fe74da1622",
+          "mode": "list",
+          "cachedResultName": "Tasks",
+          "cachedResultUrl": "https://www.notion.so/24fd82b0dc8681099010c3fe74da1622"
+        },
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Project|relation",
+              "relationValue": [
+                "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Relation_IDs', ``, 'string') }}"
+              ]
+            },
+            {
+              "key": "Assignee|people",
+              "peopleValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('User_Names_or_IDs', ``, 'string') }}"
+            },
+            {
+              "key": "Parent-task|relation",
+              "relationValue": [
+                "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Relation_IDs', ``, 'string') }}"
+              ]
+            }
+          ]
+        },
+        "options": {
+          "iconType": "emoji",
+          "icon": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Icon', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -820,
+        -160
+      ],
+      "id": "9beee099-1a70-43b8-b75d-dfc9241e6320",
+      "name": "Create Task",
+      "credentials": {
+        "notionApi": {
+          "id": "Rws6kiAJWDns8t1c",
+          "name": "Notion account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "24fd82b0-dc86-81b4-9ade-f6956f7dd493",
+          "mode": "list",
+          "cachedResultName": "Projects",
+          "cachedResultUrl": "https://www.notion.so/24fd82b0dc8681b49adef6956f7dd493"
+        },
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -820,
+        20
+      ],
+      "id": "7df9560f-80b3-492f-acd8-963aaf62ee6d",
+      "name": "Create Project",
+      "credentials": {
+        "notionApi": {
+          "id": "Rws6kiAJWDns8t1c",
+          "name": "Notion account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "databaseId": {
+          "__rl": true,
+          "value": "24fd82b0-dc86-81b4-9ade-f6956f7dd493",
+          "mode": "list",
+          "cachedResultName": "Projects",
+          "cachedResultUrl": "https://www.notion.so/24fd82b0dc8681b49adef6956f7dd493"
+        },
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}"
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -640,
+        20
+      ],
+      "id": "bda88b18-07ad-4b3e-b429-b11043cd9f3f",
+      "name": "Get Projects Database",
+      "credentials": {
+        "notionApi": {
+          "id": "Rws6kiAJWDns8t1c",
+          "name": "Notion account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "databaseId": {
+          "__rl": true,
+          "value": "24fd82b0-dc86-8109-9010-c3fe74da1622",
+          "mode": "list",
+          "cachedResultName": "Tasks",
+          "cachedResultUrl": "https://www.notion.so/24fd82b0dc8681099010c3fe74da1622"
+        }
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -640,
+        -160
+      ],
+      "id": "28a3ee04-4ade-4d31-bce5-ca92972d2360",
+      "name": "Get Tasks Database",
+      "credentials": {
+        "notionApi": {
+          "id": "Rws6kiAJWDns8t1c",
+          "name": "Notion account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "search",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Search_Text', ``, 'string') }}",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -420,
+        20
+      ],
+      "id": "b2182a66-293f-4950-b33a-672bd9f7a00b",
+      "name": "Search Database",
+      "credentials": {
+        "notionApi": {
+          "id": "Rws6kiAJWDns8t1c",
+          "name": "Notion account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Search_Text', ``, 'string') }}",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -420,
+        -160
+      ],
+      "id": "02e43b01-a027-42ea-988c-09aa385a2ddc",
+      "name": "Search Page",
+      "credentials": {
+        "notionApi": {
+          "id": "Rws6kiAJWDns8t1c",
+          "name": "Notion account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "getAll",
+        "returnAll": true,
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}"
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        -640,
+        240
+      ],
+      "id": "177a4f7b-1ec1-4a7d-93da-e0e9c387636e",
+      "name": "Get All Databases",
+      "credentials": {
+        "notionApi": {
+          "id": "Rws6kiAJWDns8t1c",
+          "name": "Notion account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "block",
+        "operation": "getAll",
+        "blockId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Block', ``, 'string') }}"
+        },
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "fetchNestedBlocks": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Also_Fetch_Nested_Blocks', ``, 'boolean') }}",
+        "simplifyOutput": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify_Output', ``, 'boolean') }}"
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        80
+      ],
+      "id": "ff7131ee-1b68-4345-9c41-2a7b84b92a6f",
+      "name": "Get Child Blocks",
+      "credentials": {
+        "notionApi": {
+          "id": "Rws6kiAJWDns8t1c",
+          "name": "Notion account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "block",
+        "blockId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Block', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        -60
+      ],
+      "id": "2d648dc3-56b0-4d82-92a7-d5f69bc5b2d0",
+      "name": "Append After Block",
+      "credentials": {
+        "notionApi": {
+          "id": "Rws6kiAJWDns8t1c",
+          "name": "Notion account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "user",
+        "userId": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('User_ID', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        -400
+      ],
+      "id": "890f7e69-00a0-48c4-8ec8-2e0cfb0d66cb",
+      "name": "Get User",
+      "credentials": {
+        "notionApi": {
+          "id": "Rws6kiAJWDns8t1c",
+          "name": "Notion account - kfamirosein@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "user",
+        "operation": "getAll",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}"
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        -220
+      ],
+      "id": "335c0e4e-1e1d-40ba-bcd7-16554acf5c8f",
+      "name": "Get Many Users",
+      "credentials": {
+        "notionApi": {
+          "id": "Rws6kiAJWDns8t1c",
+          "name": "Notion account - kfamirosein@gmail.com"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-15T00:14:14.000Z",
+  "versionId": "88b600dd-46e3-4fc7-8e56-42ee8a206252"
+}
