@@ -1,0 +1,176 @@
+{
+  "active": false,
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Construct & Execute LLM Prompt",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store conversation history": {
+      "ai_memory": [
+        [
+          {
+            "node": "Construct & Execute LLM Prompt",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "When chat message received",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Construct & Execute LLM Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-05T19:54:11.582Z",
+  "id": "FHEmntbU4jKs5YtN",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "24/7 Customer Support Without the Overhead – Your Self-Hosted AI Support Agent Starts Today",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "",
+        "options": {
+          "allowedOrigins": "*",
+          "loadPreviousSession": "memory",
+          "responseMode": "lastNode"
+        }
+      },
+      "id": "fd71c2d5-1c79-4232-b254-6b9a349e6983",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "position": [
+        20,
+        260
+      ],
+      "webhookId": "8bb684c7-e68a-4950-b5ab-c68af6709b64",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {
+          "temperature": 0.7,
+          "safetySettings": {
+            "values": [
+              {
+                "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                "threshold": "BLOCK_NONE"
+              }
+            ]
+          }
+        }
+      },
+      "id": "58188682-cf65-4ab3-ac2b-d1d07c3b27a1",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "position": [
+        320,
+        500
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "NfT134BOD89kq6qA",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "9c1b92d9-0908-4943-b594-84947a147ebe",
+      "name": "Store conversation history",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        520,
+        500
+      ],
+      "notesInFlow": false,
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "code": {
+          "execute": {
+            "code": "const { PromptTemplate } = require('@langchain/core/prompts');\nconst { ConversationChain } = require('langchain/chains');\nconst { BufferMemory } = require('langchain/memory');\n\n// 24/7 Self-Hosted AI Support Agent Prompt\nconst template = `\nYou are a self-hosted AI support agent providing 24/7 customer support without the overhead of human agents. Your role is to deliver prompt, professional, and accurate assistance to customers, troubleshoot issues, and escalate when necessary. Always maintain a friendly and supportive tone.\n\nContext:\nOngoing conversation: {chat_history}\n\nCustomer input: {input}\n\nYour goal: Provide clear solutions, reduce resolution time, and enhance customer satisfaction.\n`;\n\nconst prompt = new PromptTemplate({\n  template: template,\n  inputVariables: [\"input\", \"chat_history\"],\n});\n\nconst items = this.getInputData();\nconst model = await this.getInputConnectionData('ai_languageModel', 0);\nconst memory = await this.getInputConnectionData('ai_memory', 0);\nmemory.returnMessages = false;\n\nconst chain = new ConversationChain({ llm: model, memory: memory, prompt: prompt, inputKey: \"input\", outputKey: \"output\" });\nconst output = await chain.call({ input: items[0].json.chatInput });\n\nreturn output;"
+          }
+        },
+        "inputs": {
+          "input": [
+            {
+              "type": "main",
+              "maxConnections": 1,
+              "required": true
+            },
+            {
+              "type": "ai_languageModel",
+              "maxConnections": 1,
+              "required": true
+            },
+            {
+              "type": "ai_memory",
+              "maxConnections": 1,
+              "required": true
+            }
+          ]
+        },
+        "outputs": {
+          "output": [
+            {
+              "type": "main"
+            }
+          ]
+        }
+      },
+      "id": "7609422e-7f85-401d-967c-2c57260189ec",
+      "name": "Construct & Execute LLM Prompt",
+      "type": "@n8n/n8n-nodes-langchain.code",
+      "position": [
+        620,
+        260
+      ],
+      "retryOnFail": false,
+      "typeVersion": 1
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-04-28T18:16:58.775Z",
+      "updatedAt": "2025-04-28T18:16:58.775Z",
+      "id": "5fWvt038qtjyrogG",
+      "name": "Ready For Production"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-07T22:12:06.000Z",
+  "versionId": "6cab46eb-7dc2-4bc6-bcc9-da0247ff2a01"
+}
