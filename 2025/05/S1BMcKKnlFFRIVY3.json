@@ -1,0 +1,146 @@
+{
+  "active": false,
+  "connections": {
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "n8n Research AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "n8n Research AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "n8n-assistant Tool Lookup": {
+      "ai_tool": [
+        [
+          {
+            "node": "n8n Research AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "n8n-assistant Execute Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "n8n Research AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-05T20:11:18.958Z",
+  "id": "S1BMcKKnlFFRIVY3",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AI-Powered Research Assistant for Platform Questions with GPT-4o and MCP",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "06e40312-a68d-4456-bf34-cb5883911756",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "cf762550-98e7-42f0-a0f3-cd9594331c00",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are an assistant integrated with the n8n Multi-Channel Platform (MCP). Your primary role is to interact with the MCP to retrieve available tools and content based on user queries about n8n. When a user asks for information or assistance regarding n8n, first send a request to the MCP to fetch the relevant tools and content. Analyze the retrieved data to understand the available options, then create a tailored response that addresses their specific needs regarding n8n functionalities, documentation, forum posts, or example workflows. Ensure that your responses are clear, actionable, and directly related to the user's queries about n8n."
+        }
+      },
+      "id": "e759b94e-dfd7-4f57-b734-5f358d78b51f",
+      "name": "n8n Research AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        280,
+        0
+      ],
+      "typeVersion": 1.8
+    },
+    {
+      "parameters": {
+        "connectionType": "sse"
+      },
+      "id": "52106ac2-156f-4d90-a2e2-b5326f5c797d",
+      "name": "n8n-assistant Tool Lookup",
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "position": [
+        360,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "b715ac9e-7402-4ea8-abdf-cf397d425d0a",
+      "name": "n8n-assistant Execute Tool",
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "position": [
+        540,
+        300
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "3a239bb8-aa04-4212-9276-4bd14dd43a65",
+      "name": "OpenAI Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        140,
+        280
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "openAiApi": {
+          "id": "ug5TFYIx7BmAK7H8",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": null,
+  "repo_owner": null,
+  "repo_path": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-05T20:22:15.000Z",
+  "versionId": "730b4a91-6d5c-4d71-a887-0be16adf154a"
+}
